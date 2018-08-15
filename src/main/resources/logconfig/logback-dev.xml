@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+
+	<!-- 控制台标志化输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{32} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 将日志写入日志文件 -->
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>logs/logback.log</file>
+		<append>true</append><!-- 日志追加 -->
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{32} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+
+	<logger name="org.springframework" level="INFO"></logger>
+	<logger name="org.hibernate.validator" level="ERROR"></logger>
+	
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.official.mapper.SubjectMapper">
+	<resultMap id="BaseResultMap"
+		type="com.official.entity.Subject">
+		<!-- WARNING - @mbg.generated -->
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="sentence" jdbcType="VARCHAR"
+			property="sentence" />
+		<result column="keyword" jdbcType="VARCHAR" property="keyword" />
+		<result column="type" jdbcType="INTEGER" property="type" />
+		<result column="question" jdbcType="VARCHAR"
+			property="question" />
+		<result column="answer" jdbcType="VARCHAR" property="answer" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		<!-- WARNING - @mbg.generated -->
+		id, sentence, keyword, type, question, answer
+	</sql>
+</mapper>

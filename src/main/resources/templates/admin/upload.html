@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="UTF-8" />
+	<title>Insert title here</title>
+	<link type="text/css" href="/static/css/index.css"/>
+	<link rel="stylesheet" type="text/css"
+		  href="/static/plugin/webuploader/webuploader.css" />
+
+
+</head>
+<body>
+
+<div id="uploader" class="wu-example">
+	<!--用来存放文件信息-->
+	<div id="thelist" class="uploader-list"></div>
+	<div class="btns">
+		<div id="picker">选择文件</div>
+		<button id="ctlBtn" class="btn btn-default">开始上传</button>
+	</div>
+</div>
+
+<input type="hidden" id="takeFileUrl" value="/excel/upload" />
+</body>
+
+<script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
+<script type="text/javascript"
+		src="/static/plugin/webuploader/webuploader.js"></script>
+<script type="text/javascript"
+		src="/static/js/sys/util/uploader.js"></script>
+</html>

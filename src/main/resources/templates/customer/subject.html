@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+
+    <link type="text/css" href="/static/css/index.css"></link>
+    <style type="text/css">
+        .each-word {
+            float: left;
+            width: 100%;
+        }
+        
+        .show-word {
+            background-color: #ccc;
+            line-height: 30px;
+            height: 30px;
+            width: 8%;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            padding: 1%;
+            float: left;
+            margin-right: 1%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="button" onclick="nextSentence()" value="next" />
+    <input type="button" onclick="nextWord()" value="nextWord" />
+
+
+    <div>
+        <div class="each-word">
+            <!-- <div class="show-word">He</div>
+            <div class="show-word">apologizes</div>
+            <div class="show-word">for</div>
+            <div class="show-word">breaking</div>
+            <div class="show-word">her</div>
+            <div class="show-word">heart.</div> -->
+        </div>
+
+        <div class="question-area" style="display: none">
+            <div id="question">
+                He is indifferent to her.
+            </div>
+            <div class="answer-area">
+                <input type="radio" name="answer" value="YES" /> Yes
+                <input type="radio" name="answer" value="NO" /> No
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/static/js/sys/subject.js"></script>
+
+</html>

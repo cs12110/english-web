@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.official.mapper.ScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.official.entity.Score" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="read_time1" property="readTime1" jdbcType="INTEGER" />
+    <result column="read_time2" property="readTime2" jdbcType="INTEGER" />
+    <result column="read_time3" property="readTime3" jdbcType="INTEGER" />
+    <result column="read_time4" property="readTime4" jdbcType="INTEGER" />
+    <result column="read_time5" property="readTime5" jdbcType="INTEGER" />
+    <result column="match" property="match" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, match
+  </sql>
+</mapper>
