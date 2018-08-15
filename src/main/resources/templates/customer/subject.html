@@ -11,7 +11,7 @@
             float: left;
             width: 100%;
         }
-        
+
         .show-word {
             background-color: #ccc;
             line-height: 30px;
@@ -29,33 +29,42 @@
 
 <body>
 
-    <input type="button" onclick="nextSentence()" value="next" />
-    <input type="button" onclick="nextWord()" value="nextWord" />
+<!--  <input type="button" onclick="nextSentence()" value="next" data-index="0"  data-next-sentence=""/>
+  <input type="button" onclick="nextWord()" value="nextWord" data-next-work="0" />-->
 
+<div id="operatorBtn">
+    <input type="button"  value="next" data-index="0"  data-next-sentence=""/>
+    <input type="button" value="nextWord" data-next-work="0" />
+</div>
 
-    <div>
-        <div class="each-word">
-            <!-- <div class="show-word">He</div>
-            <div class="show-word">apologizes</div>
-            <div class="show-word">for</div>
-            <div class="show-word">breaking</div>
-            <div class="show-word">her</div>
-            <div class="show-word">heart.</div> -->
-        </div>
-
-        <div class="question-area" style="display: none">
-            <div id="question">
-                He is indifferent to her.
-            </div>
-            <div class="answer-area">
-                <input type="radio" name="answer" value="YES" /> Yes
-                <input type="radio" name="answer" value="NO" /> No
-            </div>
-        </div>
+<div>
+    <div class="each-word">
+        <!-- <div class="show-word">He</div>
+        <div class="show-word">apologizes</div>
+        <div class="show-word">for</div>
+        <div class="show-word">breaking</div>
+        <div class="show-word">her</div>
+        <div class="show-word">heart.</div> -->
     </div>
+
+    <div style="display: none" data-relax="">是否要休息一下？<button type="button" data-relax-btn="true" >休息</button><button type="button" data-relax-btn="false">不休息</button></div>
+
+    <div class="question-area" style="display: none">
+        <div id="question">
+            He is indifferent to her.
+        </div>
+        <div class="answer-area">
+            <input type="radio" name="answer" value="YES" /> Yes
+            <input type="radio" name="answer" value="NO" /> No
+        </div>
+
+        <a href="" id="submit">确定</a>
+    </div>
+</div>
 </body>
 
 <script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
-<script type="text/javascript" src="/static/js/sys/subject.js"></script>
+<!--<script type="text/javascript" src="/static/js/sys/subject.js"></script>-->
+<script type="text/javascript" src="/static/js/sys/temp_subject.js"></script>
 
 </html>
