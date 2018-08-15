@@ -23,9 +23,11 @@ function saveCustomer() {
 		dataType : "json",
 		data : customer,
 		success : function(data) {
-			if(data.status==1){
+			console.log(data);
+			if (data.status == 1) {
 				alert("新增成功");
-			}else{
+				currentCustomer = data.data;
+			} else {
 				alert("新增失败,请联系管理员");
 			}
 		}

@@ -31,6 +31,7 @@ public class CustomerCtrl {
 		Reply reply = new Reply();
 		reply.setStatus(ReplyEnum.SUCCESS.getValue());
 		reply.setMessage("新增成功");
+		reply.setData(customer);
 		return reply.toString();
 	}
 
