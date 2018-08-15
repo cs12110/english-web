@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8" />
+<title>Welcome :"}</title>
+
+<link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css"></link>
+<link rel="stylesheet" href="/static/css/index.css"></link>
+<style type="text/css">
+.panel {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 2%;
+}
+
+.form-group {
+	width: 50%;
+	float: left;
+}
+</style>
+</head>
+
+<body>
+
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">请填写个人信息(*为必填字段)</h3>
+		</div>
+		<div class="panel-body">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-2 control-label">*学号</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="code"
+							placeholder="请输入学号" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="firstname" class="col-sm-2 control-label">名字</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="name"
+							placeholder="请输入名字" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="firstname" class="col-sm-2 control-label">四级成绩</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="cet4" maxlength="4"
+							placeholder="请输入四级成绩" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="firstname" class="col-sm-2 control-label">六级成绩</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="cet6" maxlength="4"
+							placeholder="请输入六级成绩" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="lastname" class="col-sm-2 control-label">性别</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="lastname"
+							placeholder="性别" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="lastname" class="col-sm-2 control-label">年龄</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="age" maxlength="4"
+							placeholder="请输入年龄" />
+					</div>
+				</div>
+
+
+
+				<div class="form-group">
+					<label for="lastname" class="col-sm-2 control-label">学习英语年龄</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="engAge"
+							placeholder="请输入学习英语多少年" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="lastname" class="col-sm-2 control-label">专业</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="major"
+							placeholder="请输入专业" />
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="button" onclick="saveCustomer()"
+							class="btn btn-default">保存</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+
+</body>
+
+<script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
+<script type="text/javascript"
+	src="/static/plugin/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/sys/info.js"></script>
+
+</html>
