@@ -23,6 +23,9 @@ function saveCustomer() {
 		success : function(data) {
 			if (data.status == 1) {
 				alert("新增成功");
+				$("#myModal").modal('hide');
+				$("#handsup").hide();
+				$("#after-all").show();
 			} else {
 				alert("新增失败,请联系管理员");
 			}

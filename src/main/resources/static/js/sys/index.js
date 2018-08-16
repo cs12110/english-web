@@ -32,8 +32,10 @@ function customerLoginCheck() {
 		success : function(data) {
 			if (data.status == 1) {
 				$("#handsup").hide();
+				$("#after-all").show();
 			} else {
 				$("#handsup").show();
+				$("#after-all").hide();
 			}
 		}
 	})
@@ -117,4 +119,9 @@ function displayAdminArea() {
 function hiddeAdminArea() {
 	$(".power").hide();
 	$(".divider").hide();
+}
+
+function openInfoWindow() {
+	console.log("open");
+	$("#myModal").modal();
 }

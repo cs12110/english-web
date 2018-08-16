@@ -45,10 +45,10 @@ public class CustomerCtrl {
 		search.setCode(customer.getCode());
 		Customer target = customerService.selectOne(search);
 		if (null == target) {
-			logger.info("Save customer:{}" + customer.getCode());
+			logger.info("Save customer:{}", customer.getCode());
 			customerService.insert(customer);
 		} else {
-			logger.info("Already exists customer:{}" + target.getCode());
+			logger.info("Already exists customer:{}", target.getCode());
 			customer = target;
 		}
 
@@ -67,7 +67,7 @@ public class CustomerCtrl {
 	 * @param req
 	 * @return
 	 */
-	@RequestMapping("checkLogin")
+	@RequestMapping("loginCheck")
 	@ResponseBody
 	public String checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
