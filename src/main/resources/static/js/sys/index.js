@@ -67,6 +67,7 @@ function adminLogin() {
 			} else {
 				alert("登录成功");
 				displayAdminArea();
+				$("#adminLogin").modal('hide');
 			}
 		}
 	})
