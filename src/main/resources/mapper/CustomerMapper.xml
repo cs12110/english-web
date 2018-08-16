@@ -18,4 +18,11 @@
 		<!-- WARNING - @mbg.generated -->
 		id, name, code, cet4, cet6, age, eng_age, major, gender
 	</sql>
+	
+	<delete id="deleteAll">
+		DELETE FROM 
+			customer_t
+		WHERE 
+			1=1
+	</delete>
 </mapper>

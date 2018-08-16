@@ -29,8 +29,14 @@ public class CustomerCtrl {
 	@RequestMapping("/save")
 	@ResponseBody
 	public String save(HttpServletRequest req, Customer customer) {
-
-		customerService.insert(customer);
+		Customer search = new Customer();
+		search.setCode(customer.getCode());
+		Customer target = customerService.selectOne(search);
+		if (null == target) {
+			customerService.insert(customer);
+		} else {
+			customer = target;
+		}
 
 		Reply reply = new Reply();
 		reply.setStatus(ReplyEnum.SUCCESS.getValue());
@@ -41,5 +47,4 @@ public class CustomerCtrl {
 		session.setAttribute(Const.CURRENT_USER, customer);
 		return reply.toString();
 	}
-
 }

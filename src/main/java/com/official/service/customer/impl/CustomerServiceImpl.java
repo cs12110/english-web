@@ -21,4 +21,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.insert(customer);
 	}
 
+	@Override
+	public int deleteAll() {
+		// TODO Auto-generated method stub
+		return customerMapper.deleteAll();
+	}
+
+	@Override
+	public Customer selectOne(Customer search) {
+		return customerMapper.selectOne(search);
+	}
+
 }

@@ -13,4 +13,11 @@ public interface ScoreMapper extends MyMapper<Score> {
 	 * @return List
 	 */
 	List<Score> computeScore();
+
+	/**
+	 * 删除全部
+	 * 
+	 * @return
+	 */
+	int deleteAll();
 }
