@@ -15,10 +15,30 @@
     <result column="read_time5" property="readTime5" jdbcType="INTEGER" />
     <result column="match" property="match" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  
+  <resultMap type="com.official.entity.Score" id="extMap" extends="BaseResultMap">
+  	<association property="customer"
+					 select="com.official.mapper.CustomerMapper.selectByPrimaryKey"
+					 column="cus_id"></association>
+					 
+	<association property="subject"
+					 select="com.official.mapper.SubjectMapper.selectByPrimaryKey"
+					 column="sub_id"></association>
+  </resultMap>
+  
+  <sql id="columnList" >
     <!--
       WARNING - @mbg.generated
     -->
-    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, match
+    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, `match`
   </sql>
+  
+	
+   <select id="computeScore" resultMap="extMap">
+	   	SELECT
+			<include refid="columnList"></include>
+		FROM
+			score_t
+   </select>
+  
 </mapper>

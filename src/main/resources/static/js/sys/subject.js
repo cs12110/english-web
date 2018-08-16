@@ -40,7 +40,8 @@ var wordIndex = 0;
 function nextSentence() {
 	wordArr = getWordsOfSentence(subjectIndex);
 	wordIndex = 0;
-	//subjectIndex++;
+	subjectIndex++;
+	nextWord();
 }
 
 /**
