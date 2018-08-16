@@ -18,4 +18,6 @@ public class Const {
 	public final static String ROLE_PREFIX = "ROLE_";
 
 	public final static String CURRENT_USER = "currentCustomer";
+
+	public final static String ADMIN = "admin";
 }

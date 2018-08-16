@@ -40,5 +40,12 @@
 		FROM
 			score_t
    </select>
+   
+   <delete id="deleteAll">
+   		DELETE FROM
+   			score_t
+   		WHERE
+   			1=1
+   </delete>
   
 </mapper>

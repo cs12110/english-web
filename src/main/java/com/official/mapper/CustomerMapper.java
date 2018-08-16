@@ -4,4 +4,6 @@ import com.official.entity.Customer;
 import com.official.util.MyMapper;
 
 public interface CustomerMapper extends MyMapper<Customer> {
+
+	int deleteAll();
 }

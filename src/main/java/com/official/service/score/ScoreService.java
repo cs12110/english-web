@@ -15,4 +15,11 @@ public interface ScoreService {
 
 	int insert(Score score);
 
+	/**
+	 * 删除所有记录
+	 * 
+	 * @return
+	 */
+	int deleteAll();
+
 }

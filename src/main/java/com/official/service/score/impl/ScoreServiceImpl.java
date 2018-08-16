@@ -26,4 +26,9 @@ public class ScoreServiceImpl implements ScoreService {
 		return scoreMapper.computeScore();
 	}
 
+	@Override
+	public int deleteAll() {
+		return scoreMapper.deleteAll();
+	}
+
 }

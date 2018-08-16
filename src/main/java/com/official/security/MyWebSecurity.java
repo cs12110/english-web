@@ -78,6 +78,6 @@ public class MyWebSecurity extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/static/**", "/pics/**", "/customer/**", "/subject/**", "/score/**");
+		web.ignoring().antMatchers("/**", "/pics/**", "/customer/**", "/subject/**", "/score/**");
 	}
 }
