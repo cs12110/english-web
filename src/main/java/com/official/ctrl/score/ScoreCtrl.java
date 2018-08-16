@@ -1,5 +1,7 @@
 package com.official.ctrl.score;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,20 @@ public class ScoreCtrl {
 
 	@Autowired
 	private ScoreService scoreService;
+
+	@RequestMapping("/saveBatch")
+	@ResponseBody
+	public String saveBatch(List<Score> list) {
+		for (Score score : list) {
+			scoreService.insert(score);
+		}
+		Reply reply = new Reply();
+		reply.setStatus(ReplyEnum.SUCCESS.getValue());
+		reply.setMessage("添加成功");
+
+		return reply.toString();
+
+	}
 
 	@RequestMapping("/save")
 	@ResponseBody
