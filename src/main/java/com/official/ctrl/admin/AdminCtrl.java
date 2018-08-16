@@ -45,28 +45,43 @@ public class AdminCtrl {
 	@RequestMapping("/deleteAll")
 	@ResponseBody
 	public String deleteAll(HttpServletRequest req) {
+		Reply reply = new Reply();
+		if (isAdminLogined(req)) {
+			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setMessage("请先登录");
+			return reply.toString();
+		}
 
 		customerService.deleteAll();
 		scoreService.deleteAll();
 
-		Reply reply = new Reply();
 		reply.setStatus(ReplyEnum.SUCCESS.getValue());
 		reply.setMessage("全部删除");
-
 		HttpSession session = req.getSession();
 		session.setAttribute(Const.CURRENT_USER, null);
 		return reply.toString();
 
 	}
 
+	/**
+	 * 判断管理员是否已登录
+	 * 
+	 * @param req
+	 *            请求
+	 * @return boolean
+	 */
+	private boolean isAdminLogined(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Object admin = session.getAttribute(Const.ADMIN);
+		return null != admin;
+	}
+
 	@RequestMapping("/loginCheck")
 	@ResponseBody
 	public String loginCheck(HttpServletRequest req) {
-		HttpSession session = req.getSession();
 		Reply reply = new Reply();
 		reply.setStatus(ReplyEnum.SUCCESS.getValue());
-		Object admin = session.getAttribute(Const.ADMIN);
-		if (null == admin) {
+		if (!isAdminLogined(req)) {
 			reply.setStatus(ReplyEnum.FAILURE.getValue());
 		}
 		return reply.toString();
@@ -115,11 +130,13 @@ public class AdminCtrl {
 	 * 下载结果
 	 */
 	@RequestMapping("/export")
-	public void export(HttpServletResponse response) {
-		List<Score> list = scoreService.compute();
-		File file = buildResultExcel(list);
-		FileUtil.download(response, file.getAbsolutePath());
-		file.delete();
+	public void export(HttpServletRequest req, HttpServletResponse response) {
+		if (isAdminLogined(req)) {
+			List<Score> list = scoreService.compute();
+			File file = buildResultExcel(list);
+			FileUtil.download(response, file.getAbsolutePath());
+			file.delete();
+		}
 	}
 
 	/**

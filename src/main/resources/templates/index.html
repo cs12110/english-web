@@ -2,325 +2,299 @@
 <html>
 
 <head>
-<meta charset="UTF-8" />
-<title>English</title>
+    <meta charset="UTF-8" />
+    <title>English</title>
 
-<link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css"></link>
-<link rel="stylesheet" href="/static/css/index.css"></link>
-<link rel="stylesheet" type="text/css"
-	href="/static/plugin/webuploader/webuploader.css" />
+    <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css"></link>
+    <link rel="stylesheet" href="/static/css/index.css"></link>
+    <link rel="stylesheet" type="text/css" href="/static/plugin/webuploader/webuploader.css" />
 
 
-<style type="text/css">
-.each-word {
-	float: left;
-	width: 100%;
-}
-
-.show-word {
-	background-color: #ccc;
-	line-height: 50px;
-	height: 50px;
-	width: 8%;
-	border-radius: 3px;
-	text-align: center;
-	font-weight: bold;
-	padding: 0%;
-	float: left;
-	margin-right: 1%;
-}
-
-#whole-area {
-	width: 90%;
-	margin-left: 5%;
-	margin-right: 5%;
-}
-
-.radio-btn {
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-#question {
-	font-size: 20px;
-	margin-bottom: 10px;
-}
-
-.power {
-	display: none;
-}
-
-.divider {
-	display: none;
-}
-</style>
+    <style type="text/css">
+        .each-word {
+            float: left;
+            width: 100%;
+        }
+        
+        .show-word {
+            background-color: #ccc;
+            line-height: 50px;
+            height: 50px;
+            width: 8%;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+            padding: 0%;
+            float: left;
+            margin-right: 1%;
+        }
+        
+        #whole-area {
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        
+        .radio-btn {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        #question {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .power {
+            display: none;
+        }
+        
+        .divider {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
 
-	<div id="whole-area">
+    <div id="whole-area">
 
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand">English</a>
-				</div>
-				<div>
-					<ul class="nav navbar-nav">
-						<li class="active"><a data-toggle="modal"
-							data-target="#myModal">填写个人信息</a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"> 管理员 <b class="caret"></b>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">English</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a data-toggle="modal" data-target="#myModal">填写个人信息</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 管理员 <b class="caret"></b>
 						</a>
-							<ul class="dropdown-menu">
-								<li><a data-toggle="modal" data-target="#adminLogin">登录</a>
-								</li>
-								<li class="divider"></li>
-								<li class="power"><a onclick="logout()">退出</a></li>
-								<li class="divider"></li>
-								<li class="power"><a data-toggle="modal"
-									data-target="#admin">上传测试材料</a></li>
-								<li class="divider"></li>
-								<li class="power"><a data-toggle="modal"
-									data-target="#compute">下载成绩统计</a></li>
-								<li class="divider"></li>
-								<li class="power"><a onclick="deleteAll()">清空数据</a></li>
-							</ul></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+                            <ul class="dropdown-menu">
+                                <li><a data-toggle="modal" data-target="#adminLogin">登录</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li class="power"><a onclick="logout()">退出</a></li>
+                                <li class="divider"></li>
+                                <li class="power"><a data-toggle="modal" data-target="#admin">上传测试材料</a></li>
+                                <li class="divider"></li>
+                                <li class="power"><a data-toggle="modal" data-target="#compute">下载成绩统计</a></li>
+                                <li class="divider"></li>
+                                <li class="power"><a onclick="deleteAll()">清空数据</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-		<div class="modal fade" id="adminLogin" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">登录</h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal" role="form">
-							<div class="form-group">
-								<label for="firstname" class="col-sm-2 control-label">账号</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="loginName"
-										placeholder="请输入账号" />
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="firstname" class="col-sm-2 control-label">密码</label>
-								<div class="col-sm-10">
-									<input type="password" class="form-control" id="loginPassword"
-										placeholder="请输入密码" />
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary"
-							onclick="adminLogin()">提交</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
+        <div class="modal fade" id="adminLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">登录</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="firstname" class="col-sm-2 control-label">账号</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="loginName" placeholder="请输入账号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname" class="col-sm-2 control-label">密码</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="loginPassword" placeholder="请输入密码" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="adminLogin()">提交</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
 
-		<div class="modal fade" id="admin" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">上传文件</h4>
-					</div>
-					<div class="modal-body">
+        <div class="modal fade" id="admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+                    </div>
+                    <div class="modal-body">
 
-						<div id="uploader" class="wu-example">
-							<!--用来存放文件信息-->
-							<div id="thelist" class="uploader-list"></div>
-							<div class="btns">
-								<div id="picker">选择文件</div>
-								<button id="ctlBtn" class="btn btn-default">开始上传</button>
-							</div>
-							<input type="hidden" id="takeFileUrl" value="/excel/upload" />
-						</div>
+                        <div id="uploader" class="wu-example">
+                            <!--用来存放文件信息-->
+                            <div id="thelist" class="uploader-list"></div>
+                            <div class="btns">
+                                <div id="picker">选择文件</div>
+                                <button id="ctlBtn" class="btn btn-default">开始上传</button>
+                            </div>
+                            <input type="hidden" id="takeFileUrl" value="/excel/upload" />
+                        </div>
 
-					</div>
+                    </div>
 
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
 
-		<div class="modal fade" id="compute" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">统计结果</h4>
-					</div>
-					<div class="modal-body">
-						<a href="/admin/export">下载统计结果</a>
-					</div>
+        <div class="modal fade" id="compute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">统计结果</h4>
+                    </div>
+                    <div class="modal-body">
+                        <a href="/admin/export">下载统计结果</a>
+                    </div>
 
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal -->
-		</div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
 
-		<div class="user-info">
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">用户信息</h4>
-						</div>
-						<div class="modal-body">
-							<form class="form-horizontal" role="form">
-								<div class="form-group">
-									<label for="firstname" class="col-sm-2 control-label">*学号</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="code"
-											placeholder="请输入学号" />
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="firstname" class="col-sm-2 control-label">名字</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="name"
-											placeholder="请输入名字" />
-									</div>
-								</div>
+        <div class="user-info">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">用户信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="firstname" class="col-sm-2 control-label">*学号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="code" placeholder="请输入学号" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstname" class="col-sm-2 control-label">名字</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="name" placeholder="请输入名字" />
+                                    </div>
+                                </div>
 
-								<div class="form-group">
-									<label for="firstname" class="col-sm-2 control-label">四级成绩</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="cet4"
-											maxlength="4" placeholder="请输入四级成绩" />
-									</div>
-								</div>
+                                <div class="form-group">
+                                    <label for="firstname" class="col-sm-2 control-label">四级成绩</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="cet4" maxlength="4" placeholder="请输入四级成绩" />
+                                    </div>
+                                </div>
 
-								<div class="form-group">
-									<label for="firstname" class="col-sm-2 control-label">六级成绩</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="cet6"
-											maxlength="4" placeholder="请输入六级成绩" />
-									</div>
-								</div>
+                                <div class="form-group">
+                                    <label for="firstname" class="col-sm-2 control-label">六级成绩</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="cet6" maxlength="4" placeholder="请输入六级成绩" />
+                                    </div>
+                                </div>
 
-								<div class="form-group">
-									<label for="lastname" class="col-sm-2 control-label">性别</label>
-									<div class="col-sm-10">
-										<label class="radio-inline"> <input type="radio"
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline"> <input type="radio"
 											 name="gender" value="0" checked="true" /> 男
 										</label> <label class="radio-inline"> <input type="radio"
 											 name="gender" value="1" />女
 										</label>
 
-									</div>
-								</div>
+                                    </div>
+                                </div>
 
-								<div class="form-group">
-									<label for="lastname" class="col-sm-2 control-label">年龄</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="age" maxlength="4"
-											placeholder="请输入年龄" />
-									</div>
-								</div>
-
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">年龄</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="age" maxlength="4" placeholder="请输入年龄" />
+                                    </div>
+                                </div>
 
 
-								<div class="form-group">
-									<label for="lastname" class="col-sm-2 control-label">学习英语年龄</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="engAge"
-											placeholder="请输入学习英语多少年" />
-									</div>
-								</div>
 
-								<div class="form-group">
-									<label for="lastname" class="col-sm-2 control-label">专业</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="major"
-											placeholder="请输入专业" />
-									</div>
-								</div>
-							</form>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">学习英语年龄</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="engAge" placeholder="请输入学习英语多少年" />
+                                    </div>
+                                </div>
 
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary"
-								onclick="saveCustomer()">提交</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-sm-2 control-label">专业</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="major" placeholder="请输入专业" />
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="saveCustomer()">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-		<div class="test-area">
-			<div id="subject">
-				<div class="panel panel-default">
-					<div class="panel-heading">句子</div>
-					<div class="panel-body">
-						<div class="each-word"></div>
-					</div>
-				</div>
+        <div class="test-area">
+            <div id="subject">
+                <div class="panel panel-default">
+                    <div class="panel-heading">句子</div>
+                    <div class="panel-body">
+                        <div class="each-word"></div>
+                    </div>
+                </div>
 
 
-				<div style="display: none" data-relax="">
-					是否要休息一下？
-					<button type="button" data-relax-btn="true">休息</button>
-					<button type="button" data-relax-btn="false">不休息</button>
-				</div>
+                <div style="display: none" data-relax="">
+                    是否要休息一下？
+                    <button type="button" data-relax-btn="true">休息</button>
+                    <button type="button" data-relax-btn="false">不休息</button>
+                </div>
 
-				<div class="panel panel-default">
-					<div class="panel-heading">请作答</div>
-					<div class="panel-body">
-						<div class="question-area" style="display: none">
-							<div id="question"></div>
-							<div class="answer-area">
-								<div class='radio-btn'>
-									<input type="radio" name="answer" value="Yes" />&nbsp;&nbsp;Yes
-								</div>
-								<div class='radio-btn'>
-									<input type="radio" name="answer" value="No" /> &nbsp;&nbsp;No
-								</div>
-							</div>
-							<div class="anwser-btn">
-								<button type="button" class="btn btn-default" id="submit">提交</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="operatorBtn">
-				<button type="button" class="btn btn-primary" data-next-sentence=""
-					data-index="0" style="float: right; margin-left: 1%;">Next
+                <div class="panel panel-default">
+                    <div class="panel-heading">请作答</div>
+                    <div class="panel-body">
+                        <div class="question-area" style="display: none">
+                            <div id="question"></div>
+                            <div class="answer-area">
+                                <div class='radio-btn'>
+                                    <input type="radio" name="answer" value="Yes" />&nbsp;&nbsp;Yes
+                                </div>
+                                <div class='radio-btn'>
+                                    <input type="radio" name="answer" value="No" /> &nbsp;&nbsp;No
+                                </div>
+                            </div>
+                            <div class="anwser-btn">
+                                <button type="button" class="btn btn-default" id="submit">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="operatorBtn">
+                <button type="button" class="btn btn-primary" data-next-sentence="" data-index="0" style="float: right; margin-left: 1%;">Next
 					Sentence</button>
-				<button type="button" class="btn btn-primary" data-next-ward="0"
-					style="float: right; margin-left: 1%;">Next Word</button>
+                <button type="button" class="btn btn-primary" data-next-ward="0" style="float: right; margin-left: 1%;">Next Word</button>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 
-	<!-- 	<a href="/logout">logout</a>&nbsp;&nbsp;
+    <!-- 	<a href="/logout">logout</a>&nbsp;&nbsp;
 	<a href="/excel/toUpload">upload</a>&nbsp;&nbsp;
 	<a href="/subject/html">Subject html</a>&nbsp;&nbsp;
 	<a href="/customer/html">Customer html</a>&nbsp;&nbsp; -->
@@ -328,13 +302,11 @@
 </body>
 
 <script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
-<script type="text/javascript"
-	src="/static/plugin/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/plugin/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript" src="/static/js/sys/index.js"></script>
 <script type="text/javascript" src="/static/js/sys/info.js"></script>
 <script type="text/javascript" src="/static/js/sys/subject.js"></script>
-<script type="text/javascript"
-	src="/static/plugin/webuploader/webuploader.js"></script>
+<script type="text/javascript" src="/static/plugin/webuploader/webuploader.js"></script>
 <script type="text/javascript" src="/static/js/sys/util/uploader.js"></script>
 
 </html>
