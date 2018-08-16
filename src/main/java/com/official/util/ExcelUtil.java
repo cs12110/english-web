@@ -50,7 +50,7 @@ public class ExcelUtil {
 			cell.setCellValue(score.getReadTime5());
 
 			cell = row.createCell(j++);
-			cell.setCellValue(score.getMatch());
+			cell.setCellValue(score.getCorrect());
 		} catch (Exception e) {
 
 		}

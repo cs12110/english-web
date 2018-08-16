@@ -13,7 +13,7 @@
     <result column="read_time3" property="readTime3" jdbcType="INTEGER" />
     <result column="read_time4" property="readTime4" jdbcType="INTEGER" />
     <result column="read_time5" property="readTime5" jdbcType="INTEGER" />
-    <result column="match" property="match" jdbcType="INTEGER" />
+    <result column="correct" property="correct" jdbcType="INTEGER" />
   </resultMap>
   
   <resultMap type="com.official.entity.Score" id="extMap" extends="BaseResultMap">
@@ -30,7 +30,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, `match`
+    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, correct
   </sql>
   
 	

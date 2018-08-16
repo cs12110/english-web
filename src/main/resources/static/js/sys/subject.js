@@ -1,24 +1,18 @@
-/**
- * 分页对象
- */
+//code by lucien
+
 var page = {
 	index : 0,
 	rows : 20
 };
 
-var subjectIndex = 0;
 var subjects = [];
-var stopwatch = {};
-
-$(function() {
-	getSubjects();
-})
-
-function nextTest() {
-	getSubjects();
-}
+var $nextSentenceBtn = $('[data-next-sentence]');
+var $nextWorkBtn = $('[data-next-work]');
+var $relaxBtn = $('[data-relax-btn]');
+var $wordBox = $('.each-word');
 
 function getSubjects() {
+	page.index = page.index + 1;
 	$.ajax({
 		url : "/subject/list",
 		data : {
@@ -27,54 +21,154 @@ function getSubjects() {
 		},
 		dataType : "json",
 		success : function(data) {
-			page.index = page.index + 1;
 			subjects = data;
 			// 开始从第一个显示
-			nextSentence();
+			$nextSentenceBtn.click();
 		}
 	})
 }
 
-var wordArr = [];
+var words = [];
+var keywords = [];
+var curSentence = null;
 var wordIndex = 0;
-function nextSentence() {
-	wordArr = getWordsOfSentence(subjectIndex);
-	wordIndex = 0;
-	subjectIndex++;
-	nextWord();
-}
+var readIndex = 1;
+var score = {
+	cusId : null,
+	subId : null,
+	readTime1 : null,
+	readTime2 : null,
+	readTime3 : null,
+	readTime4 : null,
+	readTime5 : null,
+	correct : null,
+};
 
-/**
- * 显示词
- * 
- * @returns
- */
-function nextWord() {
-	var element = $(".each-word");
-	var wholeArea = "";
-
-	for (var index = 0, len = wordArr.length; index < len; index++) {
-		var div = "";
-		if (index != wordIndex) {
-			div = "<div class=\"show-word\"></div>";
-		} else {
-			div = "<div class=\"show-word\">" + wordArr[index] + "</div>";
-		}
-		wholeArea += div;
-	}
-	element.html(wholeArea);
-	wordIndex++;
-	if (wordIndex >= wordArr.length) {
-		wordIndex = wordArr.length;
-		var subject = subjects[subjectIndex];
-		$("#question").html(subject.question);
-		$(".question-area").show();
-	}
-}
-
-function getWordsOfSentence(sid) {
-	var subject = subjects[sid];
-	var sentence = subject.sentence;
-	var words = sentence.split(" ");
+function transStrToArr(str) {
+	var words = str.split(" ");
 	return words;
 }
+
+function clearSentenceData() {
+	words = [];
+	keywords = [];
+	wordIndex = 0;
+	curSentence = null;
+	$('.question-area').css('display', 'none');
+	$('input[name="answer"]:checked').prop("checked", false);
+	readIndex = 1;
+	$wordBox.empty();
+	score = {
+		subId : null,
+		readTime1 : null,
+		readTime2 : null,
+		readTime3 : null,
+		readTime4 : null,
+		readTime5 : null,
+		correct : null,
+	};
+}
+
+function transSentenceData(subject) {
+	clearSentenceData();
+	words = transStrToArr(subject.sentence);
+	generatorWordPosition(words);
+	keywords = transStrToArr(subject.keyword);
+	curSentence = subject;
+	score.subId = subject.id;
+}
+
+function generatorWordPosition(words) {
+	var len = words.length;
+	for (var index = 0; index < len; index++) {
+		$wordBox.append('<div data-work-index="' + index
+				+ '" class="show-word"></div>')
+	}
+}
+
+var readBeginTime = null;
+
+function readTime(start) {
+	var m = new Date;
+	return m - start;
+}
+
+$(document).ready(function() {
+
+	getSubjects();
+
+	$nextWorkBtn.click(function() {
+		var len = words.length;
+		var prev = wordIndex - 1;
+		if (wordIndex > 0)
+			$('[data-work-index="' + prev + '"]').empty();
+
+		if (wordIndex < len) {
+			var word = words[wordIndex];
+			$('[data-work-index="' + wordIndex + '"]').append(word);
+
+			if (readBeginTime != null) {
+				var reTime = readTime(readBeginTime);
+				var reProperty = 'readTime' + readIndex;
+				score['' + reProperty + ''] = reTime;
+				readIndex += 1;
+				readBeginTime = null;
+			}
+
+			if ($.inArray(word, keywords) !== -1) {
+				readBeginTime = new Date();
+			}
+			wordIndex += 1;
+		} else {
+			$('.question-area').css('display', '');
+			$('#question').text(curSentence.question);
+		}
+	});
+
+	$('#submit').click(function() {
+		var chk = $('input[name="answer"]:checked').val();
+		if (chk === curSentence.answer) {
+			score.correct = 1;
+		} else {
+			score.correct = 0;
+		}
+		
+		console.log(currentCustomer);
+		score.cusId = currentCustomer.id;
+		// console.log(score);
+
+		if (score.subId !== null) {
+			$.post('/score/save', score, function() {
+			}, "json");
+		}
+
+		$nextSentenceBtn.click();
+		return false;
+	});
+
+	$relaxBtn.click(function() {
+		if ($(this).data('relax-btn')) {
+			// 点击休息 do something
+		} else {
+			$('[data-relax]').css('display', 'none');
+			$('#operatorBtn').find('input').removeAttr("disabled");
+			getSubjects();
+			$(this).data('index', 0);
+		}
+	});
+
+	$nextSentenceBtn.click(function() {
+		var index = $(this).data('index');
+		var subject = subjects[index];
+		if (!subject) {// 休息一下啦。
+			$('[data-relax]').css('display', '');
+			$(this).data('index', 0)
+			$('#operatorBtn').find('input').attr('disabled', 'disabled');
+			clearSentenceData();
+			return false;
+		}
+		transSentenceData(subject);
+		$(this).data('index', index + 1);
+	});
+
+});

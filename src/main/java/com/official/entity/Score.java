@@ -28,7 +28,7 @@ public class Score extends BaseEntity {
 	@Column(name = "read_time5")
 	private Integer readTime5;
 
-	private Integer match;
+	private Integer correct;
 
 	@Transient
 	private Customer customer;
@@ -134,18 +134,12 @@ public class Score extends BaseEntity {
 		this.readTime5 = readTime5;
 	}
 
-	/**
-	 * @return match
-	 */
-	public Integer getMatch() {
-		return match;
+	public Integer getCorrect() {
+		return correct;
 	}
 
-	/**
-	 * @param match
-	 */
-	public void setMatch(Integer match) {
-		this.match = match;
+	public void setCorrect(Integer correct) {
+		this.correct = correct;
 	}
 
 	public Customer getCustomer() {

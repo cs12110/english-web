@@ -16,4 +16,6 @@ public class Const {
 	 * 角色前缀"ROLE_"
 	 */
 	public final static String ROLE_PREFIX = "ROLE_";
+
+	public final static String CURRENT_USER = "currentCustomer";
 }

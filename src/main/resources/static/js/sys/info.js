@@ -27,6 +27,7 @@ function saveCustomer() {
 			if (data.status == 1) {
 				alert("新增成功");
 				currentCustomer = data.data;
+				window.location.href = "/subject/html";
 			} else {
 				alert("新增失败,请联系管理员");
 			}
@@ -47,7 +48,7 @@ function check(ctm) {
 		return result;
 	}
 
-	var reg = /^[0-9]{8}$/;
+	var reg = /^[0-9]{4}$/;
 
 	var age = ctm.age;
 	if (age.trim() != "") {
