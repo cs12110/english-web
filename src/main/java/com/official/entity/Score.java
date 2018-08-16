@@ -5,9 +5,7 @@ import javax.persistence.*;
 import com.official.util.JSONUtil;
 
 @Table(name = "score_t")
-public class Score {
-	@Id
-	private Integer id;
+public class Score extends BaseEntity {
 
 	@Column(name = "cus_id")
 	private Integer cusId;
@@ -37,20 +35,6 @@ public class Score {
 
 	@Transient
 	private Subject subject;
-
-	/**
-	 * @return id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * @param id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return cus_id
