@@ -60,4 +60,27 @@ public class CustomerCtrl {
 		session.setAttribute(Const.CURRENT_USER, customer);
 		return reply.toString();
 	}
+
+	/**
+	 * 检查用户是否登陆
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("checkLogin")
+	@ResponseBody
+	public String checkLogin(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Object user = session.getAttribute(Const.CURRENT_USER);
+
+		Reply reply = new Reply();
+		reply.setStatus(ReplyEnum.SUCCESS.getValue());
+
+		if (null == user) {
+			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setMessage("请先登录");
+		}
+
+		return reply.toString();
+	}
 }

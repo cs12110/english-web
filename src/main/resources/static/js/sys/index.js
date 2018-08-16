@@ -1,8 +1,9 @@
 $(function() {
-	loginCheck();
+	adminLoginCheck();
+	customerLoginCheck();
 });
 
-function loginCheck() {
+function adminLoginCheck() {
 	$.ajax({
 		url : "/admin/loginCheck",
 		type : "post",
@@ -18,6 +19,25 @@ function loginCheck() {
 			}
 		}
 	})
+}
+
+function customerLoginCheck() {
+	$.ajax({
+		url : "/customer/loginCheck",
+		type : "post",
+		data : {
+
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data.status == 1) {
+				$("#handsup").hide();
+			} else {
+				$("#handsup").show();
+			}
+		}
+	})
+
 }
 
 function deleteAll() {

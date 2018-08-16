@@ -9,8 +9,6 @@ function saveCustomer() {
 	customer.gender = getValue("gender");
 	customer.major = getValue("major");
 
-	console.log(customer);
-
 	var result = check(customer);
 	if (!result.success) {
 		alert(result.message);
@@ -23,11 +21,8 @@ function saveCustomer() {
 		dataType : "json",
 		data : customer,
 		success : function(data) {
-			console.log(data);
 			if (data.status == 1) {
 				alert("新增成功");
-				currentCustomer = data.data;
-				window.location.href = "/customer/exam";
 			} else {
 				alert("新增失败,请联系管理员");
 			}
