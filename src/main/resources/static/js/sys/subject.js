@@ -5,29 +5,6 @@ var page = {
     rows: 20
 };
 
-var subjects = [];
-var $nextSentenceBtn = $('[data-next-sentence]');
-var $nextWorkBtn = $('[data-next-ward]');
-var $relaxBtn = $('[data-relax-btn]');
-var $wordBox = $('.each-word');
-
-function getSubjects() {
-    page.index = page.index + 1;
-    $.ajax({
-        url: "/subject/list",
-        data: {
-            "page": page.index,
-            "rows": page.rows
-        },
-        dataType: "json",
-        success: function(data) {
-            subjects = data;
-            // 开始从第一个显示
-            $nextSentenceBtn.click();
-        }
-    })
-}
-
 var words = [];
 var keywords = [];
 var curSentence = null;
@@ -43,6 +20,31 @@ var score = {
     readTime5: null,
     correct: null,
 };
+var sentenceIndex = 0;
+
+var subjects = [];
+var $nextSentenceBtn = $('[data-next-sentence]');
+var $nextWorkBtn = $('[data-next-ward]');
+var $relaxBtn = $('[data-relax-btn]');
+var $wordBox = $('.each-word');
+
+function getSubjects() {
+    page.index = page.index + 1;
+    $.ajax({
+        url: "/subject/list",
+        data: {
+            "page": page.index,
+            "rows": page.rows
+        },
+        dataType: "json",
+        success: function (data) {
+            subjects = data;
+            // 开始从第一个显示
+            nextSentence();
+        }
+    })
+}
+
 
 function transStrToArr(str) {
     var words = str.split(" ");
@@ -93,11 +95,24 @@ function readTime(start) {
     return m - start;
 }
 
-$(document).ready(function() {
+function nextSentence() {
+    var subject = subjects[sentenceIndex];
+    if (!subject) { // 休息一下啦。
+        $('[data-relax]').css('display', '');
+        $('#operatorBtn').find('input').attr('disabled', 'disabled');
+        sentenceIndex = 0;
+        clearSentenceData();
+        return false;
+    }
+    transSentenceData(subject);
+    sentenceIndex += 1;
+}
+
+$(document).ready(function () {
 
     getSubjects();
 
-    $nextWorkBtn.click(function() {
+    $nextWorkBtn.click(function () {
         var len = words.length;
         var prev = wordIndex - 1;
         if (wordIndex > 0)
@@ -125,21 +140,23 @@ $(document).ready(function() {
         }
     });
 
-    $('#submit').click(function() {
+    $('#submit').click(function () {
         var chk = $('input[name="answer"]:checked').val();
         if (chk === curSentence.answer) {
             score.correct = 1;
         } else {
             score.correct = 0;
         }
-        if (score.subId !== null) {
-            $.post('/score/save', score, function() {}, "json");
-        }
-        $nextSentenceBtn.click();
+        $.post('/score/save', score, function (data) {
+            if (data.status !== 1) {
+                alert(data.message);
+            }
+        }, "json");
+        nextSentence();
         return false;
     });
 
-    $relaxBtn.click(function() {
+    $relaxBtn.click(function () {
         if ($(this).data('relax-btn')) {
             // 点击休息 do something
         } else {
@@ -148,20 +165,6 @@ $(document).ready(function() {
             getSubjects();
             $(this).data('index', 0);
         }
-    });
-
-    $nextSentenceBtn.click(function() {
-        var index = $(this).data('index');
-        var subject = subjects[index];
-        if (!subject) { // 休息一下啦。
-            $('[data-relax]').css('display', '');
-            $(this).data('index', 0)
-            $('#operatorBtn').find('input').attr('disabled', 'disabled');
-            clearSentenceData();
-            return false;
-        }
-        transSentenceData(subject);
-        $(this).data('index', index + 1);
     });
 
 });

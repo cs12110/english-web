@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>答题</title>
+    <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="/static/css/index.css" />
+</head>
+<body>
+<div id="whole-area">
+
+
+    <div class="test-area">
+        <div id="subject">
+            <div class="panel panel-default">
+                <div class="panel-heading">句子</div>
+                <div class="panel-body">
+                    <div class="each-word"></div>
+                </div>
+            </div>
+
+
+            <div style="display: none" data-relax="">
+                是否要休息一下？
+                <button type="button" data-relax-btn="true">休息</button>
+                <button type="button" data-relax-btn="false">不休息</button>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">请作答</div>
+                <div class="panel-body">
+                    <div class="question-area" style="display: none">
+                        <div id="question"></div>
+                        <div class="answer-area">
+                            <div class='radio-btn'>
+                                <input type="radio" name="answer" value="Yes" />&nbsp;&nbsp;Yes
+                            </div>
+                            <div class='radio-btn'>
+                                <input type="radio" name="answer" value="No" /> &nbsp;&nbsp;No
+                            </div>
+                        </div>
+                        <div class="anwser-btn">
+                            <button type="button" class="btn btn-default" id="submit">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="operatorBtn">
+
+            <button type="button" class="btn btn-primary" data-next-ward="0" style="float: right; margin-left: 1%;">Next Word</button>
+
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+<script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/static/plugin/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/sys/index.js"></script>
+<script type="text/javascript" src="/static/js/sys/info.js"></script>
+<script type="text/javascript" src="/static/js/sys/subject.js"></script>
+</html>
