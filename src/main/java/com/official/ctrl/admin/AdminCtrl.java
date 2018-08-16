@@ -63,12 +63,9 @@ public class AdminCtrl {
 	@ResponseBody
 	public String loginCheck(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-
 		Reply reply = new Reply();
 		reply.setStatus(ReplyEnum.SUCCESS.getValue());
-
 		Object admin = session.getAttribute(Const.ADMIN);
-
 		if (null == admin) {
 			reply.setStatus(ReplyEnum.FAILURE.getValue());
 		}

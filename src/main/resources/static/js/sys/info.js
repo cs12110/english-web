@@ -6,7 +6,7 @@ function saveCustomer() {
 	customer.engAge = getValue("engAge");
 	customer.cet4 = getValue("cet4");
 	customer.cet6 = getValue("cet6");
-	customer.gender = getValue("gender");
+	customer.gender = $("input[name=gender]:checked").val();
 	customer.major = getValue("major");
 
 	console.log(customer);
@@ -23,11 +23,9 @@ function saveCustomer() {
 		dataType : "json",
 		data : customer,
 		success : function(data) {
-			console.log(data);
 			if (data.status == 1) {
 				alert("新增成功");
-				currentCustomer = data.data;
-				window.location.href = "/subject/html";
+				$("#myModal").modal('hide');
 			} else {
 				alert("新增失败,请联系管理员");
 			}
@@ -48,11 +46,11 @@ function check(ctm) {
 		return result;
 	}
 
-	var reg = /^[0-9]{4}$/;
+	var reg = new RegExp("^[0-9]{1,4}$");
 
 	var age = ctm.age;
 	if (age.trim() != "") {
-		if (!reg.test(age)) {
+		if (!reg.test(age)||age>=150) {
 			result.success = false;
 			result.message = "年龄必须为整数,且<=150";
 			return result;
