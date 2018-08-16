@@ -122,6 +122,23 @@ function hiddeAdminArea() {
 }
 
 function openInfoWindow() {
-	console.log("open");
 	$("#myModal").modal();
+}
+
+
+function customerLogout(){
+	$.ajax({
+		url : "/customer/logout",
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			if (data.status != 1) {
+				alert(data.message);
+				window.location.reload();
+			} else {
+				alert("退出成功");
+				hiddeAdminArea();
+			}
+		}
+	})
 }

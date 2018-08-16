@@ -22,7 +22,7 @@ function saveCustomer() {
 		data : customer,
 		success : function(data) {
 			if (data.status == 1) {
-				alert("新增成功");
+				alert(data.message);
 				$("#myModal").modal('hide');
 				$("#handsup").hide();
 				$("#after-all").show();

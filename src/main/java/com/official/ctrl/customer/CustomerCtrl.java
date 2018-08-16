@@ -47,13 +47,14 @@ public class CustomerCtrl {
 		if (null == target) {
 			logger.info("Save customer:{}", customer.getCode());
 			customerService.insert(customer);
+			reply.setMessage("新增成功");
 		} else {
 			logger.info("Already exists customer:{}", target.getCode());
 			customer = target;
+			reply.setMessage("登录成功");
 		}
 
 		reply.setStatus(ReplyEnum.SUCCESS.getValue());
-		reply.setMessage("新增成功");
 		reply.setData(customer);
 
 		HttpSession session = req.getSession();
@@ -80,6 +81,24 @@ public class CustomerCtrl {
 			reply.setStatus(ReplyEnum.FAILURE.getValue());
 			reply.setMessage("请先登录");
 		}
+
+		return reply.toString();
+	}
+
+	/**
+	 * 检查用户是否登陆
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("logout")
+	@ResponseBody
+	public String logout(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute(Const.CURRENT_USER, null);
+
+		Reply reply = new Reply();
+		reply.setStatus(ReplyEnum.SUCCESS.getValue());
 
 		return reply.toString();
 	}
