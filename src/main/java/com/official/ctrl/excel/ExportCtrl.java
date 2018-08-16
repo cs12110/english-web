@@ -113,9 +113,6 @@ public class ExportCtrl {
 
 					cell = row.createCell(j++);
 					cell.setCellValue(score.getMatch());
-					// for (int j = 0, len = titles.length; j < len; j++) {
-					// cell.setCellValue(map.get(titles[j]));
-					// }
 				}
 			}
 			// 创建输出流
@@ -127,4 +124,5 @@ public class ExportCtrl {
 		}
 		return file;
 	}
+
 }

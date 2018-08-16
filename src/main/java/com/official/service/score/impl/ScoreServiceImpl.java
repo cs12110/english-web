@@ -10,14 +10,19 @@ import com.official.mapper.ScoreMapper;
 import com.official.service.score.ScoreService;
 
 @Service
-public class ScoreServiceImpl  implements ScoreService{
-	
+public class ScoreServiceImpl implements ScoreService {
+
 	@Autowired
 	private ScoreMapper scoreMapper;
-	
+
 	
 	@Override
-	public List<Score> compute(){
+	public int insert(Score score) {
+		return scoreMapper.insert(score);
+	}
+
+	@Override
+	public List<Score> compute() {
 		return scoreMapper.computeScore();
 	}
 

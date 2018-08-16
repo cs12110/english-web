@@ -26,9 +26,7 @@ public class App {
 	 *            启动参数
 	 */
 	public static void main(String[] args) {
-		log.info("Start web ");
 		SpringApplication.run(App.class, args);
-		log.info("Start web success");
 	}
 
 	/**

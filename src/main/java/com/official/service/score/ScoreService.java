@@ -13,4 +13,6 @@ public interface ScoreService {
 	 */
 	List<Score> compute();
 
+	int insert(Score score);
+
 }
