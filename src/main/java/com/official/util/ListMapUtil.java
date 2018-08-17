@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -19,13 +20,40 @@ import java.util.Set;
  */
 public class ListMapUtil {
 
+	private static Random random = new Random();
+
+	/**
+	 * 洗牌,打乱list里面的元素位置
+	 * 
+	 * @param values
+	 *            list
+	 * @return List
+	 */
+	public static <T> List<T> shuffle(List<T> values) {
+		if (null == values || values.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		int size = values.size();
+		List<T> list = new ArrayList<T>(size);
+		Set<Integer> set = new HashSet<Integer>();
+
+		while (set.size() < size) {
+			int randomIndex = random.nextInt(size);
+			if (set.add(randomIndex)) {
+				list.add(values.get(randomIndex));
+			}
+		}
+		return list;
+	}
+
 	/**
 	 * 创建Map
 	 *
 	 * @return HashMap
 	 */
 	public static <K, V> Map<K, V> buildMap() {
-		return new HashMap<K,V>(10);
+		return new HashMap<K, V>(10);
 	}
 
 	/**

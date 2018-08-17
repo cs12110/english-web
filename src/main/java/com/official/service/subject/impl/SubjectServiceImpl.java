@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.official.entity.Subject;
 import com.official.mapper.SubjectMapper;
 import com.official.service.subject.SubjectService;
+import com.official.util.ListMapUtil;
 
 /**
  * Subject业务实现类
@@ -30,7 +31,7 @@ public class SubjectServiceImpl implements SubjectService {
 		List<Subject> subjects = subjectMapper.select(search);
 		search.setTotalCount(page.getTotal());
 
-		return subjects;
+		return ListMapUtil.shuffle(subjects);
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class SubjectCtrl {
 	@RequestMapping("/list")
 	@ResponseBody
 	public String getList(Subject search) {
-		logger.info("Get subject page {} rows {} ", search.getPage(), search.getRows());
+		logger.debug("Get subject page {} rows {} ", search.getPage(), search.getRows());
 		List<Subject> list = subjectService.list(search);
 
 		return JsonUtil.toJSONStr(list);

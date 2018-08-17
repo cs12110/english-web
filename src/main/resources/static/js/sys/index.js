@@ -53,6 +53,7 @@ function deleteAll() {
 		success : function(data) {
 			if (data.status == 1) {
 				alert("删除成功");
+				$("#sysTips").modal();
 			} else {
 				alert("请联系管理员");
 			}
@@ -70,6 +71,8 @@ function adminLogin() {
 	user.password = $("#loginPassword").val();
 
 	if ('' == user.userName) {
+		$("#tips").text("请输入账号");
+		$("#sysTips").modal();
 		alert("请输入账号");
 		return;
 	}
