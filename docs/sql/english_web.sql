@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50718
 File Encoding         : 65001
 
-Date: 2018-08-15 23:41:03
+Date: 2018-08-17 09:14:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,13 +47,17 @@ CREATE TABLE `customer_t` (
   `age` int(11) DEFAULT NULL COMMENT '年龄',
   `eng_age` int(11) DEFAULT NULL COMMENT '学习英语成绩',
   `major` varchar(255) DEFAULT NULL COMMENT '四级专业',
-  `gender` int(1) DEFAULT NULL COMMENT '性别,0:女,1:女',
+  `gender` int(1) DEFAULT NULL COMMENT '性别,0:男,1:女',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of customer_t
 -- ----------------------------
+INSERT INTO `customer_t` VALUES ('11', 'hhp', '12052010', '430', '350', '60', '5', 'cs', null);
+INSERT INTO `customer_t` VALUES ('12', '呵呵哒', '333', '435', '444', '123', '12', '2323', null);
+INSERT INTO `customer_t` VALUES ('13', '余华杰', '20130603', '545', '2', '22', '22', '', null);
+INSERT INTO `customer_t` VALUES ('14', 'leaf', '1212122', '655', '655', '24', '16', 'ddddd', null);
 
 -- ----------------------------
 -- Table structure for map_user_role
@@ -84,15 +88,56 @@ CREATE TABLE `score_t` (
   `read_time3` int(11) DEFAULT NULL,
   `read_time4` int(11) DEFAULT NULL,
   `read_time5` int(11) DEFAULT NULL,
-  `match` int(11) DEFAULT NULL,
+  `correct` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `customerIndex` (`cus_id`),
   KEY `subjectIndex` (`sub_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of score_t
 -- ----------------------------
+INSERT INTO `score_t` VALUES ('28', '11', '1', '920', '920', '520', '505', null, '0');
+INSERT INTO `score_t` VALUES ('29', '11', '3', '297', '222', '265', '503', null, '1');
+INSERT INTO `score_t` VALUES ('30', '12', '1', '704', '207', '205', '187', null, '1');
+INSERT INTO `score_t` VALUES ('31', '12', '2', '216', '337', '266', '396', null, '1');
+INSERT INTO `score_t` VALUES ('32', '12', '3', '309', '401', '220', '317', null, '0');
+INSERT INTO `score_t` VALUES ('33', '12', '4', '517', '791', '919', '2214', null, '1');
+INSERT INTO `score_t` VALUES ('34', '12', '5', '1618', '1273', '4625', '3615', null, '1');
+INSERT INTO `score_t` VALUES ('35', '12', '6', '1095', '1024', '624', '2145', null, '0');
+INSERT INTO `score_t` VALUES ('36', '12', '7', '1108', '1147', '1022', '897', null, '1');
+INSERT INTO `score_t` VALUES ('37', '12', '8', '1008', '809', '835', '1044', null, '1');
+INSERT INTO `score_t` VALUES ('38', '12', '9', '578', '876', '1323', '1220', null, '1');
+INSERT INTO `score_t` VALUES ('39', '12', '10', '310', '386', '465', '449', null, '1');
+INSERT INTO `score_t` VALUES ('40', '12', '11', '726', '580', '596', '553', null, '0');
+INSERT INTO `score_t` VALUES ('41', '12', '12', '472', '539', '604', '538', null, '0');
+INSERT INTO `score_t` VALUES ('42', '12', '13', '207', '629', '528', '476', null, '1');
+INSERT INTO `score_t` VALUES ('43', '12', '14', '419', '427', '531', '497', null, '0');
+INSERT INTO `score_t` VALUES ('44', '12', '15', '576', '509', '528', '440', null, '0');
+INSERT INTO `score_t` VALUES ('45', '12', '16', '432', '523', '592', '686', null, '0');
+INSERT INTO `score_t` VALUES ('46', '12', '17', '453', '476', '439', '444', null, '1');
+INSERT INTO `score_t` VALUES ('47', '12', '18', '434', '464', '495', '429', null, '0');
+INSERT INTO `score_t` VALUES ('48', '12', '19', '523', '481', '500', '538', null, '1');
+INSERT INTO `score_t` VALUES ('49', '12', '20', '417', '410', '454', '421', null, '0');
+INSERT INTO `score_t` VALUES ('50', '12', '21', '469', '606', '501', '512', '403', '0');
+INSERT INTO `score_t` VALUES ('51', '11', '1', '488', '248', '544', '249', null, '0');
+INSERT INTO `score_t` VALUES ('52', '11', '2', '297', '280', '232', '333', null, '0');
+INSERT INTO `score_t` VALUES ('53', '11', '3', '221', '220', '280', '289', null, '1');
+INSERT INTO `score_t` VALUES ('54', '11', '4', '435', '452', '561', '527', null, '1');
+INSERT INTO `score_t` VALUES ('55', '11', '5', '535', '265', '239', '560', null, '1');
+INSERT INTO `score_t` VALUES ('56', '11', '6', '728', '321', '264', '375', null, '1');
+INSERT INTO `score_t` VALUES ('57', '11', '7', '680', '736', '680', '1935', null, '0');
+INSERT INTO `score_t` VALUES ('58', '11', '8', '521', '342', '937', '296', null, '0');
+INSERT INTO `score_t` VALUES ('59', '11', '9', '879', '601', '675', '581', null, '0');
+INSERT INTO `score_t` VALUES ('60', '13', '1', '1065', '1055', '616', '744', null, '1');
+INSERT INTO `score_t` VALUES ('61', '13', '2', '615', '520', '664', '568', null, '1');
+INSERT INTO `score_t` VALUES ('62', '13', '3', '441', '432', '431', '401', null, '1');
+INSERT INTO `score_t` VALUES ('63', '13', '4', '527', '529', '456', '464', null, '1');
+INSERT INTO `score_t` VALUES ('64', '13', '5', '191', '208', '193', '215', null, '0');
+INSERT INTO `score_t` VALUES ('65', '13', '6', '808', '1071', '489', '573', null, '1');
+INSERT INTO `score_t` VALUES ('66', '14', '1', '672', '559', '464', '480', null, '0');
+INSERT INTO `score_t` VALUES ('67', '14', '2', '824', '200', '424', '216', null, '0');
+INSERT INTO `score_t` VALUES ('68', '14', '3', '192', '240', '264', '216', null, '0');
 
 -- ----------------------------
 -- Table structure for subject_t
@@ -106,7 +151,7 @@ CREATE TABLE `subject_t` (
   `question` varchar(255) DEFAULT NULL COMMENT '问题',
   `answer` varchar(5) DEFAULT NULL COMMENT '答案',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=697 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of subject_t
@@ -575,6 +620,238 @@ INSERT INTO `subject_t` VALUES ('461', 'There are students here from all over th
 INSERT INTO `subject_t` VALUES ('462', 'This typewriter is cheap and fine indeed .', 'typewriter is cheap and', '0', 'The typewriter is of good quality', 'YES');
 INSERT INTO `subject_t` VALUES ('463', 'At that time, they laugh at their own failure .', 'they laugh at their', '0', 'They  were satisfied with themselves in the past', 'NO');
 INSERT INTO `subject_t` VALUES ('464', 'Last Summer, my friend rent a beach house .', 'my friend rent a', '0', 'My friend rented a village house', 'NO');
+INSERT INTO `subject_t` VALUES ('465', 'He apologizes for breaking her heart.', 'He apologizes for breaking', '1', 'He is indifferent to her.', 'No');
+INSERT INTO `subject_t` VALUES ('466', 'He admires your poems very much.', 'He admires your poems', '1', 'He appreciates your novles.', 'No');
+INSERT INTO `subject_t` VALUES ('467', 'Tom often dances the waltz with Jane.', 'often dances the waltz', '1', 'Tom often dances hip hop.', 'No');
+INSERT INTO `subject_t` VALUES ('468', 'Susan always finishes her work slowly.', 'always finishes her work', '1', 'Susan is very efficient', 'No');
+INSERT INTO `subject_t` VALUES ('469', 'He behaves like a true gentleman.', 'He behaves like a', '1', 'He is a man of good manners.', 'Yes');
+INSERT INTO `subject_t` VALUES ('470', 'Smoking damages your health seriously.', 'Smoking damages your health', '1', 'Smoking hurts the health.', 'Yes');
+INSERT INTO `subject_t` VALUES ('471', 'This text illuminates the philosopher\'s early thinking.', 'text illuminates the philosopher\'s', '1', 'This text is mainly about the later ideas of this philospher.', 'No');
+INSERT INTO `subject_t` VALUES ('472', 'Jane imitates the cuckoo vividly.', 'Jane imitates the cuckoo', '1', 'Jane imitates the Yellow bird very realisticly.', 'No');
+INSERT INTO `subject_t` VALUES ('473', 'Each game lasts about an hour.', 'game lasts about an', '1', 'It took half an hour to finish each game.', 'No');
+INSERT INTO `subject_t` VALUES ('474', 'Everybody laughs at my accent.', 'Everybody laughs at my', '1', 'I speak in a strange accent.', 'Yes');
+INSERT INTO `subject_t` VALUES ('475', 'Every weekend, he plays golf with his cumtomers.', 'he plays golf with', '1', 'He spent his weekend with his customers.', 'Yes');
+INSERT INTO `subject_t` VALUES ('476', 'The situation calls for prompt action.', 'situation calls for prompt', '1', 'This situation needs timely actions.', 'Yes');
+INSERT INTO `subject_t` VALUES ('477', 'His father always listen to the BBC news.', 'always listen to the', '2', 'His father likes listening to the VOAs.', 'No');
+INSERT INTO `subject_t` VALUES ('478', 'The boss offer him a good salary.', 'boss offer him a', '2', 'The boss is satisfied with him.', 'Yes');
+INSERT INTO `subject_t` VALUES ('479', 'The company employ many talented people.', 'company employ many talented', '2', 'The talented employees worked in this company.', 'Yes');
+INSERT INTO `subject_t` VALUES ('480', 'Hangzhou locate in the east of China.', 'Hangzhou locate in the', '2', 'Hangzhou lies in the south of China.', 'No');
+INSERT INTO `subject_t` VALUES ('481', 'My friend like to do the same things as I do.', 'friend like to do', '2', 'I share the same hobbies with my friend.', 'Yes');
+INSERT INTO `subject_t` VALUES ('482', 'Helen try her best to study English.', 'Helen try her best', '2', 'Helen makes her efforts to study Spanish.', 'No');
+INSERT INTO `subject_t` VALUES ('483', 'Susan visit her grandpa every week.', 'Susan visit her grandpa', '2', 'Susan met with her grandmother monthly.', 'No');
+INSERT INTO `subject_t` VALUES ('484', 'She have the habit of eating an apple after dinner.', 'She have the habit', '2', 'She had the habbit of eating an apple before the dinner.', 'No');
+INSERT INTO `subject_t` VALUES ('485', 'Xiaoming usually water the flower in the morning.', 'usually water the flower', '2', 'Xiaoming watered the flower in the afternoon.', 'No');
+INSERT INTO `subject_t` VALUES ('486', 'He always help others, especially the poor.', 'always help others especially', '2', 'He devotes to helpin the poor.', 'Yes');
+INSERT INTO `subject_t` VALUES ('487', 'David usually go to school by bicycle.', 'sually go to school', '2', 'David rides the bicycle to school.', 'Yes');
+INSERT INTO `subject_t` VALUES ('488', 'Every Saturday afternoon, she drink coffee in the Starbuck with her friend.', 'she drink coffee in', '2', 'She likes to drink the coffee in the Starbuck every Saturday afternoon.', 'Yes');
+INSERT INTO `subject_t` VALUES ('489', 'The parks that we visited yesterday are very beautiful.', 'yesterday are very beautiful', '3', 'We plan to visit the parks some time.', 'No');
+INSERT INTO `subject_t` VALUES ('490', 'The room that I live in is very big.', 'in is very big', '3', 'I live in a very big room.', 'Yes');
+INSERT INTO `subject_t` VALUES ('491', 'The boy whose parents died two years ago is with his grandpa.', 'ago is with his', '3', 'The boy is now living with his parents.', 'No');
+INSERT INTO `subject_t` VALUES ('492', 'The engineers who gave us a talk are from America.', 'talk are from America', '3', 'The American engineers gave us a talk.', 'Yes');
+INSERT INTO `subject_t` VALUES ('493', 'The pens that you lost yesterday are found here.', 'yesterday are found here', '3', 'The pen was found somewhere.', 'Yes');
+INSERT INTO `subject_t` VALUES ('494', 'The room whose windows were broken is not my grandma\'s.', 'broken is not my', '3', 'The windows were intact.', 'No');
+INSERT INTO `subject_t` VALUES ('495', 'The letters that I received yesterday are from my mother.', 'yesterday are from my', '3', 'I received my father\'s letter.', 'No');
+INSERT INTO `subject_t` VALUES ('496', 'The reasons that he gave us are quite reasonable.', 'us are quite reasonable', '3', 'The reasons sounded nonsense.', 'No');
+INSERT INTO `subject_t` VALUES ('497', 'The problems that he asked me for help are hard to solve.', 'help are hard to', '3', 'It was not easy for me to give him help.', 'Yes');
+INSERT INTO `subject_t` VALUES ('498', 'The soldiers who saved the boy’s life are very brave.', 'life are very brave', '3', 'The soldies saved the boy\'s life.', 'Yes');
+INSERT INTO `subject_t` VALUES ('499', 'The foreigners who visited our class yesterday are from Canada.', 'yesterday are from Canada', '3', 'We received the Canadians.', 'Yes');
+INSERT INTO `subject_t` VALUES ('500', 'The girl whom we saw yesterday is John’s sister.', 'yesterday is John’s sister', '3', 'We met John\'s brother yesterday.', 'No');
+INSERT INTO `subject_t` VALUES ('501', 'The coats that I put on the desk is deep blue.', 'desk is deep blue', '4', 'I put the coats on the table.', 'No');
+INSERT INTO `subject_t` VALUES ('502', 'The kitchen that I decorated by my heart are very beautiful.', 'heart are very beautiful', '4', 'I decorated my kitchen arbitrarily.', 'No');
+INSERT INTO `subject_t` VALUES ('503', 'The school that he once studied in are very famous.', 'in are very famous', '4', 'I had ever studied in a well-known school.', 'Yes');
+INSERT INTO `subject_t` VALUES ('504', 'The house where I lived ten years ago are very old.', 'ago are very old', '4', 'I lived in a very old house ten years ago.', 'Yes');
+INSERT INTO `subject_t` VALUES ('505', 'The reason why he was unhappy yesterday are quite inconceivable.', 'yesterday are quite inconceivable', '4', 'He was unhappy for some inexplicable reasons.', 'Yes');
+INSERT INTO `subject_t` VALUES ('506', 'The dictionaries that I want to buy is the Chinese-English versions.', 'buy is the Chinese-English', '4', 'I need an English-Chinese dictionary.', 'No');
+INSERT INTO `subject_t` VALUES ('507', 'The scientists that we met in the hall is very famous.', 'hall is very famous', '4', 'I met the famous scientists in the street.', 'No');
+INSERT INTO `subject_t` VALUES ('508', 'The house whose roof is brown are not mine.', 'brown are not mine', '4', 'The roof of my house is brown.', 'No');
+INSERT INTO `subject_t` VALUES ('509', 'The man who I talked with are our English teacher.', 'with are our English', '4', 'I talked to my English teacher.', 'Yes');
+INSERT INTO `subject_t` VALUES ('510', 'The recorders that he bought is made in Japan.', 'bought is made in', '4', 'I bought the recorders in Japan.', 'No');
+INSERT INTO `subject_t` VALUES ('511', 'The girl whose mother went abroad last year are very excellent.', 'year are very excellent', '4', 'The girl\'s mother is very excellent.', 'No');
+INSERT INTO `subject_t` VALUES ('512', 'The house that they built last year are very luxurious.', 'year are very luxurious', '4', 'They built a very luxurious house.', 'Yes');
+INSERT INTO `subject_t` VALUES ('513', 'The cage for the birds was very big .', 'birds was very big', '5', 'The cage was for the tigers .', 'NO');
+INSERT INTO `subject_t` VALUES ('514', 'The umbrella with better styles was made in Hangzhou .', 'styles was made in', '5', 'The umbrella was imported .', 'NO');
+INSERT INTO `subject_t` VALUES ('515', 'The explanation for the actions was too complex .', 'actions was too complex', '5', 'It was a very simple explanation .', 'NO');
+INSERT INTO `subject_t` VALUES ('516', 'The boy with silly ideas was an idiot .', 'ideas was an idiot', '5', 'He was a very clever boy .', 'NO');
+INSERT INTO `subject_t` VALUES ('517', 'The concert of the musicians was very successful .', 'musicians was very successful', '5', 'It was a successful concert .', 'YES');
+INSERT INTO `subject_t` VALUES ('518', 'The warning from the experts was quite shocking .', 'experts was quite shocking', '5', 'It was a shocking warning .', 'YES');
+INSERT INTO `subject_t` VALUES ('519', 'The plan including outdoor activities was very challenging .', 'activities was very challenging', '5', 'Outdoor activities were very difficult .', 'YES');
+INSERT INTO `subject_t` VALUES ('520', 'The culture of the groups was respected by the tourists .', 'groups was respected by', '5', 'The group culture was respectable .', 'YES');
+INSERT INTO `subject_t` VALUES ('521', 'The shelf for the books was very high .', 'books was very high', '5', 'The shelf was very new .', 'NO');
+INSERT INTO `subject_t` VALUES ('522', 'The coach of the players was found dead .', 'players was found dead', '5', 'The coach was still working hard .', 'NO');
+INSERT INTO `subject_t` VALUES ('523', 'The challenge from the competitors was very harsh .', 'competitors was very harsh', '5', 'It was a very cruel challenge .', 'YES');
+INSERT INTO `subject_t` VALUES ('524', 'The result from the Labs was seriously questioned .', 'Labs was seriously questioned', '5', 'No one believed the results .', 'YES');
+INSERT INTO `subject_t` VALUES ('525', 'The girl with the flower was very beautiful .', 'flower was very beautiful', '6', 'She was a beautiful girl .', 'YES');
+INSERT INTO `subject_t` VALUES ('526', 'The hill without a tree was very ugly .', 'tree was very ugly', '6', 'The hill was beautiful for the trees .', 'YES');
+INSERT INTO `subject_t` VALUES ('527', 'The bottle with a pill was on the table .', 'pill was on the', '6', 'The bottle was full of sweets .', 'NO　');
+INSERT INTO `subject_t` VALUES ('528', 'The ship with the traveler was traveling around the world .', 'traveler was traveling around', '6', 'The ship was traveling around the world .', 'YES');
+INSERT INTO `subject_t` VALUES ('529', 'The student with learning problem was very poor .　', 'problem was very poor', '6', 'The student with learning disabilities was poor .', 'YES');
+INSERT INTO `subject_t` VALUES ('530', 'The tower next to the tree was very high .', 'tree was very high', '6', 'The tower was by the lake .', 'NO');
+INSERT INTO `subject_t` VALUES ('531', 'The card under the book was for Christmas .　', 'book was for Christmas', '6', 'It was a gift for the new years .', 'NO');
+INSERT INTO `subject_t` VALUES ('532', 'The problem in highway system was solved in the end .', 'system was solved in', '6', 'The problems still existed .', 'NO');
+INSERT INTO `subject_t` VALUES ('533', 'The knife of the doctor was imported from Switzerland .', 'doctor was imported fro', '6', 'The doctors made the knife themselves .', 'NO');
+INSERT INTO `subject_t` VALUES ('534', 'The discussion by the expert was held in this hotel .', 'expert was held in', '6', 'The experts held the discussions .', 'YES');
+INSERT INTO `subject_t` VALUES ('535', 'The ball of the kid was under the tree .', 'kid was under the', '6', 'The ball was in the tree .', 'NO');
+INSERT INTO `subject_t` VALUES ('536', 'The boy in the crowd was very poor .　', 'crowd was very poor', '6', 'He was a poor boy .', 'YES');
+INSERT INTO `subject_t` VALUES ('537', 'The cry from the crowds were quite terrible .', 'crowds were quite terrible', '7', 'The cry was acceptable .', 'NO');
+INSERT INTO `subject_t` VALUES ('538', 'The proposal by the teachers were accepted by the students .', 'teachers were accepted by', '7', 'The proposal was refused .', 'NO');
+INSERT INTO `subject_t` VALUES ('539', 'The attack against the students were quite terrible .', 'students were quite terrible', '7', 'It was terrible to attack the students .', 'YES');
+INSERT INTO `subject_t` VALUES ('540', 'The party for the guests were very wonderful .', 'guests were very wonderful', '7', 'It was a wonderful party .', 'YES');
+INSERT INTO `subject_t` VALUES ('541', 'The apartment with two bathrooms were sold by the landlord.', 'bathrooms were sold by', '7', 'The apartment was sold out .', 'YES');
+INSERT INTO `subject_t` VALUES ('542', 'The plastic bag with tablecloths were left there .', 'tablecloths were left there', '7', 'The bag was here now .', 'NO');
+INSERT INTO `subject_t` VALUES ('543', 'The condition for applications were very strict .', 'applications were very strict', '7', 'It was easy to apply .', 'NO');
+INSERT INTO `subject_t` VALUES ('544', 'The aunt of the girls were in Hangzhou .', 'girls were in Hangzhou', '7', 'The uncle was in hangzhou .', 'NO');
+INSERT INTO `subject_t` VALUES ('545', 'The cake with fresh fruits were for Tom .', 'fruits were for Tom', '7', 'The cake was for Tom .', 'YES');
+INSERT INTO `subject_t` VALUES ('546', 'The charge for the overweighed products were terribly high .', 'products were terribly high', '7', 'The charge was high .', 'YES');
+INSERT INTO `subject_t` VALUES ('547', 'The effect of the methods were newly discussed .', 'methods were newly discussed', '7', 'The discussion was about the method effects .', 'YES');
+INSERT INTO `subject_t` VALUES ('548', 'The view on the battles were quite subjective .　', 'battles were quite subjective', '7', 'The view was objective and reasonable .', 'NO');
+INSERT INTO `subject_t` VALUES ('549', 'The boss of the bar were attending a meeting .', 'bar were attending a', '8', 'The boss was very busy .', 'YES');
+INSERT INTO `subject_t` VALUES ('550', 'The meeting on site selection were finished at last .', 'selection were finished at', '8', 'The meeting was about reform .', 'NO');
+INSERT INTO `subject_t` VALUES ('551', 'The response to the event were far from warm .', 'event were far from', '8', 'The response was indifferent .', 'YES');
+INSERT INTO `subject_t` VALUES ('552', 'The option of the girl were very reasonable  .', 'girl were very reasonable', '8', 'The girls made reasonable choices .', 'YES');
+INSERT INTO `subject_t` VALUES ('553', 'The worry about the kid were totally unnecessary .', 'kid were totally unnecessary', '8', 'It was necessary to worry about the kids .', 'YES');
+INSERT INTO `subject_t` VALUES ('554', 'The Contribution to the company were very huge .', 'company were very huge', '8', 'The contribution was huge .', 'YES');
+INSERT INTO `subject_t` VALUES ('555', 'The award for the group were very important .', 'group were very important', '8', 'The award was not significant .', 'NO');
+INSERT INTO `subject_t` VALUES ('556', 'The article by the researcher were published by the journal.', 'researcher were published by', '8', 'The article was still in the draft .', 'NO');
+INSERT INTO `subject_t` VALUES ('557', 'The cat of the kid were very lovely .', 'kid were very lovely', '8', 'The dog was very cute .', 'NO');
+INSERT INTO `subject_t` VALUES ('558', 'The pipe for gas were placed under the ground .', 'gas were placed under', '8', 'The pipe was for the gases .', 'YES');
+INSERT INTO `subject_t` VALUES ('559', 'The murderer in the crime were sentenced to death .', 'crime were sentenced to', '8', 'The murderer was sentenced to death .', 'YES');
+INSERT INTO `subject_t` VALUES ('560', 'The room for the beggar were very big .', 'beggar were very big', '8', 'The room was big enough for the beggars .', 'YES');
+INSERT INTO `subject_t` VALUES ('561', 'The father bought two bottles in that store .', 'father bought two bottles', '0', 'The bottles were bought from the supermarket', 'NO');
+INSERT INTO `subject_t` VALUES ('562', 'The girl asked the teacher something about how to learn English .', 'girl asked the teacher', '0', 'The girl wanted to know how to learn math', 'NO');
+INSERT INTO `subject_t` VALUES ('563', 'I have stay in Hangzhou for more than four years .', 'have stay in Hangzhou', '0', 'I  stayed in Hangzhou for less than 4 years', 'NO');
+INSERT INTO `subject_t` VALUES ('564', 'The manager fired the girl who was always late for work .', 'manager fired the girl', '0', 'The girl was out of work', 'YES');
+INSERT INTO `subject_t` VALUES ('565', 'With the help of his parents, the boy is do his homework Now .', 'boy is do his', '0', 'The boy can do the homework himself', 'NO');
+INSERT INTO `subject_t` VALUES ('566', 'After arriving in school, He began to do morning exercises .', 'He began to do', '0', 'It was required to do morning exercises by the school.', 'YES');
+INSERT INTO `subject_t` VALUES ('567', 'At January 4th, the fire damage the town hall badly .', 'fire damage the town', '0', 'The town hall  was destroyed', 'YES');
+INSERT INTO `subject_t` VALUES ('568', 'yesterday afternoon, we have three math classes .', 'have three math classes', '0', 'We had  two classes yesterday afternoon', 'NO');
+INSERT INTO `subject_t` VALUES ('569', 'He is used to live here in Beijing .', 'is used to live', '0', 'He  is Now living in Beijing', 'YES');
+INSERT INTO `subject_t` VALUES ('570', 'There are a lot of people in the meeting room .', 'are a lot of', '0', 'People are gathering in the meeting room', 'YES');
+INSERT INTO `subject_t` VALUES ('571', 'Contrary to  what I had originally thought, the trip turned out to be fun .', 'trip turned out to', '0', 'The trip was beyond my expectation', 'YES');
+INSERT INTO `subject_t` VALUES ('572', 'As a matter of fact, advertisement plays an informative role in our daily life .', 'advertisement plays an informative', '0', 'Advertisement provides  us  with  much information', 'YES');
+INSERT INTO `subject_t` VALUES ('573', 'Noise is unpleasant, especially when you are trying to sleep .', 'you are trying to', '0', 'Noise doesn’t affect the sleeping', 'NO');
+INSERT INTO `subject_t` VALUES ('574', 'As a result, Many of us succeeded pass the examinations .', 'us succeeded pass the', '0', 'Most people failed in the test', 'NO');
+INSERT INTO `subject_t` VALUES ('575', 'In short, measures must be taken to prevent the environment  polluting .', 'measures must be taken', '0', 'We should do something about the pollution', 'YES');
+INSERT INTO `subject_t` VALUES ('576', 'They will be here soon . Meanwhile, let’s have coffee .', 'Meanwhile let’s have coffee', '0', 'They  have already arrived here', 'NO');
+INSERT INTO `subject_t` VALUES ('577', 'There are students here from all over the country .', 'students here from all', '0', 'The students are from the same area', 'NO');
+INSERT INTO `subject_t` VALUES ('578', 'This typewriter is cheap and fine indeed .', 'typewriter is cheap and', '0', 'The typewriter is of good quality', 'YES');
+INSERT INTO `subject_t` VALUES ('579', 'At that time, they laugh at their own failure .', 'they laugh at their', '0', 'They  were satisfied with themselves in the past', 'NO');
+INSERT INTO `subject_t` VALUES ('580', 'Last Summer, my friend rent a beach house .', 'my friend rent a', '0', 'My friend rented a village house', 'NO');
+INSERT INTO `subject_t` VALUES ('581', 'He apologizes for breaking her heart.', 'He apologizes for breaking', '1', 'He is indifferent to her.', 'No');
+INSERT INTO `subject_t` VALUES ('582', 'He admires your poems very much.', 'He admires your poems', '1', 'He appreciates your novles.', 'No');
+INSERT INTO `subject_t` VALUES ('583', 'Tom often dances the waltz with Jane.', 'often dances the waltz', '1', 'Tom often dances hip hop.', 'No');
+INSERT INTO `subject_t` VALUES ('584', 'Susan always finishes her work slowly.', 'always finishes her work', '1', 'Susan is very efficient', 'No');
+INSERT INTO `subject_t` VALUES ('585', 'He behaves like a true gentleman.', 'He behaves like a', '1', 'He is a man of good manners.', 'Yes');
+INSERT INTO `subject_t` VALUES ('586', 'Smoking damages your health seriously.', 'Smoking damages your health', '1', 'Smoking hurts the health.', 'Yes');
+INSERT INTO `subject_t` VALUES ('587', 'This text illuminates the philosopher\'s early thinking.', 'text illuminates the philosopher\'s', '1', 'This text is mainly about the later ideas of this philospher.', 'No');
+INSERT INTO `subject_t` VALUES ('588', 'Jane imitates the cuckoo vividly.', 'Jane imitates the cuckoo', '1', 'Jane imitates the Yellow bird very realisticly.', 'No');
+INSERT INTO `subject_t` VALUES ('589', 'Each game lasts about an hour.', 'game lasts about an', '1', 'It took half an hour to finish each game.', 'No');
+INSERT INTO `subject_t` VALUES ('590', 'Everybody laughs at my accent.', 'Everybody laughs at my', '1', 'I speak in a strange accent.', 'Yes');
+INSERT INTO `subject_t` VALUES ('591', 'Every weekend, he plays golf with his cumtomers.', 'he plays golf with', '1', 'He spent his weekend with his customers.', 'Yes');
+INSERT INTO `subject_t` VALUES ('592', 'The situation calls for prompt action.', 'situation calls for prompt', '1', 'This situation needs timely actions.', 'Yes');
+INSERT INTO `subject_t` VALUES ('593', 'His father always listen to the BBC news.', 'always listen to the', '2', 'His father likes listening to the VOAs.', 'No');
+INSERT INTO `subject_t` VALUES ('594', 'The boss offer him a good salary.', 'boss offer him a', '2', 'The boss is satisfied with him.', 'Yes');
+INSERT INTO `subject_t` VALUES ('595', 'The company employ many talented people.', 'company employ many talented', '2', 'The talented employees worked in this company.', 'Yes');
+INSERT INTO `subject_t` VALUES ('596', 'Hangzhou locate in the east of China.', 'Hangzhou locate in the', '2', 'Hangzhou lies in the south of China.', 'No');
+INSERT INTO `subject_t` VALUES ('597', 'My friend like to do the same things as I do.', 'friend like to do', '2', 'I share the same hobbies with my friend.', 'Yes');
+INSERT INTO `subject_t` VALUES ('598', 'Helen try her best to study English.', 'Helen try her best', '2', 'Helen makes her efforts to study Spanish.', 'No');
+INSERT INTO `subject_t` VALUES ('599', 'Susan visit her grandpa every week.', 'Susan visit her grandpa', '2', 'Susan met with her grandmother monthly.', 'No');
+INSERT INTO `subject_t` VALUES ('600', 'She have the habit of eating an apple after dinner.', 'She have the habit', '2', 'She had the habbit of eating an apple before the dinner.', 'No');
+INSERT INTO `subject_t` VALUES ('601', 'Xiaoming usually water the flower in the morning.', 'usually water the flower', '2', 'Xiaoming watered the flower in the afternoon.', 'No');
+INSERT INTO `subject_t` VALUES ('602', 'He always help others, especially the poor.', 'always help others especially', '2', 'He devotes to helpin the poor.', 'Yes');
+INSERT INTO `subject_t` VALUES ('603', 'David usually go to school by bicycle.', 'sually go to school', '2', 'David rides the bicycle to school.', 'Yes');
+INSERT INTO `subject_t` VALUES ('604', 'Every Saturday afternoon, she drink coffee in the Starbuck with her friend.', 'she drink coffee in', '2', 'She likes to drink the coffee in the Starbuck every Saturday afternoon.', 'Yes');
+INSERT INTO `subject_t` VALUES ('605', 'The parks that we visited yesterday are very beautiful.', 'yesterday are very beautiful', '3', 'We plan to visit the parks some time.', 'No');
+INSERT INTO `subject_t` VALUES ('606', 'The room that I live in is very big.', 'in is very big', '3', 'I live in a very big room.', 'Yes');
+INSERT INTO `subject_t` VALUES ('607', 'The boy whose parents died two years ago is with his grandpa.', 'ago is with his', '3', 'The boy is now living with his parents.', 'No');
+INSERT INTO `subject_t` VALUES ('608', 'The engineers who gave us a talk are from America.', 'talk are from America', '3', 'The American engineers gave us a talk.', 'Yes');
+INSERT INTO `subject_t` VALUES ('609', 'The pens that you lost yesterday are found here.', 'yesterday are found here', '3', 'The pen was found somewhere.', 'Yes');
+INSERT INTO `subject_t` VALUES ('610', 'The room whose windows were broken is not my grandma\'s.', 'broken is not my', '3', 'The windows were intact.', 'No');
+INSERT INTO `subject_t` VALUES ('611', 'The letters that I received yesterday are from my mother.', 'yesterday are from my', '3', 'I received my father\'s letter.', 'No');
+INSERT INTO `subject_t` VALUES ('612', 'The reasons that he gave us are quite reasonable.', 'us are quite reasonable', '3', 'The reasons sounded nonsense.', 'No');
+INSERT INTO `subject_t` VALUES ('613', 'The problems that he asked me for help are hard to solve.', 'help are hard to', '3', 'It was not easy for me to give him help.', 'Yes');
+INSERT INTO `subject_t` VALUES ('614', 'The soldiers who saved the boy’s life are very brave.', 'life are very brave', '3', 'The soldies saved the boy\'s life.', 'Yes');
+INSERT INTO `subject_t` VALUES ('615', 'The foreigners who visited our class yesterday are from Canada.', 'yesterday are from Canada', '3', 'We received the Canadians.', 'Yes');
+INSERT INTO `subject_t` VALUES ('616', 'The girl whom we saw yesterday is John’s sister.', 'yesterday is John’s sister', '3', 'We met John\'s brother yesterday.', 'No');
+INSERT INTO `subject_t` VALUES ('617', 'The coats that I put on the desk is deep blue.', 'desk is deep blue', '4', 'I put the coats on the table.', 'No');
+INSERT INTO `subject_t` VALUES ('618', 'The kitchen that I decorated by my heart are very beautiful.', 'heart are very beautiful', '4', 'I decorated my kitchen arbitrarily.', 'No');
+INSERT INTO `subject_t` VALUES ('619', 'The school that he once studied in are very famous.', 'in are very famous', '4', 'I had ever studied in a well-known school.', 'Yes');
+INSERT INTO `subject_t` VALUES ('620', 'The house where I lived ten years ago are very old.', 'ago are very old', '4', 'I lived in a very old house ten years ago.', 'Yes');
+INSERT INTO `subject_t` VALUES ('621', 'The reason why he was unhappy yesterday are quite inconceivable.', 'yesterday are quite inconceivable', '4', 'He was unhappy for some inexplicable reasons.', 'Yes');
+INSERT INTO `subject_t` VALUES ('622', 'The dictionaries that I want to buy is the Chinese-English versions.', 'buy is the Chinese-English', '4', 'I need an English-Chinese dictionary.', 'No');
+INSERT INTO `subject_t` VALUES ('623', 'The scientists that we met in the hall is very famous.', 'hall is very famous', '4', 'I met the famous scientists in the street.', 'No');
+INSERT INTO `subject_t` VALUES ('624', 'The house whose roof is brown are not mine.', 'brown are not mine', '4', 'The roof of my house is brown.', 'No');
+INSERT INTO `subject_t` VALUES ('625', 'The man who I talked with are our English teacher.', 'with are our English', '4', 'I talked to my English teacher.', 'Yes');
+INSERT INTO `subject_t` VALUES ('626', 'The recorders that he bought is made in Japan.', 'bought is made in', '4', 'I bought the recorders in Japan.', 'No');
+INSERT INTO `subject_t` VALUES ('627', 'The girl whose mother went abroad last year are very excellent.', 'year are very excellent', '4', 'The girl\'s mother is very excellent.', 'No');
+INSERT INTO `subject_t` VALUES ('628', 'The house that they built last year are very luxurious.', 'year are very luxurious', '4', 'They built a very luxurious house.', 'Yes');
+INSERT INTO `subject_t` VALUES ('629', 'The cage for the birds was very big .', 'birds was very big', '5', 'The cage was for the tigers .', 'NO');
+INSERT INTO `subject_t` VALUES ('630', 'The umbrella with better styles was made in Hangzhou .', 'styles was made in', '5', 'The umbrella was imported .', 'NO');
+INSERT INTO `subject_t` VALUES ('631', 'The explanation for the actions was too complex .', 'actions was too complex', '5', 'It was a very simple explanation .', 'NO');
+INSERT INTO `subject_t` VALUES ('632', 'The boy with silly ideas was an idiot .', 'ideas was an idiot', '5', 'He was a very clever boy .', 'NO');
+INSERT INTO `subject_t` VALUES ('633', 'The concert of the musicians was very successful .', 'musicians was very successful', '5', 'It was a successful concert .', 'YES');
+INSERT INTO `subject_t` VALUES ('634', 'The warning from the experts was quite shocking .', 'experts was quite shocking', '5', 'It was a shocking warning .', 'YES');
+INSERT INTO `subject_t` VALUES ('635', 'The plan including outdoor activities was very challenging .', 'activities was very challenging', '5', 'Outdoor activities were very difficult .', 'YES');
+INSERT INTO `subject_t` VALUES ('636', 'The culture of the groups was respected by the tourists .', 'groups was respected by', '5', 'The group culture was respectable .', 'YES');
+INSERT INTO `subject_t` VALUES ('637', 'The shelf for the books was very high .', 'books was very high', '5', 'The shelf was very new .', 'NO');
+INSERT INTO `subject_t` VALUES ('638', 'The coach of the players was found dead .', 'players was found dead', '5', 'The coach was still working hard .', 'NO');
+INSERT INTO `subject_t` VALUES ('639', 'The challenge from the competitors was very harsh .', 'competitors was very harsh', '5', 'It was a very cruel challenge .', 'YES');
+INSERT INTO `subject_t` VALUES ('640', 'The result from the Labs was seriously questioned .', 'Labs was seriously questioned', '5', 'No one believed the results .', 'YES');
+INSERT INTO `subject_t` VALUES ('641', 'The girl with the flower was very beautiful .', 'flower was very beautiful', '6', 'She was a beautiful girl .', 'YES');
+INSERT INTO `subject_t` VALUES ('642', 'The hill without a tree was very ugly .', 'tree was very ugly', '6', 'The hill was beautiful for the trees .', 'YES');
+INSERT INTO `subject_t` VALUES ('643', 'The bottle with a pill was on the table .', 'pill was on the', '6', 'The bottle was full of sweets .', 'NO　');
+INSERT INTO `subject_t` VALUES ('644', 'The ship with the traveler was traveling around the world .', 'traveler was traveling around', '6', 'The ship was traveling around the world .', 'YES');
+INSERT INTO `subject_t` VALUES ('645', 'The student with learning problem was very poor .　', 'problem was very poor', '6', 'The student with learning disabilities was poor .', 'YES');
+INSERT INTO `subject_t` VALUES ('646', 'The tower next to the tree was very high .', 'tree was very high', '6', 'The tower was by the lake .', 'NO');
+INSERT INTO `subject_t` VALUES ('647', 'The card under the book was for Christmas .　', 'book was for Christmas', '6', 'It was a gift for the new years .', 'NO');
+INSERT INTO `subject_t` VALUES ('648', 'The problem in highway system was solved in the end .', 'system was solved in', '6', 'The problems still existed .', 'NO');
+INSERT INTO `subject_t` VALUES ('649', 'The knife of the doctor was imported from Switzerland .', 'doctor was imported fro', '6', 'The doctors made the knife themselves .', 'NO');
+INSERT INTO `subject_t` VALUES ('650', 'The discussion by the expert was held in this hotel .', 'expert was held in', '6', 'The experts held the discussions .', 'YES');
+INSERT INTO `subject_t` VALUES ('651', 'The ball of the kid was under the tree .', 'kid was under the', '6', 'The ball was in the tree .', 'NO');
+INSERT INTO `subject_t` VALUES ('652', 'The boy in the crowd was very poor .　', 'crowd was very poor', '6', 'He was a poor boy .', 'YES');
+INSERT INTO `subject_t` VALUES ('653', 'The cry from the crowds were quite terrible .', 'crowds were quite terrible', '7', 'The cry was acceptable .', 'NO');
+INSERT INTO `subject_t` VALUES ('654', 'The proposal by the teachers were accepted by the students .', 'teachers were accepted by', '7', 'The proposal was refused .', 'NO');
+INSERT INTO `subject_t` VALUES ('655', 'The attack against the students were quite terrible .', 'students were quite terrible', '7', 'It was terrible to attack the students .', 'YES');
+INSERT INTO `subject_t` VALUES ('656', 'The party for the guests were very wonderful .', 'guests were very wonderful', '7', 'It was a wonderful party .', 'YES');
+INSERT INTO `subject_t` VALUES ('657', 'The apartment with two bathrooms were sold by the landlord.', 'bathrooms were sold by', '7', 'The apartment was sold out .', 'YES');
+INSERT INTO `subject_t` VALUES ('658', 'The plastic bag with tablecloths were left there .', 'tablecloths were left there', '7', 'The bag was here now .', 'NO');
+INSERT INTO `subject_t` VALUES ('659', 'The condition for applications were very strict .', 'applications were very strict', '7', 'It was easy to apply .', 'NO');
+INSERT INTO `subject_t` VALUES ('660', 'The aunt of the girls were in Hangzhou .', 'girls were in Hangzhou', '7', 'The uncle was in hangzhou .', 'NO');
+INSERT INTO `subject_t` VALUES ('661', 'The cake with fresh fruits were for Tom .', 'fruits were for Tom', '7', 'The cake was for Tom .', 'YES');
+INSERT INTO `subject_t` VALUES ('662', 'The charge for the overweighed products were terribly high .', 'products were terribly high', '7', 'The charge was high .', 'YES');
+INSERT INTO `subject_t` VALUES ('663', 'The effect of the methods were newly discussed .', 'methods were newly discussed', '7', 'The discussion was about the method effects .', 'YES');
+INSERT INTO `subject_t` VALUES ('664', 'The view on the battles were quite subjective .　', 'battles were quite subjective', '7', 'The view was objective and reasonable .', 'NO');
+INSERT INTO `subject_t` VALUES ('665', 'The boss of the bar were attending a meeting .', 'bar were attending a', '8', 'The boss was very busy .', 'YES');
+INSERT INTO `subject_t` VALUES ('666', 'The meeting on site selection were finished at last .', 'selection were finished at', '8', 'The meeting was about reform .', 'NO');
+INSERT INTO `subject_t` VALUES ('667', 'The response to the event were far from warm .', 'event were far from', '8', 'The response was indifferent .', 'YES');
+INSERT INTO `subject_t` VALUES ('668', 'The option of the girl were very reasonable  .', 'girl were very reasonable', '8', 'The girls made reasonable choices .', 'YES');
+INSERT INTO `subject_t` VALUES ('669', 'The worry about the kid were totally unnecessary .', 'kid were totally unnecessary', '8', 'It was necessary to worry about the kids .', 'YES');
+INSERT INTO `subject_t` VALUES ('670', 'The Contribution to the company were very huge .', 'company were very huge', '8', 'The contribution was huge .', 'YES');
+INSERT INTO `subject_t` VALUES ('671', 'The award for the group were very important .', 'group were very important', '8', 'The award was not significant .', 'NO');
+INSERT INTO `subject_t` VALUES ('672', 'The article by the researcher were published by the journal.', 'researcher were published by', '8', 'The article was still in the draft .', 'NO');
+INSERT INTO `subject_t` VALUES ('673', 'The cat of the kid were very lovely .', 'kid were very lovely', '8', 'The dog was very cute .', 'NO');
+INSERT INTO `subject_t` VALUES ('674', 'The pipe for gas were placed under the ground .', 'gas were placed under', '8', 'The pipe was for the gases .', 'YES');
+INSERT INTO `subject_t` VALUES ('675', 'The murderer in the crime were sentenced to death .', 'crime were sentenced to', '8', 'The murderer was sentenced to death .', 'YES');
+INSERT INTO `subject_t` VALUES ('676', 'The room for the beggar were very big .', 'beggar were very big', '8', 'The room was big enough for the beggars .', 'YES');
+INSERT INTO `subject_t` VALUES ('677', 'The father bought two bottles in that store .', 'father bought two bottles', '0', 'The bottles were bought from the supermarket', 'NO');
+INSERT INTO `subject_t` VALUES ('678', 'The girl asked the teacher something about how to learn English .', 'girl asked the teacher', '0', 'The girl wanted to know how to learn math', 'NO');
+INSERT INTO `subject_t` VALUES ('679', 'I have stay in Hangzhou for more than four years .', 'have stay in Hangzhou', '0', 'I  stayed in Hangzhou for less than 4 years', 'NO');
+INSERT INTO `subject_t` VALUES ('680', 'The manager fired the girl who was always late for work .', 'manager fired the girl', '0', 'The girl was out of work', 'YES');
+INSERT INTO `subject_t` VALUES ('681', 'With the help of his parents, the boy is do his homework Now .', 'boy is do his', '0', 'The boy can do the homework himself', 'NO');
+INSERT INTO `subject_t` VALUES ('682', 'After arriving in school, He began to do morning exercises .', 'He began to do', '0', 'It was required to do morning exercises by the school.', 'YES');
+INSERT INTO `subject_t` VALUES ('683', 'At January 4th, the fire damage the town hall badly .', 'fire damage the town', '0', 'The town hall  was destroyed', 'YES');
+INSERT INTO `subject_t` VALUES ('684', 'yesterday afternoon, we have three math classes .', 'have three math classes', '0', 'We had  two classes yesterday afternoon', 'NO');
+INSERT INTO `subject_t` VALUES ('685', 'He is used to live here in Beijing .', 'is used to live', '0', 'He  is Now living in Beijing', 'YES');
+INSERT INTO `subject_t` VALUES ('686', 'There are a lot of people in the meeting room .', 'are a lot of', '0', 'People are gathering in the meeting room', 'YES');
+INSERT INTO `subject_t` VALUES ('687', 'Contrary to  what I had originally thought, the trip turned out to be fun .', 'trip turned out to', '0', 'The trip was beyond my expectation', 'YES');
+INSERT INTO `subject_t` VALUES ('688', 'As a matter of fact, advertisement plays an informative role in our daily life .', 'advertisement plays an informative', '0', 'Advertisement provides  us  with  much information', 'YES');
+INSERT INTO `subject_t` VALUES ('689', 'Noise is unpleasant, especially when you are trying to sleep .', 'you are trying to', '0', 'Noise doesn’t affect the sleeping', 'NO');
+INSERT INTO `subject_t` VALUES ('690', 'As a result, Many of us succeeded pass the examinations .', 'us succeeded pass the', '0', 'Most people failed in the test', 'NO');
+INSERT INTO `subject_t` VALUES ('691', 'In short, measures must be taken to prevent the environment  polluting .', 'measures must be taken', '0', 'We should do something about the pollution', 'YES');
+INSERT INTO `subject_t` VALUES ('692', 'They will be here soon . Meanwhile, let’s have coffee .', 'Meanwhile let’s have coffee', '0', 'They  have already arrived here', 'NO');
+INSERT INTO `subject_t` VALUES ('693', 'There are students here from all over the country .', 'students here from all', '0', 'The students are from the same area', 'NO');
+INSERT INTO `subject_t` VALUES ('694', 'This typewriter is cheap and fine indeed .', 'typewriter is cheap and', '0', 'The typewriter is of good quality', 'YES');
+INSERT INTO `subject_t` VALUES ('695', 'At that time, they laugh at their own failure .', 'they laugh at their', '0', 'They  were satisfied with themselves in the past', 'NO');
+INSERT INTO `subject_t` VALUES ('696', 'Last Summer, my friend rent a beach house .', 'my friend rent a', '0', 'My friend rented a village house', 'NO');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -609,4 +886,4 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES ('1', '3306', 'e10adc3949ba59abbe56e057f20f883e');
-INSERT INTO `sys_user` VALUES ('2', '3307', 'e10adc3949ba59abbe56e057f20f883e');
+INSERT INTO `sys_user` VALUES ('2', 'admin', '21232f297a57a5a743894a0e4a801fc3');
