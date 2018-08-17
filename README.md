@@ -1,39 +1,23 @@
-# Spring boot web简单应用
----
-构建一个spring boot的基础框架
+# English web简单应用
 
-项目使用技术: Spring boot + mybatis +mysql
-
+本文档用于说明和部署english-web项目
 
 
 ## 项目环境依赖
----
-1. mysql数据库,执行resources/sql里面的`official_web.sql`文件
+1. mysql数据库,执行resources/sql里面的`english_web.sql`文件
 
-2. 修改`application.properties`文件运行参数,端口,数据库连接等
+2. 修改`application.properties`文件运行参数,端口(默认为4321),数据库连接等
 
-3. 默认用户:**admin**,登录密码:**123456**
+3. 默认用户:**admin**,登录密码:**admin**
 
 
 ## 项目访问路径
----
-成功运行项目后
 
 主页地址:
 ```js
-http://127.0.0.1:4321/login
+http://ip:4321/
 ```
 
-
-基础demo页面,富文本编辑器
-```js
-http://127.0.0.1:4321/demo/edit
-```
-
-富文本内容保存后,查看编辑内容
-```js
-http://127.0.0.1:4321/demo/readEdit
-```
 
 ## 其他
 ---

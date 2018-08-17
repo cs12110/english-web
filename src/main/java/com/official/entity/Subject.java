@@ -2,19 +2,41 @@ package com.official.entity;
 
 import javax.persistence.Table;
 
-import com.official.util.JSONUtil;
+import com.official.util.JsonUtil;
 
+/**
+ * 句子对象
+ * 
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Table(name = "subject_t")
 public class Subject extends BaseEntity {
 
+	/**
+	 * 句子
+	 */
 	private String sentence;
 
+	/**
+	 * 关键字
+	 */
 	private String keyword;
 
+	/**
+	 * 类型
+	 */
 	private Integer type;
 
+	/**
+	 * 问题
+	 */
 	private String question;
 
+	/**
+	 * 答案
+	 */
 	private String answer;
 
 	/**
@@ -89,7 +111,7 @@ public class Subject extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return JSONUtil.toJSONStr(this);
+		return JsonUtil.toJSONStr(this);
 	}
 
 }

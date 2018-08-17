@@ -23,7 +23,7 @@ import com.official.util.Md5Util;
 public class MyAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired
-	private SysSecurityService securityService;
+	private SysSecurityServiceImpl securityService;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {

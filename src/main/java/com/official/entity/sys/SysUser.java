@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.Transient;
 
-import com.official.util.JSONUtil;
+import com.official.util.JsonUtil;
 
 /**
  * 系统用户类
@@ -61,7 +61,7 @@ public class SysUser {
 
 	@Override
 	public String toString() {
-		return JSONUtil.toJSONStr(this);
+		return JsonUtil.toJSONStr(this);
 	}
 
 }

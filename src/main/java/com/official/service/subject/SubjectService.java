@@ -4,12 +4,43 @@ import java.util.List;
 
 import com.official.entity.Subject;
 
+/**
+ * 题目接口类
+ *
+ * <p>
+ * detailed comment
+ * 
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 public interface SubjectService {
 
+	/**
+	 * 分页查询
+	 * 
+	 * @param search
+	 *            查询条件
+	 * @return List
+	 */
 	public List<Subject> list(Subject search);
 
+	/**
+	 * 查找数据
+	 * 
+	 * @param search
+	 *            查询条件
+	 * @return Subject
+	 */
 	public Subject findOne(Subject search);
 
+	/**
+	 * 插入数据
+	 * 
+	 * @param subject
+	 *            题目
+	 * @return int
+	 */
 	int insert(Subject subject);
 
 }

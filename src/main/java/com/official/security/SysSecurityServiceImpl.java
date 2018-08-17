@@ -20,7 +20,7 @@ import com.official.service.sys.SysUserService;
  * @since 1.0
  */
 @Service
-public class SysSecurityService implements UserDetailsService {
+public class SysSecurityServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private SysUserService sysUserService;

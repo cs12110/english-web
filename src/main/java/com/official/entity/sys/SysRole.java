@@ -1,6 +1,6 @@
 package com.official.entity.sys;
 
-import com.official.util.JSONUtil;
+import com.official.util.JsonUtil;
 
 /**
  * 系统角色类
@@ -47,7 +47,7 @@ public class SysRole {
 
 	@Override
 	public String toString() {
-		return JSONUtil.toJSONStr(this);
+		return JsonUtil.toJSONStr(this);
 	}
 
 }

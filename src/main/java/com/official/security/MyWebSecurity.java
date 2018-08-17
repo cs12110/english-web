@@ -74,7 +74,7 @@ public class MyWebSecurity extends WebSecurityConfigurerAdapter {
 	}
 
 	/**
-	 * 配置web不要求校验的路径
+	 * 配置web不要求校验的路径,不拦截任何请求
 	 */
 	@Override
 	public void configure(WebSecurity web) throws Exception {

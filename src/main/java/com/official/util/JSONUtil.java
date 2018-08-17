@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSONObject;
  * @author 3306 2017年9月20日下午9:24:28
  *
  */
-public class JSONUtil {
+public class JsonUtil {
 
 	/**
 	 * Ajax跨域请求回传数据

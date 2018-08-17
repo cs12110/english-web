@@ -2,37 +2,74 @@ package com.official.entity;
 
 import javax.persistence.*;
 
-import com.official.util.JSONUtil;
+import com.official.util.JsonUtil;
 
+/**
+ * 成绩实体类
+ *
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Table(name = "score_t")
 public class Score extends BaseEntity {
 
+	/**
+	 * 用户Id
+	 */
 	@Column(name = "cus_id")
 	private Integer cusId;
 
+	/**
+	 * 句子Id
+	 */
 	@Column(name = "sub_id")
 	private Integer subId;
 
+	/**
+	 * 阅读时间1
+	 */
 	@Column(name = "read_time1")
 	private Integer readTime1;
 
+	/**
+	 * 阅读时间2
+	 */
 	@Column(name = "read_time2")
 	private Integer readTime2;
 
+	/**
+	 * 阅读时间3
+	 */
 	@Column(name = "read_time3")
 	private Integer readTime3;
 
+	/**
+	 * 阅读时间4
+	 */
 	@Column(name = "read_time4")
 	private Integer readTime4;
 
+	/**
+	 * 阅读时间5
+	 */
 	@Column(name = "read_time5")
 	private Integer readTime5;
 
+	/**
+	 * 答案是否正确
+	 */
 	private Integer correct;
 
+	/**
+	 * 关联用户对象
+	 */
 	@Transient
 	private Customer customer;
 
+	/**
+	 * 关联句子对象
+	 */
 	@Transient
 	private Subject subject;
 
@@ -160,7 +197,7 @@ public class Score extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return JSONUtil.toJSONStr(this);
+		return JsonUtil.toJSONStr(this);
 	}
 
 }

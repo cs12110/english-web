@@ -27,7 +27,7 @@ import com.official.entity.Score;
 import com.official.entity.Subject;
 import com.official.entity.reply.Reply;
 import com.official.entity.sys.SysUser;
-import com.official.enums.ReplyEnum;
+import com.official.enums.StatusEnum;
 import com.official.service.customer.CustomerService;
 import com.official.service.score.ScoreService;
 import com.official.service.subject.SubjectService;
@@ -36,7 +36,15 @@ import com.official.util.Const;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
 import com.official.util.Md5Util;
-
+/**
+ * 管理员控制类
+ *
+ * <p>
+ * 
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Controller
 @RequestMapping("/admin/")
 public class AdminCtrl {
@@ -75,7 +83,7 @@ public class AdminCtrl {
 		scoreService.deleteAll();
 
 		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
+		reply.setStatus(StatusEnum.SUCCESS.getValue());
 		reply.setMessage("全部删除");
 		HttpSession session = req.getSession();
 		session.setAttribute(Const.CURRENT_USER, null);
@@ -94,9 +102,9 @@ public class AdminCtrl {
 	@ResponseBody
 	public String loginCheck(HttpServletRequest req) {
 		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
+		reply.setStatus(StatusEnum.SUCCESS.getValue());
 		if (!isAdminLogined(req)) {
-			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
 	}
@@ -131,18 +139,18 @@ public class AdminCtrl {
 		SysUser target = sysUserService.findByUserName(user.getUserName());
 		Reply reply = new Reply();
 		if (target == null) {
-			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setStatus(StatusEnum.FAILURE.getValue());
 			reply.setMessage("用户名[" + user.getUserName() + "]不存在");
 			return reply.toString();
 		} else {
 			String password = user.getPassword();
 			String encode = Md5Util.encode(password);
 			if (!encode.equals(target.getPassword())) {
-				reply.setStatus(ReplyEnum.FAILURE.getValue());
+				reply.setStatus(StatusEnum.FAILURE.getValue());
 				reply.setMessage("登录密码不正确");
 				return reply.toString();
 			} else {
-				reply.setStatus(ReplyEnum.SUCCESS.getValue());
+				reply.setStatus(StatusEnum.SUCCESS.getValue());
 				HttpSession session = req.getSession();
 				session.setAttribute(Const.ADMIN, target);
 			}
@@ -163,8 +171,7 @@ public class AdminCtrl {
 	public String logout(HttpServletRequest req) {
 		logger.info("Admin is logout now");
 
-		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
+		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		HttpSession session = req.getSession();
 		session.setAttribute(Const.ADMIN, null);
 
@@ -188,12 +195,11 @@ public class AdminCtrl {
 			return pleaseLoginHandsup().toString();
 		}
 
-		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
+		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		try {
 			String name = file.getName();
 			if (!name.endsWith("")) {
-				reply.setStatus(ReplyEnum.FAILURE.getValue());
+				reply.setStatus(StatusEnum.FAILURE.getValue());
 				reply.setMessage("文件必须为excel(.xlsx)文件");
 				return reply.toString();
 			}
@@ -203,14 +209,19 @@ public class AdminCtrl {
 			logger.info("Upload file {} is done, {}", name, result.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
 	}
 
+	/**
+	 * 请登录提醒
+	 * 
+	 * @return {@link Reply}
+	 */
 	private Reply pleaseLoginHandsup() {
 		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.FAILURE.getValue());
+		reply.setStatus(StatusEnum.FAILURE.getValue());
 		reply.setMessage("请先登录");
 		return reply;
 	}
@@ -223,7 +234,7 @@ public class AdminCtrl {
 	 * @return Map
 	 */
 	private Map<String, Integer> processExcel(InputStream stream) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new HashMap<String, Integer>(1);
 		try {
 			Workbook workBook = WorkbookFactory.create(stream);
 			Sheet sheet = workBook.getSheetAt(0);

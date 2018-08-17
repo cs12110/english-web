@@ -18,21 +18,20 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
  * 使用的tk.mybatis.spring.mapper.MapperScannerConfigurer <br/>
  * 如果你不使用通用Mapper，可以改为: org.mybatis.spring.mapper.MapperScannerConfigurer;
  *
+ *
+ * 注意，由于MapperScannerConfigurer执行的比较早，所以必须有下面的注解@AutoConfigureAfter
+ *
  * @author 3306 2017年10月17日下午8:42:03
  *
  */
 @Configuration
-/*
- * 注意，由于MapperScannerConfigurer执行的比较早，所以必须有下面的注解
- */
 @AutoConfigureAfter(MybatisAutoConfiguration.class)
 public class MyBatisMapperScannerConfig {
 
 	@Bean
 	public MapperScannerConfigurer mapperScannerConfigurer() {
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-		mapperScannerConfigurer
-				.setSqlSessionFactoryBeanName("sqlSessionFactory");
+		mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
 		mapperScannerConfigurer.setBasePackage("com.official.mapper");
 		Properties properties = new Properties();
 		// 这里要特别注意，不要把MyMapper放到 basePackage 中，也就是不能同其他Mapper一样被扫描到。

@@ -7,6 +7,13 @@ import com.official.entity.Customer;
 import com.official.mapper.CustomerMapper;
 import com.official.service.customer.CustomerService;
 
+/**
+ * 用户业务接口实现类
+ *
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Service
 public class CustomerServiceImpl implements CustomerService {
 

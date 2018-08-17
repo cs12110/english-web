@@ -12,11 +12,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.official.entity.Customer;
 import com.official.entity.reply.Reply;
-import com.official.enums.ReplyEnum;
+import com.official.enums.StatusEnum;
 import com.official.service.customer.CustomerService;
 import com.official.util.Const;
 import com.official.util.StrUtil;
 
+/**
+ * 用户控制类
+ *
+ * <p>
+ * detailed comment
+ * 
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Controller
 @RequestMapping("/customer/")
 public class CustomerCtrl {
@@ -26,17 +36,20 @@ public class CustomerCtrl {
 	@Autowired
 	private CustomerService customerService;
 
-	@RequestMapping("/html")
-	public String toHtml() {
-		return "/customer/info";
-	}
-
+	/**
+	 * 保存用户信息,如果学号已经存在,则改为登录
+	 * 
+	 * @param req
+	 * @param customer
+	 *            用户信息
+	 * @return String
+	 */
 	@RequestMapping("/save")
 	@ResponseBody
 	public String save(HttpServletRequest req, Customer customer) {
-		Reply reply = new Reply();
+		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		if (StrUtil.isEmpty(customer.getCode())) {
-			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setStatus(StatusEnum.FAILURE.getValue());
 			reply.setMessage("学号不能为空");
 			return reply.toString();
 		}
@@ -54,7 +67,6 @@ public class CustomerCtrl {
 			reply.setMessage("登录成功");
 		}
 
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
 		reply.setData(customer);
 
 		HttpSession session = req.getSession();
@@ -74,11 +86,9 @@ public class CustomerCtrl {
 		HttpSession session = req.getSession();
 		Object user = session.getAttribute(Const.CURRENT_USER);
 
-		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
-
+		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		if (null == user) {
-			reply.setStatus(ReplyEnum.FAILURE.getValue());
+			reply.setStatus(StatusEnum.FAILURE.getValue());
 			reply.setMessage("请先登录");
 		}
 
@@ -97,9 +107,7 @@ public class CustomerCtrl {
 		HttpSession session = req.getSession();
 		session.setAttribute(Const.CURRENT_USER, null);
 
-		Reply reply = new Reply();
-		reply.setStatus(ReplyEnum.SUCCESS.getValue());
-
+		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		return reply.toString();
 	}
 }

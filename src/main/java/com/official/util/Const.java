@@ -1,5 +1,14 @@
 package com.official.util;
 
+/**
+ * 静态常量
+ *
+ * <p>
+ * 
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 public class Const {
 
 	/**

@@ -3,7 +3,7 @@ package com.official.conf.mvc;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-import com.official.util.JSONUtil;
+import com.official.util.JsonUtil;
 
 /**
  * 上传文件保存路径
@@ -30,7 +30,7 @@ public class SavePictureConf {
 
 	@Override
 	public String toString() {
-		return JSONUtil.toJSONStr(this);
+		return JsonUtil.toJSONStr(this);
 	}
 
 }

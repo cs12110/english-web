@@ -25,7 +25,7 @@ public class ListMapUtil {
 	 * @return HashMap
 	 */
 	public static <K, V> Map<K, V> buildMap() {
-		return new HashMap<K,V>();
+		return new HashMap<K,V>(10);
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class ListMapUtil {
 	 * @return ArrayList
 	 */
 	public static <T> List<T> buildList() {
-		return new ArrayList<T>();
+		return new ArrayList<T>(10);
 	}
 
 	/**

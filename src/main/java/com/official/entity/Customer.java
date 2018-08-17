@@ -3,6 +3,13 @@ package com.official.entity;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
+/**
+ * 用户实体类
+ * 
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Table(name = "customer_t")
 public class Customer extends BaseEntity {
 
@@ -43,7 +50,7 @@ public class Customer extends BaseEntity {
 	private String major;
 
 	/**
-	 * 性别,0:女,1:女
+	 * 性别,0:男,1:女
 	 */
 	private Integer gender;
 

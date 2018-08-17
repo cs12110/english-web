@@ -11,6 +11,13 @@ import com.official.entity.Subject;
 import com.official.mapper.SubjectMapper;
 import com.official.service.subject.SubjectService;
 
+/**
+ * Subject业务实现类
+ *
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 @Service
 public class SubjectServiceImpl implements SubjectService {
 

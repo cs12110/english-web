@@ -16,6 +16,13 @@ import com.official.entity.Customer;
 import com.official.entity.Score;
 import com.official.entity.Subject;
 
+/**
+ * Excel工具类
+ *
+ * @author huanghuapeng 2018年8月17日
+ * @see
+ * @since 1.0
+ */
 public class ExcelUtil {
 	/**
 	 * 获取值
