@@ -61,6 +61,8 @@ public class Score extends BaseEntity {
 	 */
 	private Integer correct;
 
+	private String stopwatch;
+
 	/**
 	 * 关联用户对象
 	 */
@@ -177,6 +179,14 @@ public class Score extends BaseEntity {
 
 	public void setCorrect(Integer correct) {
 		this.correct = correct;
+	}
+
+	public String getStopwatch() {
+		return stopwatch;
+	}
+
+	public void setStopwatch(String stopwatch) {
+		this.stopwatch = stopwatch;
 	}
 
 	public Customer getCustomer() {

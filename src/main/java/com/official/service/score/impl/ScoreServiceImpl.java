@@ -27,7 +27,7 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public int insert(Score score) {
-		return scoreMapper.insert(score);
+		return scoreMapper.save(score);
 	}
 
 	@Override

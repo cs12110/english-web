@@ -27,4 +27,13 @@ public interface ScoreMapper extends MyMapper<Score> {
 	 * @return
 	 */
 	int deleteAll();
+
+	/**
+	 * 保存数据
+	 * 
+	 * @param score
+	 *            数据
+	 * @return int
+	 */
+	int save(Score score);
 }
