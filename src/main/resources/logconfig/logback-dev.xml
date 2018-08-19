@@ -23,6 +23,7 @@
 	<logger name="org.springframework" level="ERROR"></logger>
 	<logger name="org.hibernate.validator" level="ERROR"></logger>
 	
+	<logger name="log4j.logger.com.ibatis" level="DEBUG"></logger>
 
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
