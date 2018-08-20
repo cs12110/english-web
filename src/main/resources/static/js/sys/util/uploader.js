@@ -25,6 +25,11 @@ $(function() {
         resize: false,
     });
 
+
+    uploader.on('uploadBeforeSend', function(block, data) {
+        var file = block.file;
+        data.paperType = $("input[name=paperType]:checked").val();
+    });
     /**
      * 验证文件格式以及文件大小
      */

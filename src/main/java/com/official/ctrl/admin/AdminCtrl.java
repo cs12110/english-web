@@ -190,15 +190,15 @@ public class AdminCtrl {
 	 */
 	@RequestMapping("/upload")
 	@ResponseBody
-	public String uploadExcel(HttpServletRequest req, MultipartFile file) throws IOException {
+	public String uploadExcel(HttpServletRequest req, MultipartFile file, String paperType) throws IOException {
 		if (!isAdminLogined(req)) {
 			return pleaseLoginHandsup().toString();
 		}
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		try {
-			String name = file.getName();
-			if (!name.endsWith("")) {
+			String name = file.getOriginalFilename();
+			if (!name.endsWith("xlsx")) {
 				reply.setStatus(StatusEnum.FAILURE.getValue());
 				reply.setMessage("文件必须为excel(.xlsx)文件");
 				return reply.toString();
@@ -206,7 +206,7 @@ public class AdminCtrl {
 			Map<String, Integer> result = processExcel(file.getInputStream());
 			reply.setData(result);
 
-			logger.info("Upload file {} is done, {}", name, result.toString());
+			logger.info("Upload {} file {} is done, {}", paperType, name, result.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			reply.setStatus(StatusEnum.FAILURE.getValue());

@@ -46,7 +46,7 @@
                                 <li class="divider"></li>
                                 <li class="power"><a onclick="logout()">退出</a></li>
                                 <li class="divider"></li>
-                                <li class="power"><a data-toggle="modal" data-target="#admin">上传测试材料</a></li>
+                                <li class="power"><a data-toggle="modal" data-target="#admin">上传材料</a></li>
                                 <li class="divider"></li>
                                 <li class="power"><a data-toggle="modal" data-target="#compute">下载成绩统计</a></li>
                                 <li class="divider"></li>
@@ -112,6 +112,13 @@
                         <h4 class="modal-title" id="myModalLabel">上传文件</h4>
                     </div>
                     <div class="modal-body">
+                    	<div class="file-radio">
+                    		<input name="paperType" type="radio" value="1"/>测试前 
+                    		<input name="paperType" type="radio" value="2"/>学习1 
+                    		<input name="paperType" type="radio" value="3"/>学习2
+                    		<input name="paperType" type="radio" value="4"/>后测 
+                    		<input name="paperType" type="radio" value="4"/>追踪 
+                    	</div>
 
                         <div id="uploader" class="wu-example">
                             <!--用来存放文件信息-->
