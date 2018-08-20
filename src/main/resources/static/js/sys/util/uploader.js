@@ -70,10 +70,14 @@ $(function() {
             });
 
     uploader.on('uploadSuccess', function(file, response) {
-        $('#' + file.id).find('p.state').text('已上传');
-        var data = response.data;
-
-        var str = "成功: " + data.success + "条数据,失败: " + data.failure + "条数据.";
+        var data = response;
+        var str = "";
+        if (data.status == 1) {
+            $('#' + file.id).find('p.state').text('已上传');
+            str = "成功: " + data.success + "条数据,失败: " + data.failure + "条数据.";
+        } else {
+            str = data.message;
+        }
         alert(str);
     });
 
