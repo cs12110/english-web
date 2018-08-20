@@ -19,7 +19,7 @@ var score = {
 	readTime4 : null,
 	readTime5 : null,
 	correct : null,
-	stopwatch : {},
+	stopwatch : "",
 };
 var sentenceIndex = 0;
 
@@ -68,7 +68,7 @@ function clearSentenceData() {
 		readTime4 : null,
 		readTime5 : null,
 		correct : null,
-		stopwatch : {}
+		stopwatch : ""
 	};
 }
 
@@ -114,7 +114,7 @@ $(document).ready(function() {
 
 	getSubjects();
 
-	var stopwatch = new Object();
+	var stopwatchArr = new Array();
 	$nextWorkBtn.click(function() {
 		var len = words.length;
 		var prev = wordIndex - 1;
@@ -128,7 +128,11 @@ $(document).ready(function() {
 			} else {
 				var now = new Date();
 				var key = "" + words[wordIndex - 1];
-				stopwatch[key] = now - watcher;
+				var time ={
+						"key":key,
+						"value":now-watcher
+				}
+				stopwatchArr.push(time);
 				watcher = now;
 			}
 			var word = words[wordIndex];
@@ -137,14 +141,17 @@ $(document).ready(function() {
 		} else {
 			var now = new Date();
 			var key = "" + words[wordIndex - 1];
-			stopwatch[key] = now - watcher;
-			console.log(stopwatch);
+			var time ={
+					"key":key,
+					"value":now-watcher
+			}
+			stopwatchArr.push(time);
 			$('.question-area').css('display', '');
 			$('#question').text(curSentence.question);
 		}
 		// if (wordIndex < len) {
 		// console.log(word);
-		// stopwatch['' + word + ''] = readTime(readBeginTime);
+		// stopwatchArr['' + word + ''] = readTime(readBeginTime);
 		// if (wordIndex == 0) {
 		// readBeginTime = new Date();
 		// }
@@ -176,7 +183,17 @@ $(document).ready(function() {
 			score.correct = 0;
 		}
 
-		score.stopwatch = JSON.stringify(stopwatch);
+		var valueAsStr ="";
+		var len = stopwatchArr.length;
+		for(var i =0; i<len;i++ ){
+			var temp = stopwatchArr[i];
+			valueAsStr += temp.key+"#"+temp.value;
+			if(i<len-1){
+				valueAsStr +=",";
+			}
+		}
+		
+		score.stopwatch = valueAsStr;
 		console.log(score);
 
 		$.post('/score/save', score, function(data) {
@@ -184,7 +201,7 @@ $(document).ready(function() {
 				alert(data.message);
 			}
 		}, "json");
-		stopwatch = new Object();
+		stopwatchArr = new Object();
 		nextSentence();
 		return false;
 	});

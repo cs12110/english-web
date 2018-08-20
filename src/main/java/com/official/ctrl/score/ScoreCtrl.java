@@ -16,7 +16,6 @@ import com.official.entity.reply.Reply;
 import com.official.enums.StatusEnum;
 import com.official.service.score.ScoreService;
 import com.official.util.Const;
-import com.official.util.StopwatchUtil;
 
 /**
  * 成绩控制类
@@ -74,8 +73,8 @@ public class ScoreCtrl {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 			reply.setMessage("请先填写用户信息");
 		} else {
-			String stopwatchValue = StopwatchUtil.flat(score.getStopwatch());
-			score.setStopwatch(stopwatchValue);
+			// String stopwatchValue = StopwatchUtil.flat(score.getStopwatch());
+			// score.setStopwatch(stopwatchValue);
 			score.setCusId(currentUser.getId());
 			scoreService.insert(score);
 		}
