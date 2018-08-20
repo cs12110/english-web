@@ -73,12 +73,12 @@ $(function() {
             });
 
     uploader.on('uploadSuccess', function(file, response) {
-        var data = response;
+        var data = response.data;
         var str = "";
         /*
          * 上传成功
          */
-        if (data.status == 1) {
+        if (response.status == 1) {
             $('#' + file.id).find('p.state').text('已上传');
             str = "成功: " + data.success + "条数据,失败: " + data.failure + "条数据.";
         } else {

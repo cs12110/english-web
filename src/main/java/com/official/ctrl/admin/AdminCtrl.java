@@ -3,6 +3,7 @@ package com.official.ctrl.admin;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -36,8 +38,10 @@ import com.official.service.sys.SysUserService;
 import com.official.util.Const;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
+import com.official.util.JdbcBatchUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
+
 /**
  * 管理员控制类
  *
@@ -65,11 +69,13 @@ public class AdminCtrl {
 	@Autowired
 	private ScoreService scoreService;
 
+	@Autowired
+	private DataSource dataSource;
+
 	/**
 	 * 删除所有的cutomer和成绩数据
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/deleteAll")
@@ -96,8 +102,7 @@ public class AdminCtrl {
 	/**
 	 * 登录判断
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/loginCheck")
@@ -114,8 +119,7 @@ public class AdminCtrl {
 	/**
 	 * 判断管理员是否已登录
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return boolean
 	 */
 	private boolean isAdminLogined(HttpServletRequest req) {
@@ -127,10 +131,8 @@ public class AdminCtrl {
 	/**
 	 * 管理员登录
 	 * 
-	 * @param req
-	 *            请求
-	 * @param user
-	 *            管理员登录参数对象
+	 * @param req  请求
+	 * @param user 管理员登录参数对象
 	 * @return String
 	 */
 	@RequestMapping("/login")
@@ -164,8 +166,7 @@ public class AdminCtrl {
 	/**
 	 * 退出
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/logout")
@@ -183,10 +184,8 @@ public class AdminCtrl {
 	/**
 	 * 上传文件
 	 * 
-	 * @param req
-	 *            请求
-	 * @param file
-	 *            文件
+	 * @param req  请求
+	 * @param file 文件
 	 * @return String
 	 * @throws IOException
 	 */
@@ -199,20 +198,22 @@ public class AdminCtrl {
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		try {
-			String name = file.getOriginalFilename();
+			String name = file == null ? "" : file.getOriginalFilename();
 			if (!name.endsWith("xlsx")) {
 				reply.setStatus(StatusEnum.FAILURE.getValue());
 				reply.setMessage("文件必须为excel(.xlsx)文件");
 				return reply.toString();
 			}
 
+			long start = System.currentTimeMillis();
 			PaperEnum paperEnum = PaperUtil.getEnumValue(paper);
 			deletePrevData(paperEnum);
 
-			Map<String, Integer> result = processExcel(file.getInputStream());
+			Map<String, Integer> result = processExcel(file.getInputStream(), paperEnum);
 			reply.setData(result);
 
-			logger.info("Upload {} file {} is done, {}", paper, name, result.toString());
+			long end = System.currentTimeMillis();
+			logger.info("Upload {} file {} is done, {}, spend:{} ", paper, name, result.toString(), (end - start));
 		} catch (Exception e) {
 			e.printStackTrace();
 			reply.setStatus(StatusEnum.FAILURE.getValue());
@@ -235,33 +236,57 @@ public class AdminCtrl {
 	/**
 	 * 处理excel文件
 	 * 
-	 * @param stream
-	 *            文件流
+	 * @param stream 文件流
 	 * @return Map
 	 */
-	private Map<String, Integer> processExcel(InputStream stream) {
+	private Map<String, Integer> processExcel(InputStream stream, PaperEnum paperEnum) {
 		Map<String, Integer> map = new HashMap<String, Integer>(1);
 		try {
+			JdbcBatchUtil batchUtil = new JdbcBatchUtil(dataSource);
 			Workbook workBook = WorkbookFactory.create(stream);
 			Sheet sheet = workBook.getSheetAt(0);
 			int rows = sheet.getPhysicalNumberOfRows();
 
 			int success = 0;
 			int failure = 0;
+			int batch = 50;
+
+			List<Subject> list = new ArrayList<Subject>();
 			for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
 				Subject subject = ExcelUtil.parseToSubject(row);
-				// 执行数据库增加操作,这里要进行批处理操作.
+
 				if (null != subject) {
+					subject.setPaper(paperEnum.getValue());
+					list.add(subject);
+				}
+
+				if (list.size() % batch == 0) {
 					try {
-						subjectService.insert(subject);
-						success++;
+						batchUtil.process(list);
+						list.clear();
+						success += batch;
 					} catch (Exception e) {
-						logger.error("Have an error on:{}", subject.toString());
-						e.printStackTrace();
-						failure++;
+						logger.error("Jdbc batch error:{}", e.getMessage());
+						failure += batch;
 					}
 				}
+
+				// 执行数据库增加操作,这里要进行批处理操作.
+//				if (null != subject) {
+//					try {
+//						subjectService.insert(subject);
+//						success++;
+//					} catch (Exception e) {
+//						logger.error("Have an error on:{}", subject.toString());
+//						e.printStackTrace();
+//						failure++;
+//					}
+//				}
+			}
+
+			if (list.size() > 0) {
+				batchUtil.process(list);
 			}
 			map.put("success", success);
 			map.put("failure", failure);
@@ -274,8 +299,7 @@ public class AdminCtrl {
 	/**
 	 * 每一次上传都删除前面版本的测试数据
 	 * 
-	 * @param paperEnum
-	 *            上传文件类型
+	 * @param paperEnum 上传文件类型
 	 */
 	private void deletePrevData(PaperEnum paperEnum) {
 

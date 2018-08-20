@@ -12,7 +12,7 @@
 		<result column="question" jdbcType="VARCHAR"
 			property="question" />
 		<result column="answer" jdbcType="VARCHAR" property="answer" />
-		<result column="paper" jdbcType="Integer" property="paper" />
+		<result column="paper" jdbcType="INTEGER" property="paper" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
