@@ -41,7 +41,21 @@ nohup java -jar app/*.jar &
 http://ip:4321/
 ```
 
+## 3.代码生成
+主要修改配置文件`generatorConfig.xml`里面的
+```xml
+<table tableName="customer_t" schema="Customer"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+</table>
+```
 
-## 3.其他
+使用命令
+```shell
+mvn mybatis-generator:generate -e
+```
+
+## 4.其他
 
 本项目主要开发人员: [LucienX](https://github.com/LucienX)和[cs12110](https://github.com/cs12110)
