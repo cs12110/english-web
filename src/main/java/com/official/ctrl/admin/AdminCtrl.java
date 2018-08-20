@@ -190,7 +190,7 @@ public class AdminCtrl {
 	 */
 	@RequestMapping("/upload")
 	@ResponseBody
-	public String uploadExcel(HttpServletRequest req, MultipartFile file, String paperType) throws IOException {
+	public String uploadExcel(HttpServletRequest req, MultipartFile file, String paper) throws IOException {
 		if (!isAdminLogined(req)) {
 			return pleaseLoginHandsup().toString();
 		}
@@ -206,7 +206,7 @@ public class AdminCtrl {
 			Map<String, Integer> result = processExcel(file.getInputStream());
 			reply.setData(result);
 
-			logger.info("Upload {} file {} is done, {}", paperType, name, result.toString());
+			logger.info("Upload {} file {} is done, {}", paper, name, result.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			reply.setStatus(StatusEnum.FAILURE.getValue());

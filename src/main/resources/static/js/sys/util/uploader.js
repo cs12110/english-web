@@ -26,9 +26,12 @@ $(function() {
     });
 
 
+    /**
+     * 设置携带参数
+     */
     uploader.on('uploadBeforeSend', function(block, data) {
         var file = block.file;
-        data.paperType = $("input[name=paperType]:checked").val();
+        data.paper = $("input[name=paper]:checked").val();
     });
     /**
      * 验证文件格式以及文件大小
@@ -72,10 +75,14 @@ $(function() {
     uploader.on('uploadSuccess', function(file, response) {
         var data = response;
         var str = "";
+        /*
+         * 上传成功
+         */
         if (data.status == 1) {
             $('#' + file.id).find('p.state').text('已上传');
             str = "成功: " + data.success + "条数据,失败: " + data.failure + "条数据.";
         } else {
+        	$('#' + file.id).find('p.state').text(data.message);
             str = data.message;
         }
         alert(str);
@@ -109,6 +116,11 @@ $(function() {
         if (state === 'uploading') {
             uploader.stop();
         } else {
+        	var paper = $("input[name=paper]:checked").val();
+        	if(paper==undefined){
+        		alert("请先选择上传文件类型");
+        		return ;
+        	}
             uploader.upload();
         }
     });

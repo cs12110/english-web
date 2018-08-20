@@ -1,52 +1,58 @@
 #picker div:nth-child(2) {
-    width: 100% !important;
-    height: 100% !important;
+	width: 100% !important;
+	height: 100% !important;
 }
 
 .each-word {
-    float: left;
-    width: 100%;
+	float: left;
+	width: 100%;
 }
 
 .show-word {
-    line-height: 70px;
-    height: 70px;
-    min-width: 8%;
-    border-radius: 3px;
-    text-align: center;
-    font-weight: bold;
-    padding: 0px 5px;
-    float: left;
-    margin-right: 1%;
-    font-size: 40px;
-    border-bottom: 2px dashed black;
+	line-height: 70px;
+	height: 70px;
+	min-width: 8%;
+	border-radius: 3px;
+	text-align: center;
+	font-weight: bold;
+	padding: 0px 5px;
+	float: left;
+	margin-right: 1%;
+	font-size: 40px;
+	border-bottom: 2px dashed black;
 }
 
 #whole-area {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 
 .radio-btn {
-    font-size: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+	font-size: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .question-area {
-    font-size: 30px;
-    font-size: 30px;
+	font-size: 30px;
+	font-size: 30px;
 }
 
 #question {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .power {
-    display: none;
+	display: none;
 }
 
 .divider {
-    display: none;
+	display: none;
+}
+
+.file-radio {
+	margin-bottom: 8%;
+	font-weight: bold;
+	font-size: 15px;
 }

@@ -6,7 +6,7 @@
 	<artifactId>english-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<!-- <repositories>
+	<repositories>
 		<repository>
 			<id>rojao-nexus</id>
 			<name>rojao-nexus</name>
@@ -19,8 +19,7 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-	<pluginRepositories> 插件仓库地址，各节点的含义和上面是一样的
+	<pluginRepositories>
 		<pluginRepository>
 			<id>rojao-nexus</id>
 			<name>rojao-nexus</name>
@@ -32,7 +31,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories> -->
+	</pluginRepositories>
 
 
 	<!-- Encoding setting -->
@@ -180,14 +179,6 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.9</version>
 		</dependency>
-
-
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-
 
 
 	</dependencies>
