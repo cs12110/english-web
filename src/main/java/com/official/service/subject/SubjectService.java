@@ -41,6 +41,15 @@ public interface SubjectService {
 	 *            题目
 	 * @return int
 	 */
-	int insert(Subject subject);
+	public int insert(Subject subject);
+
+	/**
+	 * 删除数据
+	 * 
+	 * @param subject
+	 *            条件
+	 * @return int
+	 */
+	public int delete(Subject subject);
 
 }

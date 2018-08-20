@@ -44,4 +44,9 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectMapper.insert(subject);
 	}
 
+	@Override
+	public int delete(Subject subject) {
+		return subjectMapper.delete(subject);
+	}
+
 }

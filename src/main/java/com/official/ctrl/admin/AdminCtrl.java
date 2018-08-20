@@ -27,6 +27,7 @@ import com.official.entity.Score;
 import com.official.entity.Subject;
 import com.official.entity.reply.Reply;
 import com.official.entity.sys.SysUser;
+import com.official.enums.PaperEnum;
 import com.official.enums.StatusEnum;
 import com.official.service.customer.CustomerService;
 import com.official.service.score.ScoreService;
@@ -36,6 +37,7 @@ import com.official.util.Const;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
 import com.official.util.Md5Util;
+import com.official.util.PaperUtil;
 /**
  * 管理员控制类
  *
@@ -203,6 +205,10 @@ public class AdminCtrl {
 				reply.setMessage("文件必须为excel(.xlsx)文件");
 				return reply.toString();
 			}
+
+			PaperEnum paperEnum = PaperUtil.getEnumValue(paper);
+			deletePrevData(paperEnum);
+
 			Map<String, Integer> result = processExcel(file.getInputStream());
 			reply.setData(result);
 
@@ -245,7 +251,7 @@ public class AdminCtrl {
 			for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
 				Subject subject = ExcelUtil.parseToSubject(row);
-				// 执行数据库增加操作
+				// 执行数据库增加操作,这里要进行批处理操作.
 				if (null != subject) {
 					try {
 						subjectService.insert(subject);
@@ -263,6 +269,20 @@ public class AdminCtrl {
 			e.printStackTrace();
 		}
 		return map;
+	}
+
+	/**
+	 * 每一次上传都删除前面版本的测试数据
+	 * 
+	 * @param paperEnum
+	 *            上传文件类型
+	 */
+	private void deletePrevData(PaperEnum paperEnum) {
+
+		Subject subject = new Subject();
+		subject.setPaper(paperEnum.getValue());
+
+		subjectService.delete(subject);
 	}
 
 	/**

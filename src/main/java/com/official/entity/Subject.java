@@ -40,6 +40,11 @@ public class Subject extends BaseEntity {
 	private String answer;
 
 	/**
+	 * 测试类型
+	 */
+	private Integer paper;
+
+	/**
 	 * @return sentence
 	 */
 	public String getSentence() {
@@ -107,6 +112,14 @@ public class Subject extends BaseEntity {
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer == null ? null : answer.trim();
+	}
+
+	public Integer getPaper() {
+		return paper;
+	}
+
+	public void setPaper(Integer paper) {
+		this.paper = paper;
 	}
 
 	@Override
