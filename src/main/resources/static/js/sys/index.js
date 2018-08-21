@@ -107,7 +107,7 @@ function logout() {
             if (data.status != 1) {
                 sysTips(data.message);
             } else {
-                sysTips("退出成功");
+                sysTips("退出成功",3);
                 hiddeAdminArea();
             }
         }
