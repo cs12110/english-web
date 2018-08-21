@@ -37,7 +37,6 @@
                                 </li>
                             </ul>
                         </li>
-                        <!--                         <li class="active"><a data-toggle="modal" data-target="#myModal">填写个人信息</a></li> -->
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"> 管理员 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -45,11 +44,11 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li class="power"><a data-toggle="modal" data-target="#admin">上传材料</a></li>
+                                <li class="power"><a data-toggle="modal" data-target="#progress" onclick="getCurrentExam()">进度调节</a></li>
                                 <li class="divider"></li>
-                                <li class="power"><a data-toggle="modal" data-target="#compute">下载成绩统计</a></li>
+                                <li class="power"><a data-toggle="modal" data-target="#compute">成绩统计</a></li>
                                 <li class="divider"></li>
                                 <li class="power"><a onclick="deleteAll()">清空数据</a></li>
-                                <li class="divider"></li>
                                 <li class="power"><a onclick="logout()">退出</a></li>
                             </ul>
                         </li>
@@ -97,6 +96,33 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                         <button type="button" class="btn btn-primary" onclick="adminLogin()">提交</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+        
+        
+        <div class="modal fade" id="progress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">进度</h4>
+                    </div>
+                    <div class="modal-body">
+                       <div class="file-radio">
+                    		<input name="progress" type="radio" value="1"/>测试前 &nbsp;&nbsp;
+                    		<input name="progress" type="radio" value="2"/>学习1 &nbsp;&nbsp;
+                    		<input name="progress" type="radio" value="3"/>学习2 &nbsp;&nbsp;
+                    		<input name="progress" type="radio" value="4"/>后测       &nbsp;&nbsp;
+                    		<input name="progress" type="radio" value="5"/>追踪       &nbsp;&nbsp;
+                    	</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="updateProgress()">提交</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -277,7 +303,7 @@
                 </div>
                 <div id="operatorBtn">
 
-                    <button type="button" class="btn btn-primary" data-next-ward="0" style="float: right; margin-left: 1%;">Next Word</button>
+                    <button type="button" class="btn btn-primary" data-next-ward="0" style="float: right; margin-left: 1%;">Next</button>
 
                 </div>
             </div>

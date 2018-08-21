@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.official.entity.Progress;
+import com.official.enums.OpenEnum;
 import com.official.mapper.ProgressMapper;
 import com.official.service.progress.ProgressService;
 
@@ -34,6 +35,7 @@ public class ProgressServiceImpl implements ProgressService {
 
 	@Override
 	public int closeOtherExam(Progress value) {
+		value.setOpen(OpenEnum.CLOSE.getValue());
 		return progressMapper.closeOtherExam(value);
 	}
 }

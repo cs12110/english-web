@@ -23,7 +23,7 @@
   		progress_t
   	SET
   		open = #{open},
-  		open_time = #{openTime}
+  		op_time = #{opTime}
   	WHERE
   		paper = #{paper}
   </update>
@@ -32,8 +32,7 @@
   	UPDATE 
   		progress_t
   	SET
-  		open = #{open},
-  		open_time = #{openTime}
+  		open = #{open}
   	WHERE
   		paper != #{paper}
   </update>

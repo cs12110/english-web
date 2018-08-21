@@ -2,6 +2,8 @@ package com.official.ctrl.admin;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import com.official.entity.reply.Reply;
 import com.official.enums.OpenEnum;
 import com.official.enums.StatusEnum;
 import com.official.service.progress.ProgressService;
+import com.official.util.DateUtil;
 
 /**
  * 进度控制类
@@ -26,6 +29,8 @@ import com.official.service.progress.ProgressService;
 @Controller
 @RequestMapping("/progress/")
 public class ProgressCtrl {
+
+	private static Logger logger = LoggerFactory.getLogger(ProgressCtrl.class);
 
 	@Autowired
 	private ProgressService progressService;
@@ -68,6 +73,10 @@ public class ProgressCtrl {
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
 
+		value.setOpTime(DateUtil.getCurrentTime());
+		value.setOpen(OpenEnum.OPEN.getValue());
+
+		logger.info("Progress on {} now", value.getPaper());
 		progressService.openExam(value);
 		progressService.closeOtherExam(value);
 

@@ -128,8 +128,7 @@ function openInfoWindow() {
 	$("#myModal").modal();
 }
 
-
-function customerLogout(){
+function customerLogout() {
 	$.ajax({
 		url : "/customer/logout",
 		data : {},
@@ -144,4 +143,47 @@ function customerLogout(){
 			}
 		}
 	})
+}
+
+/**
+ * 获取当前的测试
+ * 
+ * @returns
+ */
+function getCurrentExam() {
+	$.ajax({
+		url : "/progress/current",
+		data : {},
+		dataType : "json",
+		success : function(data) {
+			if (data.status == 1) {
+				var progress = data.data;
+				$("input[name=progress][value=" + progress.paper + "]").prop(
+						"checked", true);
+			} else {
+				alter(data.message);
+			}
+		}
+	})
+}
+
+function updateProgress() {
+	var paper = $("input[name=progress]:checked").val();
+	$.ajax({
+		url : "/progress/update",
+		data : {
+			"paper" : paper
+		},
+		dataType : "json",
+		success : function(data) {
+			if (data.status == 1) {
+				alert("更新成功");
+				$("#progress").modal('hide');
+			}else{
+				alert(data.message);
+			}
+		}
+	});
+
+	console.log(paper);
 }
