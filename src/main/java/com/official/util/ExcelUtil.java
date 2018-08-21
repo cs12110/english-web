@@ -150,19 +150,17 @@ public class ExcelUtil {
 			cell.setCellValue(asStr(score.getSubType()));
 
 			// 9
-			cell = row.createCell(j++);
 			String value = score.getCorrect() == 1 ? "正确" : "错误";
+			cell = row.createCell(j++);
 			cell.setCellValue(value);
 
 			String stopwatch = score.getStopwatch();
 			if (null != stopwatch) {
-
-				String[] arr = stopwatch.split(StopwatchUtil.EACH_SPLIT);
+				String[] arr = stopwatch.split(Const.EACH_SPLIT);
 				for (String each : arr) {
-					String[] values = each.split(StopwatchUtil.BETWEEN_SPLIT);
+					String[] values = each.split(Const.BETWEEN_SPLIT);
 					String key = values[0];
 					String time = values[1];
-					System.out.println(key + ":" + time);
 					cell = row.createCell(j++);
 					cell.setCellValue(String.valueOf(key + ":" + time));
 				}

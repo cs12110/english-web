@@ -17,13 +17,12 @@ public class PaperUtil {
 	/**
 	 * 获取上传数据类型
 	 * 
-	 * @param value
-	 *            数据
+	 * @param value 数据
 	 * @return {@link PaperEnum}
 	 */
-	public static PaperEnum getEnumValue(String value) {
+	public static PaperEnum getEnumValue(Integer value) {
 		for (PaperEnum e : PaperEnum.values()) {
-			if (String.valueOf(e.getValue()).equals(value)) {
+			if (e.getValue() == value) {
 				return e;
 			}
 		}
@@ -33,8 +32,7 @@ public class PaperUtil {
 	/**
 	 * 获取名称
 	 * 
-	 * @param paper
-	 *            试卷类型
+	 * @param paper 试卷类型
 	 * @return String
 	 */
 	public static String getName(Integer paper) {

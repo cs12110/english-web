@@ -4,22 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>English</title>
-
     <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css"></link>
     <link rel="stylesheet" href="/static/css/index.css"></link>
     <link rel="stylesheet" type="text/css" href="/static/plugin/webuploader/webuploader.css" />
-
-
-    <style type="text/css">
-
-    </style>
 </head>
 
 <body>
     <div id="whole-area">
-
-
-
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -28,35 +19,53 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"> 用户 <b class="caret"></b></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown"> 用户
+                                <b class="caret"></b>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a data-toggle="modal" data-target="#myModal">填写个人信息</a>
+                                <li>
+                                    <a data-toggle="modal" data-target="#myModal">填写个人信息</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a onclick="customerLogout()">用户退出</a>
+                                <li>
+                                    <a onclick="customerLogout()">用户退出</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown"> 管理员 <b class="caret"></b></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown"> 管理员
+                                <b class="caret"></b>
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a data-toggle="modal" data-target="#adminLogin">登录</a></li>
+                                <li>
+                                    <a data-toggle="modal" data-target="#adminLogin">登录</a>
+                                </li>
                                 <li class="divider"></li>
-                                <li class="power"><a data-toggle="modal" data-target="#admin">上传材料</a></li>
-                                <li class="power"><a data-toggle="modal" data-target="#progress" onclick="getCurrentExam()">进度调节</a></li>
+                                <li class="power">
+                                    <a data-toggle="modal" data-target="#admin">上传材料</a>
+                                </li>
+                                <li class="power">
+                                    <a data-toggle="modal" data-target="#progress" onclick="getCurrentExam()">进度调节</a>
+                                </li>
                                 <li class="divider"></li>
-                                <li class="power"><a data-toggle="modal" data-target="#compute">成绩统计</a></li>
+                                <li class="power">
+                                    <a data-toggle="modal" data-target="#compute">成绩统计</a>
+                                </li>
                                 <li class="divider"></li>
-                                <li class="power"><a onclick="deleteAll()">清空数据</a></li>
-                                <li class="power"><a onclick="logout()">退出</a></li>
+                                <li class="power">
+                                    <a onclick="deleteAll()">清空数据</a>
+                                </li>
+                                <li class="power">
+                                    <a onclick="logout()">退出</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar-header" style="float: right;">
-                		<a class="navbar-brand" id="infoArea"></a>
-                		<a class="navbar-brand" id="examArea"></a>
-                    	<!-- 试题进度:&nbsp;<span id="infoArea"></span> -->
+                    <a class="navbar-brand" id="infoArea"></a>
+                    <a class="navbar-brand" id="examArea"></a>
+                    <!-- 试题进度:&nbsp;<span id="infoArea"></span> -->
                 </div>
             </div>
         </nav>
@@ -64,10 +73,15 @@
         <div id="handsup" style="display: none" class="panel panel-default">
             <div class="panel-heading">温馨提示</div>
             <div class="panel-body">
-                	该实验旨在考察句子的加工过程.实验材料逐词呈现,按"下一个"后,当前单词消失,后一单词出现.<br /> 
-                <br /> 此时你可以根据刚阅读过的句子回答问题,符合题意选择<b>Yes</b>,不符合选择<b>No</b>.
-                <br /> <br /> 请以较为舒服的姿势坐在电脑前,并以自然速度点击鼠标.
-                <br /> <br />
+                该实验旨在考察句子的加工过程.实验材料逐词呈现,按"下一个"后,当前单词消失,后一单词出现.
+                <br />
+                <br /> 此时你可以根据刚阅读过的句子回答问题,符合题意选择
+                <b>Yes</b>,不符合选择
+                <b>No</b>.
+                <br />
+                <br /> 请以较为舒服的姿势坐在电脑前,并以自然速度点击鼠标.
+                <br />
+                <br />
             </div>
 
             <div class="modal-footer">
@@ -177,22 +191,22 @@
                         <h4 class="modal-title" id="myModalLabel">成绩统计</h4>
                     </div>
                     <div class="modal-body">
-					    <form class="bs-example bs-example-form" role="form">
-					        <div class="input-group">
-					            <span class="input-group-addon">学号</span>
-					            <input type="text" name="customerCode" class="form-control" placeholder="学号,如12052010"/>
-					        </div>
-					        
-					        <div class="input-group">
-								<input type="checkbox" name="fileArr" value="1"/>前测成绩
-								<input type="checkbox" name="fileArr" value="2"/>学习1成绩
-								<input type="checkbox" name="fileArr" value="3"/>学习2成绩
-								<input type="checkbox" name="fileArr" value="4"/>后测成绩
-								<input type="checkbox" name="fileArr" value="5"/>追踪成绩
-					        </div>
-					    </form>
+                        <form class="bs-example bs-example-form" role="form">
+                            <div class="input-group">
+                                <span class="input-group-addon">学号</span>
+                                <input type="text" name="customerCode" class="form-control" placeholder="学号,如12052010" />
+                            </div>
+
+                            <div class="input-group">
+                                <input type="radio" name="fileArr" value="1" />前测成绩
+                                <input type="radio" name="fileArr" value="2" />学习1成绩
+                                <input type="radio" name="fileArr" value="3" />学习2成绩
+                                <input type="radio" name="fileArr" value="4" />后测成绩
+                                <input type="radio" name="fileArr" value="5" />追踪成绩
+                            </div>
+                        </form>
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" onclick="computeScore()">下载</button>
                     </div>
@@ -243,11 +257,12 @@
                                 <div class="form-group">
                                     <label for="lastname" class="col-sm-2 control-label">性别</label>
                                     <div class="col-sm-10">
-                                        <label class="radio-inline"> <input type="radio"
-											name="gender" value="0" checked="true" /> 男
-										</label> <label class="radio-inline"> <input type="radio"
-											name="gender" value="1" />女
-										</label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" value="0" checked="true" /> 男
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" value="1" />女
+                                        </label>
 
                                     </div>
                                 </div>
@@ -335,21 +350,23 @@
 
 
     </div>
-    
+
     <div class="modal fade" id="sys-alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header" style="padding: 5px;">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h5 class="modal-title">提示</h5>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 5px;">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h5 class="modal-title">提示</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="sys-tips">
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-            	<div id="sys-tips">
-            	</div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <!-- 我是3306呀 -->
 </body>

@@ -96,7 +96,7 @@ public class AdminCtrl {
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
 		reply.setMessage("全部删除");
 		HttpSession session = req.getSession();
-		session.setAttribute(Const.CURRENT_USER, null);
+		session.setAttribute(Const.USER_SESSION_KEY, null);
 		return reply.toString();
 
 	}
@@ -146,7 +146,7 @@ public class AdminCtrl {
 			} else {
 				reply.setStatus(StatusEnum.SUCCESS.getValue());
 				HttpSession session = req.getSession();
-				session.setAttribute(Const.ADMIN, target);
+				session.setAttribute(Const.ADMIN_SESSION_KEY, target);
 			}
 		}
 
@@ -166,7 +166,7 @@ public class AdminCtrl {
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		HttpSession session = req.getSession();
-		session.setAttribute(Const.ADMIN, null);
+		session.setAttribute(Const.ADMIN_SESSION_KEY, null);
 
 		return reply.toString();
 	}
@@ -181,7 +181,7 @@ public class AdminCtrl {
 	 */
 	@RequestMapping("/upload")
 	@ResponseBody
-	public String uploadExcel(HttpServletRequest req, MultipartFile file, String paper) throws IOException {
+	public String uploadExcel(HttpServletRequest req, MultipartFile file, Integer paper) throws IOException {
 		if (!LoginCheckUtil.isAdminLogined(req)) {
 			return LoginCheckUtil.pleaseLoginHandsup().toString();
 		}
@@ -288,19 +288,14 @@ public class AdminCtrl {
 	public void export(HttpServletRequest req, HttpServletResponse response, String code, Integer paper) {
 
 		if (LoginCheckUtil.isAdminLogined(req) && !StrUtil.isEmpty(code)) {
-			logger.info("Export {} score for excel", code);
-			// for (int index = 1; index < 6; index++) {
-			List<Score> list = scoreService.compute(code, 1);
-
-			paper = 1;
+			long start = System.currentTimeMillis();
+			List<Score> list = scoreService.compute(code, paper);
 			String excelName = code + "-" + PaperUtil.getName(paper);
-
-			logger.info(excelName);
-
 			File file = ExcelUtil.buildScoreResultExcel(excelName, list);
 			FileUtil.download(response, file.getAbsolutePath());
 			file.delete();
-			// }
+			long end = System.currentTimeMillis();
+			logger.info("Export {} score for excel,spend: {} mills", code, (end - start));
 		} else {
 			logger.info("Must be logging and code disallow to be empty");
 		}

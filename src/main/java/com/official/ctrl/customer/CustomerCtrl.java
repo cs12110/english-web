@@ -70,7 +70,7 @@ public class CustomerCtrl {
 		reply.setData(customer);
 
 		HttpSession session = req.getSession();
-		session.setAttribute(Const.CURRENT_USER, customer);
+		session.setAttribute(Const.USER_SESSION_KEY, customer);
 		return reply.toString();
 	}
 
@@ -85,7 +85,7 @@ public class CustomerCtrl {
 	@ResponseBody
 	public String getCurrentCustomer(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		Customer user = (Customer) session.getAttribute(Const.CURRENT_USER);
+		Customer user = (Customer) session.getAttribute(Const.USER_SESSION_KEY);
 
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.FAILURE.getValue());
@@ -107,7 +107,7 @@ public class CustomerCtrl {
 	@ResponseBody
 	public String checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		Object user = session.getAttribute(Const.CURRENT_USER);
+		Object user = session.getAttribute(Const.USER_SESSION_KEY);
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		if (null == user) {
@@ -128,7 +128,7 @@ public class CustomerCtrl {
 	@ResponseBody
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		session.setAttribute(Const.CURRENT_USER, null);
+		session.setAttribute(Const.USER_SESSION_KEY, null);
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		return reply.toString();

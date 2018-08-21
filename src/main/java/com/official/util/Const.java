@@ -26,7 +26,23 @@ public class Const {
 	 */
 	public final static String ROLE_PREFIX = "ROLE_";
 
-	public final static String CURRENT_USER = "currentCustomer";
+	/**
+	 * 保存用户的session key
+	 */
+	public final static String USER_SESSION_KEY = "user";
 
-	public final static String ADMIN = "admin";
+	/**
+	 * 保存管理员的session key
+	 */
+	public final static String ADMIN_SESSION_KEY = "admin";
+
+	/**
+	 * 多个单词之间的分隔符
+	 */
+	public static final String EACH_SPLIT = ",";
+
+	/**
+	 * 每个单词和时间之间的分隔符
+	 */
+	public static final String BETWEEN_SPLIT = "#";
 }

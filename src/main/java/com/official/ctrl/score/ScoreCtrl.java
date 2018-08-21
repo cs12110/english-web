@@ -65,7 +65,7 @@ public class ScoreCtrl {
 	public String save(HttpServletRequest req, Score score) {
 
 		HttpSession session = req.getSession();
-		Customer currentUser = (Customer) session.getAttribute(Const.CURRENT_USER);
+		Customer currentUser = (Customer) session.getAttribute(Const.USER_SESSION_KEY);
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		reply.setMessage("添加成功");
 

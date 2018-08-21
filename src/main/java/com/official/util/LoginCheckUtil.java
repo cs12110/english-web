@@ -26,7 +26,7 @@ public class LoginCheckUtil {
 	 */
 	public static boolean isAdminLogined(HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		Object admin = session.getAttribute(Const.ADMIN);
+		Object admin = session.getAttribute(Const.ADMIN_SESSION_KEY);
 		return null != admin;
 	}
 
