@@ -5,10 +5,15 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
-import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -47,9 +52,9 @@ public class FileUtil {
 				String temp = new String(file.getName().getBytes("gb2312"), "iso8859-1");
 				response.setContentType("application/octet-stream;charset=utf-8");
 				response.setHeader("Content-Disposition", "attachment;filename=" + temp);
-				byte[] bits = new byte[1024];
-				ServletOutputStream outputStream = response.getOutputStream();
+				OutputStream outputStream = response.getOutputStream();
 
+				byte[] bits = new byte[1024];
 				FileInputStream fin = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fin);
 
@@ -59,7 +64,7 @@ public class FileUtil {
 				}
 
 				outputStream.flush();
-				outputStream.close();
+				// outputStream.close();
 
 				bis.close();
 				fin.close();
@@ -219,5 +224,142 @@ public class FileUtil {
 			e.printStackTrace();
 		}
 		return builder.toString();
+	}
+
+	/**
+	 * 打包文件
+	 * 
+	 * @param files
+	 *            文件列表
+	 * @param zipPath
+	 *            压缩包路径
+	 * @return String
+	 * @throws IOException
+	 */
+	public static String zip(List<File> files, String zipPath) throws IOException {
+		File file = new File(zipPath);
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+
+		FileOutputStream fous = new FileOutputStream(file);
+		ZipOutputStream zipOut = new ZipOutputStream(fous);
+
+		for (File e : files) {
+			FileUtil.zipFile(e, zipOut);
+		}
+		zipOut.close();
+		fous.close();
+
+		return zipPath;
+	}
+
+	public static HttpServletResponse downLoadFiles(List<File> files, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		try {
+			/**
+			 * 这个集合就是你想要打包的所有文件， 这里假设已经准备好了所要打包的文件
+			 */
+			// List<File> files = new ArrayList<File>();
+
+			/**
+			 * 创建一个临时压缩文件， 我们会把文件流全部注入到这个文件中 这里的文件你可以自定义是.rar还是.zip
+			 */
+			File file = new File("my.zip");
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			// response.getWriter()
+			// 创建文件输出流
+			FileOutputStream fous = new FileOutputStream(file);
+			/**
+			 * 打包的方法我们会用到ZipOutputStream这样一个输出流, 所以这里我们把输出流转换一下
+			 */
+			ZipOutputStream zipOut = new ZipOutputStream(fous);
+			/**
+			 * 这个方法接受的就是一个所要打包文件的集合， 还有一个ZipOutputStream
+			 */
+			for (File e : files) {
+				zipFile(e, zipOut);
+			}
+			zipOut.close();
+			fous.close();
+			return downloadZip(file, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+
+	public static HttpServletResponse downloadZip(File file, HttpServletResponse response) {
+		try {
+			// 以流的形式下载文件。
+			InputStream fis = new BufferedInputStream(new FileInputStream(file.getPath()));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			// 清空response
+			response.reset();
+
+			OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+			response.setContentType("application/octet-stream");
+
+			// 如果输出的是中文名的文件，在此处就要用URLEncoder.encode方法进行处理
+			response.setHeader("Content-Disposition",
+					"attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
+			toClient.write(buffer);
+			toClient.flush();
+			toClient.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				File f = new File(file.getPath());
+				f.delete();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return response;
+	}
+
+	/**
+	 * 根据输入的文件与输出流对文件进行打包
+	 * 
+	 * @param File
+	 * @param org.apache.tools.zip.ZipOutputStream
+	 */
+	private static void zipFile(File inputFile, ZipOutputStream ouputStream) {
+		try {
+			if (inputFile.exists()) {
+				if (inputFile.isFile()) {
+					FileInputStream fin = new FileInputStream(inputFile);
+					BufferedInputStream bins = new BufferedInputStream(fin, 512);
+					ZipEntry entry = new ZipEntry(inputFile.getName());
+					ouputStream.putNextEntry(entry);
+					// 向压缩文件中输出数据
+					int nNumber;
+					byte[] buffer = new byte[1024];
+					while ((nNumber = bins.read(buffer)) != -1) {
+						ouputStream.write(buffer, 0, nNumber);
+					}
+					// 关闭创建的流对象
+					bins.close();
+					fin.close();
+				} else {
+					try {
+						File[] files = inputFile.listFiles();
+						for (int i = 0; i < files.length; i++) {
+							zipFile(files[i], ouputStream);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -31,8 +31,8 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<Score> compute() {
-		return scoreMapper.computeScore();
+	public List<Score> compute(String codeOfCustomer,Integer paper) {
+		return scoreMapper.computeScore(codeOfCustomer,paper);
 	}
 
 	@Override

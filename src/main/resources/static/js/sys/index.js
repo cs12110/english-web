@@ -223,10 +223,27 @@ function sysTips(msg, second) {
 
 
 function computeScore(){
+	
+	
+	
 	var code = $("input[name=customerCode]").val();
 	if(code==undefined || code.trim()==""){
 		sysTips("请输入学号",2);
 		return;
 	}
-	window.location.href='/admin/export?code='+code;
+	
+	var fileArr = new Array();
+	$("input[name=fileArr]:checked").each(function(index){
+		fileArr.push($(this).val());
+	});
+	
+	if(fileArr.length<1){
+		sysTips("请选择成绩类型",2);
+		return;
+	}
+	
+	for(var i in fileArr){
+		console.log("download: "+fileArr[i])
+		window.location.href='/admin/export?code='+code+"&paper="+fileArr[i];
+	}
 }

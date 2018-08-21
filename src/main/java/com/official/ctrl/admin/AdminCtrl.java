@@ -298,13 +298,22 @@ public class AdminCtrl {
 	 *            试卷类型
 	 */
 	@RequestMapping("/export")
-	public void export(HttpServletRequest req, HttpServletResponse response, String code, String paper) {
+	public void export(HttpServletRequest req, HttpServletResponse response, String code, Integer paper) {
+
 		if (LoginCheckUtil.isAdminLogined(req) && !StrUtil.isEmpty(code)) {
 			logger.info("Export {} score for excel", code);
-			List<Score> list = scoreService.compute();
-			File file = ExcelUtil.buildScoreResultExcel(list);
-			FileUtil.download(response, file.getAbsolutePath());
-			file.delete();
+			for (int index = 1; index < 6; index++) {
+				List<Score> list = scoreService.compute(code, 1);
+
+				paper = index;
+				String excelName = code + "-" + PaperUtil.getName(paper);
+
+				logger.info(excelName);
+
+				File file = ExcelUtil.buildScoreResultExcel(excelName, list);
+				FileUtil.download(response, file.getAbsolutePath());
+				file.delete();
+			}
 		} else {
 			logger.info("Must be logging and code disallow to be empty");
 		}

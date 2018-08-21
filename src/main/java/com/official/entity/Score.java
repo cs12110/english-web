@@ -26,12 +26,21 @@ public class Score extends BaseEntity {
 	@Column(name = "sub_id")
 	private Integer subId;
 
+	private String stopwatch;
 	/**
 	 * 答案是否正确
 	 */
 	private Integer correct;
 
-	private String stopwatch;
+	/**
+	 * 试卷类型
+	 */
+	private Integer paper;
+
+	/**
+	 * 句子类型
+	 */
+	private Integer subType;
 
 	/**
 	 * 关联用户对象
@@ -87,6 +96,22 @@ public class Score extends BaseEntity {
 
 	public void setStopwatch(String stopwatch) {
 		this.stopwatch = stopwatch;
+	}
+
+	public Integer getPaper() {
+		return paper;
+	}
+
+	public void setPaper(Integer paper) {
+		this.paper = paper;
+	}
+
+	public Integer getSubType() {
+		return subType;
+	}
+
+	public void setSubType(Integer subType) {
+		this.subType = subType;
 	}
 
 	public Customer getCustomer() {

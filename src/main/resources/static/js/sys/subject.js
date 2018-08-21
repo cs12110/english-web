@@ -13,13 +13,9 @@ var readIndex = 1;
 var score = {
     cusId: null,
     subId: null,
-    readTime1: null,
-    readTime2: null,
-    readTime3: null,
-    readTime4: null,
-    readTime5: null,
     correct: null,
     stopwatch: "",
+    paper:0
 };
 var sentenceIndex = 0;
 
@@ -62,11 +58,6 @@ function clearSentenceData() {
     $wordBox.empty();
     score = {
         subId: null,
-        readTime1: null,
-        readTime2: null,
-        readTime3: null,
-        readTime4: null,
-        readTime5: null,
         correct: null,
         stopwatch: ""
     };
@@ -148,6 +139,8 @@ $(document).ready(function() {
             stopwatchArr.push(time);
             $('.question-area').css('display', '');
             $('#question').text(curSentence.question);
+            score.paper =subjects[sentenceIndex].paper;
+            score.subType =subjects[sentenceIndex].type;
         }
         // if (wordIndex < len) {
         // console.log(word);
@@ -194,13 +187,14 @@ $(document).ready(function() {
         }
 
         score.stopwatch = valueAsStr;
+        console.log(score);
 
         $.post('/score/save', score, function(data) {
             if (data.status !== 1) {
                 alert(data.message);
             }
         }, "json");
-        stopwatchArr = new Object();
+        stopwatchArr = new Array();
         nextSentence();
         return false;
     });

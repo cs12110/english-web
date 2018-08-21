@@ -2,6 +2,8 @@ package com.official.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.official.entity.Score;
 import com.official.util.MyMapper;
 
@@ -17,9 +19,15 @@ public interface ScoreMapper extends MyMapper<Score> {
 	/**
 	 * 统计成绩
 	 * 
+	 * @param codeOfCustomer
+	 *            学号
+	 * 
+	 * @param paper
+	 *            测试类型
+	 * 
 	 * @return List
 	 */
-	List<Score> computeScore();
+	List<Score> computeScore(@Param("code") String codeOfCustomer, @Param("paper") Integer paper);
 
 	/**
 	 * 删除全部

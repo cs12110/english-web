@@ -14,13 +14,6 @@ import com.official.entity.Score;
 public interface ScoreService {
 
 	/**
-	 * 统计成绩
-	 * 
-	 * @return
-	 */
-	List<Score> compute();
-
-	/**
 	 * 新增数据
 	 * 
 	 * @param score
@@ -35,5 +28,16 @@ public interface ScoreService {
 	 * @return
 	 */
 	int deleteAll();
+
+	/**
+	 * 统计成绩
+	 * 
+	 * @param codeOfCustomer
+	 *            学号
+	 * @param paper
+	 *            测试类型
+	 * @return List
+	 */
+	List<Score> compute(String codeOfCustomer, Integer paper);
 
 }
