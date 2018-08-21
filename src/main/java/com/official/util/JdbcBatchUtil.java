@@ -41,13 +41,12 @@ public class JdbcBatchUtil {
 	public int process(List<Subject> list) throws SQLException {
 		long start = System.currentTimeMillis();
 		Connection conn = dataSource.getConnection();
+		conn.setAutoCommit(false);
 		try {
 			String sql = "INSERT INTO `subject_t` (`sentence`, `keyword`, `type`, `question`, `answer`, `paper`)"
 					+ " VALUES ( ?, ?, ?, ?, ?, ?)";
 
-			conn.setAutoCommit(false);
 			PreparedStatement pstm = conn.prepareStatement(sql);
-
 			for (int i = 0, size = list.size(); i < size; i++) {
 				Subject s = list.get(i);
 				pstm.setString(1, s.getSentence());
