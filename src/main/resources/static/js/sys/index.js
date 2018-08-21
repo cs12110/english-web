@@ -1,6 +1,8 @@
 $(function() {
     adminLoginCheck();
     customerLoginCheck();
+    getCurrentExam();
+    displayCustomerInfo();
 });
 
 function adminLoginCheck() {
@@ -47,7 +49,6 @@ function deleteAll() {
         url: "/admin/deleteAll",
         type: "post",
         data: {
-
         },
         dataType: "json",
         success: function(data) {
@@ -145,6 +146,22 @@ function customerLogout() {
     })
 }
 
+function displayCustomerInfo(){
+	$.ajax({
+		url:"/customer/current/",
+		data:{
+			
+		},
+		dataType:"json",
+		success:function(data){
+			if(data.status==1){
+				var ctm = data.data;
+				$("#infoArea").text("学号: "+ctm.code);
+			}
+		}
+	})
+}
+
 /**
  * 获取当前的测试
  * 
@@ -160,6 +177,7 @@ function getCurrentExam() {
                 var progress = data.data;
                 $("input[name=progress][value=" + progress.paper + "]").prop(
                     "checked", true);
+                $("#examArea").text("试题进度: "+progress.name);
             } else {
                 sysTips(data.message);
             }

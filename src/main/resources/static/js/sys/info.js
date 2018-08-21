@@ -22,10 +22,11 @@ function saveCustomer() {
 		data : customer,
 		success : function(data) {
 			if (data.status == 1) {
-				alert(data.message);
+				sysTips(data.message,3);
 				$("#myModal").modal('hide');
 				$("#handsup").hide();
 				$("#after-all").show();
+				displayCustomerInfo();
 			} else {
 				sysTips("新增失败,请联系管理员");
 			}
