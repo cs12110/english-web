@@ -75,7 +75,8 @@ public class AdminCtrl {
 	/**
 	 * 删除所有的cutomer和成绩数据
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return String
 	 */
 	@RequestMapping("/deleteAll")
@@ -102,7 +103,8 @@ public class AdminCtrl {
 	/**
 	 * 登录判断
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return String
 	 */
 	@RequestMapping("/loginCheck")
@@ -119,7 +121,8 @@ public class AdminCtrl {
 	/**
 	 * 判断管理员是否已登录
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return boolean
 	 */
 	private boolean isAdminLogined(HttpServletRequest req) {
@@ -131,8 +134,10 @@ public class AdminCtrl {
 	/**
 	 * 管理员登录
 	 * 
-	 * @param req  请求
-	 * @param user 管理员登录参数对象
+	 * @param req
+	 *            请求
+	 * @param user
+	 *            管理员登录参数对象
 	 * @return String
 	 */
 	@RequestMapping("/login")
@@ -166,7 +171,8 @@ public class AdminCtrl {
 	/**
 	 * 退出
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return String
 	 */
 	@RequestMapping("/logout")
@@ -184,8 +190,10 @@ public class AdminCtrl {
 	/**
 	 * 上传文件
 	 * 
-	 * @param req  请求
-	 * @param file 文件
+	 * @param req
+	 *            请求
+	 * @param file
+	 *            文件
 	 * @return String
 	 * @throws IOException
 	 */
@@ -236,7 +244,8 @@ public class AdminCtrl {
 	/**
 	 * 处理excel文件
 	 * 
-	 * @param stream 文件流
+	 * @param stream
+	 *            文件流
 	 * @return Map
 	 */
 	private Map<String, Integer> processExcel(InputStream stream, PaperEnum paperEnum) {
@@ -273,19 +282,20 @@ public class AdminCtrl {
 				}
 
 				// 执行数据库增加操作,这里要进行批处理操作.
-//				if (null != subject) {
-//					try {
-//						subjectService.insert(subject);
-//						success++;
-//					} catch (Exception e) {
-//						logger.error("Have an error on:{}", subject.toString());
-//						e.printStackTrace();
-//						failure++;
-//					}
-//				}
+				// if (null != subject) {
+				// try {
+				// subjectService.insert(subject);
+				// success++;
+				// } catch (Exception e) {
+				// logger.error("Have an error on:{}", subject.toString());
+				// e.printStackTrace();
+				// failure++;
+				// }
+				// }
 			}
 
 			if (list.size() > 0) {
+				success += list.size();
 				batchUtil.process(list);
 			}
 			map.put("success", success);
@@ -299,7 +309,8 @@ public class AdminCtrl {
 	/**
 	 * 每一次上传都删除前面版本的测试数据
 	 * 
-	 * @param paperEnum 上传文件类型
+	 * @param paperEnum
+	 *            上传文件类型
 	 */
 	private void deletePrevData(PaperEnum paperEnum) {
 

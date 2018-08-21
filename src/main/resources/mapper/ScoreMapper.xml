@@ -8,11 +8,6 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="sub_id" property="subId" jdbcType="INTEGER" />
-    <result column="read_time1" property="readTime1" jdbcType="INTEGER" />
-    <result column="read_time2" property="readTime2" jdbcType="INTEGER" />
-    <result column="read_time3" property="readTime3" jdbcType="INTEGER" />
-    <result column="read_time4" property="readTime4" jdbcType="INTEGER" />
-    <result column="read_time5" property="readTime5" jdbcType="INTEGER" />
     <result column="correct" property="correct" jdbcType="INTEGER" />
     <result column="stopwatch" property="stopwatch" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -31,7 +26,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, correct, stopwatch
+    id, cus_id, sub_id, correct, stopwatch
   </sql>
   
   <insert id="save">
