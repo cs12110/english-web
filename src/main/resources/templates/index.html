@@ -11,7 +11,7 @@
 
 
     <style type="text/css">
-       
+
     </style>
 </head>
 
@@ -40,8 +40,8 @@
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown"> 管理员 <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a data-toggle="modal" data-target="#adminLogin">登录</a>
-                                </li>
+                                <li><a data-toggle="modal" data-target="#adminLogin">登录</a></li>
+                                <li><a data-toggle="modal" data-target="#my-alert">提示</a></li>
                                 <li class="divider"></li>
                                 <li class="power"><a data-toggle="modal" data-target="#admin">上传材料</a></li>
                                 <li class="power"><a data-toggle="modal" data-target="#progress" onclick="getCurrentExam()">进度调节</a></li>
@@ -102,8 +102,8 @@
             </div>
             <!-- /.modal -->
         </div>
-        
-        
+
+
         <div class="modal fade" id="progress" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -112,13 +112,13 @@
                         <h4 class="modal-title" id="myModalLabel">进度</h4>
                     </div>
                     <div class="modal-body">
-                       <div class="file-radio">
-                    		<input name="progress" type="radio" value="1"/>测试前 &nbsp;&nbsp;
-                    		<input name="progress" type="radio" value="2"/>学习1 &nbsp;&nbsp;
-                    		<input name="progress" type="radio" value="3"/>学习2 &nbsp;&nbsp;
-                    		<input name="progress" type="radio" value="4"/>后测       &nbsp;&nbsp;
-                    		<input name="progress" type="radio" value="5"/>追踪       &nbsp;&nbsp;
-                    	</div>
+                        <div class="file-radio">
+                            <input name="progress" type="radio" value="1" />测试前 &nbsp;&nbsp;
+                            <input name="progress" type="radio" value="2" />学习1 &nbsp;&nbsp;
+                            <input name="progress" type="radio" value="3" />学习2 &nbsp;&nbsp;
+                            <input name="progress" type="radio" value="4" />后测 &nbsp;&nbsp;
+                            <input name="progress" type="radio" value="5" />追踪 &nbsp;&nbsp;
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -138,13 +138,13 @@
                         <h4 class="modal-title" id="myModalLabel">上传文件</h4>
                     </div>
                     <div class="modal-body">
-                    	<div class="file-radio">
-                    		<input name="paper" type="radio" value="1"/>测试前 &nbsp;&nbsp;
-                    		<input name="paper" type="radio" value="2"/>学习1 &nbsp;&nbsp;
-                    		<input name="paper" type="radio" value="3"/>学习2 &nbsp;&nbsp;
-                    		<input name="paper" type="radio" value="4"/>后测       &nbsp;&nbsp;
-                    		<input name="paper" type="radio" value="5"/>追踪       &nbsp;&nbsp;
-                    	</div>
+                        <div class="file-radio">
+                            <input name="paper" type="radio" value="1" />测试前 &nbsp;&nbsp;
+                            <input name="paper" type="radio" value="2" />学习1 &nbsp;&nbsp;
+                            <input name="paper" type="radio" value="3" />学习2 &nbsp;&nbsp;
+                            <input name="paper" type="radio" value="4" />后测 &nbsp;&nbsp;
+                            <input name="paper" type="radio" value="5" />追踪 &nbsp;&nbsp;
+                        </div>
 
                         <div id="uploader" class="wu-example">
                             <!--用来存放文件信息-->
@@ -309,10 +309,26 @@
             </div>
 
         </div>
-   
-      
+
+
 
     </div>
+    
+    <div class="modal fade" id="sys-alert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 5px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h5 class="modal-title">提示</h5>
+            </div>
+            <div class="modal-body">
+            	<div id="sys-tips">
+            	系统提示哈哈哈哈或或或或或或或或或或或或或或或或或或或或或或或或或或或或或或集锦集锦军军军军军军军军军军军军军军军军军军军军军军军集锦集锦军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军军
+            	</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 
     <!-- 我是3306呀 -->
 </body>

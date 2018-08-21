@@ -11,7 +11,7 @@ function saveCustomer() {
 
 	var result = check(customer);
 	if (!result.success) {
-		alert(result.message);
+		sysTips(result.message);
 		return;
 	}
 
@@ -27,7 +27,7 @@ function saveCustomer() {
 				$("#handsup").hide();
 				$("#after-all").show();
 			} else {
-				alert("新增失败,请联系管理员");
+				sysTips("新增失败,请联系管理员");
 			}
 		}
 	})
