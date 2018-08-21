@@ -45,4 +45,9 @@ public class Const {
 	 * 每个单词和时间之间的分隔符
 	 */
 	public static final String BETWEEN_SPLIT = "#";
+
+	/**
+	 * Excel文件后缀名
+	 */
+	public static final String EXCEL_SUBFFIX = "xlsx";
 }

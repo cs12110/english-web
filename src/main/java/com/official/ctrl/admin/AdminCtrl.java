@@ -2,9 +2,6 @@ package com.official.ctrl.admin;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,10 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +31,6 @@ import com.official.service.sys.SysUserService;
 import com.official.util.Const;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
-import com.official.util.JdbcBatchUtil;
 import com.official.util.LoginCheckUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
@@ -189,7 +181,7 @@ public class AdminCtrl {
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		try {
 			String name = file == null ? "" : file.getOriginalFilename();
-			if (!name.endsWith("xlsx")) {
+			if (!name.endsWith(Const.EXCEL_SUBFFIX)) {
 				reply.setStatus(StatusEnum.FAILURE.getValue());
 				reply.setMessage("文件必须为excel(.xlsx)文件");
 				return reply.toString();
@@ -199,7 +191,8 @@ public class AdminCtrl {
 			PaperEnum paperEnum = PaperUtil.getEnumValue(paper);
 			deletePrevData(paperEnum);
 
-			Map<String, Integer> result = processExcel(file.getInputStream(), paperEnum);
+			Map<String, Integer> result = ExcelUtil.saveSubjectExcelIntoDb(dataSource, file.getInputStream(),
+					paperEnum);
 			reply.setData(result);
 
 			long end = System.currentTimeMillis();
@@ -209,58 +202,6 @@ public class AdminCtrl {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
-	}
-
-	/**
-	 * 处理excel文件
-	 * 
-	 * @param stream 文件流
-	 * @return Map
-	 */
-	private Map<String, Integer> processExcel(InputStream stream, PaperEnum paperEnum) {
-		Map<String, Integer> map = new HashMap<String, Integer>(1);
-		try {
-			JdbcBatchUtil batchUtil = new JdbcBatchUtil(dataSource);
-			Workbook workBook = WorkbookFactory.create(stream);
-			Sheet sheet = workBook.getSheetAt(0);
-			int rows = sheet.getPhysicalNumberOfRows();
-
-			int success = 0;
-			int failure = 0;
-			int batch = 50;
-
-			List<Subject> list = new ArrayList<Subject>();
-			for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
-				Row row = sheet.getRow(rowIndex);
-				Subject subject = ExcelUtil.parseToSubject(row);
-
-				if (null != subject) {
-					subject.setPaper(paperEnum.getValue());
-					list.add(subject);
-				}
-
-				if (list.size() % batch == 0) {
-					try {
-						batchUtil.process(list);
-						list.clear();
-						success += batch;
-					} catch (Exception e) {
-						logger.error("Jdbc batch error:{}", e.getMessage());
-						failure += batch;
-					}
-				}
-			}
-
-			if (list.size() > 0) {
-				success += list.size();
-				batchUtil.process(list);
-			}
-			map.put("success", success);
-			map.put("failure", failure);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return map;
 	}
 
 	/**

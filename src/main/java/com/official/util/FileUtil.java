@@ -8,12 +8,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -38,8 +36,7 @@ public class FileUtil {
 	 * 下载文件
 	 * 
 	 * @param response
-	 * @param filePath
-	 *            文件绝对路径(包含文件名称)
+	 * @param filePath 文件绝对路径(包含文件名称)
 	 */
 	public static void download(HttpServletResponse response, String filePath) {
 		if (StrUtil.isEmpty(filePath)) {
@@ -64,7 +61,7 @@ public class FileUtil {
 				}
 
 				outputStream.flush();
-				// outputStream.close();
+				outputStream.close();
 
 				bis.close();
 				fin.close();
@@ -78,10 +75,8 @@ public class FileUtil {
 	/**
 	 * 上传文件,不需要修改上传文件名称
 	 *
-	 * @param file
-	 *            {@link MultipartFile}
-	 * @param saveFileDir
-	 *            保存文件路径
+	 * @param file        {@link MultipartFile}
+	 * @param saveFileDir 保存文件路径
 	 * @return 返回保存文件的全部路径, 包括名称
 	 */
 	public static String uploadFile(MultipartFile file, String saveFileDir) {
@@ -96,12 +91,9 @@ public class FileUtil {
 	/**
 	 * 上传文件
 	 *
-	 * @param file
-	 *            文件对象
-	 * @param saveFileDir
-	 *            文件保存路径
-	 * @param saveFileName
-	 *            文件名称
+	 * @param file         文件对象
+	 * @param saveFileDir  文件保存路径
+	 * @param saveFileName 文件名称
 	 * @return String
 	 */
 	public static String uploadFile(MultipartFile file, String saveFileDir, String saveFileName) {
@@ -141,10 +133,8 @@ public class FileUtil {
 	/**
 	 * 获取文件保存路径
 	 *
-	 * @param saveDir
-	 *            保存文件夹路径
-	 * @param saveFileName
-	 *            保存文件名称
+	 * @param saveDir      保存文件夹路径
+	 * @param saveFileName 保存文件名称
 	 * @return String
 	 */
 	private static String buileSaveName(String saveDir, String saveFileName) {
@@ -158,10 +148,8 @@ public class FileUtil {
 	/**
 	 * 获取文件保存名称
 	 *
-	 * @param file
-	 *            {@link MultipartFile}
-	 * @param saveName
-	 *            保存名称(不带有后缀名)
+	 * @param file     {@link MultipartFile}
+	 * @param saveName 保存名称(不带有后缀名)
 	 * @return String
 	 */
 	public static String fixSaveName(MultipartFile file, String saveName) {
@@ -174,10 +162,8 @@ public class FileUtil {
 	/**
 	 * 往服务器写入内容
 	 *
-	 * @param path
-	 *            写入路径(包括文件名称)
-	 * @param byteArr
-	 *            写入byte数组
+	 * @param path    写入路径(包括文件名称)
+	 * @param byteArr 写入byte数组
 	 */
 	public static void write(String path, byte[] byteArr) {
 		try {
@@ -197,8 +183,7 @@ public class FileUtil {
 	/**
 	 * 读取文件内容
 	 *
-	 * @param path
-	 *            文件路径(包含文件名称)
+	 * @param path 文件路径(包含文件名称)
 	 * @return String
 	 */
 	public static String read(String path) {
@@ -229,10 +214,8 @@ public class FileUtil {
 	/**
 	 * 打包文件
 	 * 
-	 * @param files
-	 *            文件列表
-	 * @param zipPath
-	 *            压缩包路径
+	 * @param files   文件列表
+	 * @param zipPath 压缩包路径
 	 * @return String
 	 * @throws IOException
 	 */
@@ -254,83 +237,13 @@ public class FileUtil {
 		return zipPath;
 	}
 
-	public static HttpServletResponse downLoadFiles(List<File> files, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		try {
-			/**
-			 * 这个集合就是你想要打包的所有文件， 这里假设已经准备好了所要打包的文件
-			 */
-			// List<File> files = new ArrayList<File>();
-
-			/**
-			 * 创建一个临时压缩文件， 我们会把文件流全部注入到这个文件中 这里的文件你可以自定义是.rar还是.zip
-			 */
-			File file = new File("my.zip");
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-
-			// response.getWriter()
-			// 创建文件输出流
-			FileOutputStream fous = new FileOutputStream(file);
-			/**
-			 * 打包的方法我们会用到ZipOutputStream这样一个输出流, 所以这里我们把输出流转换一下
-			 */
-			ZipOutputStream zipOut = new ZipOutputStream(fous);
-			/**
-			 * 这个方法接受的就是一个所要打包文件的集合， 还有一个ZipOutputStream
-			 */
-			for (File e : files) {
-				zipFile(e, zipOut);
-			}
-			zipOut.close();
-			fous.close();
-			return downloadZip(file, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return response;
-	}
-
-	public static HttpServletResponse downloadZip(File file, HttpServletResponse response) {
-		try {
-			// 以流的形式下载文件。
-			InputStream fis = new BufferedInputStream(new FileInputStream(file.getPath()));
-			byte[] buffer = new byte[fis.available()];
-			fis.read(buffer);
-			fis.close();
-			// 清空response
-			response.reset();
-
-			OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
-			response.setContentType("application/octet-stream");
-
-			// 如果输出的是中文名的文件，在此处就要用URLEncoder.encode方法进行处理
-			response.setHeader("Content-Disposition",
-					"attachment;filename=" + URLEncoder.encode(file.getName(), "UTF-8"));
-			toClient.write(buffer);
-			toClient.flush();
-			toClient.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			try {
-				File f = new File(file.getPath());
-				f.delete();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return response;
-	}
-
 	/**
 	 * 根据输入的文件与输出流对文件进行打包
 	 * 
 	 * @param File
-	 * @param org.apache.tools.zip.ZipOutputStream
+	 * @param      org.apache.tools.zip.ZipOutputStream
 	 */
-	public static void zipFile(File inputFile, ZipOutputStream ouputStream) {
+	private static void zipFile(File inputFile, ZipOutputStream ouputStream) {
 		try {
 			if (inputFile.exists()) {
 				if (inputFile.isFile()) {
@@ -339,10 +252,10 @@ public class FileUtil {
 					ZipEntry entry = new ZipEntry(inputFile.getName());
 					ouputStream.putNextEntry(entry);
 					// 向压缩文件中输出数据
-					int nNumber;
 					byte[] buffer = new byte[1024];
-					while ((nNumber = bins.read(buffer)) != -1) {
-						ouputStream.write(buffer, 0, nNumber);
+					int len;
+					while ((len = bins.read(buffer)) != -1) {
+						ouputStream.write(buffer, 0, len);
 					}
 					// 关闭创建的流对象
 					bins.close();
