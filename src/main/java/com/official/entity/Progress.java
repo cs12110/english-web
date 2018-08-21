@@ -3,8 +3,18 @@ package com.official.entity;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
-@Table(name = "process_t")
-public class Process extends BaseEntity {
+/**
+ * 进度实体类
+ *
+ * <p>
+ * detailed comment
+ * 
+ * @author huanghuapeng 2018年8月21日
+ * @see
+ * @since 1.0
+ */
+@Table(name = "progress_t")
+public class Progress extends BaseEntity {
 
 	/**
 	 * 试卷类型
@@ -18,8 +28,8 @@ public class Process extends BaseEntity {
 	 */
 	private Integer open;
 
-	@Column(name = "open_time")
-	private String openTime;
+	@Column(name = "op_time")
+	private String opTime;
 
 	/**
 	 * 获取试卷类型
@@ -74,16 +84,16 @@ public class Process extends BaseEntity {
 	}
 
 	/**
-	 * @return open_time
+	 * @return op_time
 	 */
-	public String getOpenTime() {
-		return openTime;
+	public String getOpTime() {
+		return opTime;
 	}
 
 	/**
-	 * @param openTime
+	 * @param opTime
 	 */
-	public void setOpenTime(String openTime) {
-		this.openTime = openTime == null ? null : openTime.trim();
+	public void setOpTime(String opTime) {
+		this.opTime = opTime == null ? null : opTime.trim();
 	}
 }

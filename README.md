@@ -81,7 +81,7 @@ mvn mybatis-generator:generate -e
 
 ```
 
-### druid监控页面
+### 3.3 druid监控页面
 
 user: `admin`
 

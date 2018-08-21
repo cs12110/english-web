@@ -39,6 +39,7 @@ import com.official.util.Const;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
 import com.official.util.JdbcBatchUtil;
+import com.official.util.LoginCheckUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
 
@@ -82,8 +83,8 @@ public class AdminCtrl {
 	@RequestMapping("/deleteAll")
 	@ResponseBody
 	public String deleteAll(HttpServletRequest req) {
-		if (!isAdminLogined(req)) {
-			return pleaseLoginHandsup().toString();
+		if (!LoginCheckUtil.isAdminLogined(req)) {
+			return LoginCheckUtil.pleaseLoginHandsup().toString();
 		}
 
 		logger.info("Delete all the customer and score's record");
@@ -112,23 +113,10 @@ public class AdminCtrl {
 	public String loginCheck(HttpServletRequest req) {
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
-		if (!isAdminLogined(req)) {
+		if (!LoginCheckUtil.isAdminLogined(req)) {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
-	}
-
-	/**
-	 * 判断管理员是否已登录
-	 * 
-	 * @param req
-	 *            请求
-	 * @return boolean
-	 */
-	private boolean isAdminLogined(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Object admin = session.getAttribute(Const.ADMIN);
-		return null != admin;
 	}
 
 	/**
@@ -200,8 +188,8 @@ public class AdminCtrl {
 	@RequestMapping("/upload")
 	@ResponseBody
 	public String uploadExcel(HttpServletRequest req, MultipartFile file, String paper) throws IOException {
-		if (!isAdminLogined(req)) {
-			return pleaseLoginHandsup().toString();
+		if (!LoginCheckUtil.isAdminLogined(req)) {
+			return LoginCheckUtil.pleaseLoginHandsup().toString();
 		}
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
@@ -227,18 +215,6 @@ public class AdminCtrl {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
-	}
-
-	/**
-	 * 请登录提醒
-	 * 
-	 * @return {@link Reply}
-	 */
-	private Reply pleaseLoginHandsup() {
-		Reply reply = new Reply();
-		reply.setStatus(StatusEnum.FAILURE.getValue());
-		reply.setMessage("请先登录");
-		return reply;
 	}
 
 	/**
@@ -280,18 +256,6 @@ public class AdminCtrl {
 						failure += batch;
 					}
 				}
-
-				// 执行数据库增加操作,这里要进行批处理操作.
-				// if (null != subject) {
-				// try {
-				// subjectService.insert(subject);
-				// success++;
-				// } catch (Exception e) {
-				// logger.error("Have an error on:{}", subject.toString());
-				// e.printStackTrace();
-				// failure++;
-				// }
-				// }
 			}
 
 			if (list.size() > 0) {
@@ -325,7 +289,7 @@ public class AdminCtrl {
 	 */
 	@RequestMapping("/export")
 	public void export(HttpServletRequest req, HttpServletResponse response) {
-		if (isAdminLogined(req)) {
+		if (LoginCheckUtil.isAdminLogined(req)) {
 			logger.info("Export the result for excel");
 			List<Score> list = scoreService.compute();
 			File file = ExcelUtil.buildScoreResultExcel(list);
