@@ -304,6 +304,7 @@ public class ExcelUtil {
 				}
 			}
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			e.printStackTrace();
 		}
 	}

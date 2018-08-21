@@ -58,6 +58,7 @@
 		<if test="paper!=null">
 			WHERE paper = #{paper}
 		</if>
+		ORDER BY score_t.sub_type ASC
    </select>
    
    <delete id="deleteAll">

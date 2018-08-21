@@ -91,6 +91,12 @@ password: `admin`
 http://ip:port/druid/sql.html
 ```
 
+### 3.4 maven打包
+
+```shell
+$ mvn clean package -Dmaven.test.skip=true
+```
+
 ## 4.其他
 
 本项目主要开发人员: [LucienX](https://github.com/LucienX)和[cs12110](https://github.com/cs12110)
