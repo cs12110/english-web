@@ -17,6 +17,23 @@
 
 	<sql id="Base_Column_List">
 		<!-- WARNING - @mbg.generated -->
-		id, sentence, keyword, type, question, answer
+		subject_t.id, subject_t.sentence, subject_t.keyword, subject_t.type, subject_t.question, subject_t.answer,subject_t.paper
 	</sql>
+	
+	<select id="selectWithPaper" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			subject_t
+		INNER JOIN (
+			SELECT
+				paper
+			FROM
+				progress_t
+			WHERE
+				`open` = 1
+		) tmp
+		WHERE
+			tmp.paper = subject_t.paper
+	</select>
 </mapper>

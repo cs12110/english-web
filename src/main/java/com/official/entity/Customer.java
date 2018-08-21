@@ -3,6 +3,8 @@ package com.official.entity;
 import javax.persistence.Column;
 import javax.persistence.Table;
 
+import com.official.util.JsonUtil;
+
 /**
  * 用户实体类
  * 
@@ -205,4 +207,10 @@ public class Customer extends BaseEntity {
 	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
+
+	@Override
+	public String toString() {
+		return JsonUtil.toJSONStr(this);
+	}
+
 }

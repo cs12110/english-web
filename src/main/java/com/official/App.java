@@ -1,11 +1,12 @@
 package com.official;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import javax.annotation.PostConstruct;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * 启动App
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
  * @since 1.0
  */
 @SpringBootApplication
+@ServletComponentScan 
 public class App {
 	private static final Logger log = LoggerFactory.getLogger(App.class);
 

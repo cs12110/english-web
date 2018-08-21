@@ -91,7 +91,7 @@
 
 
 
-		<table tableName="customer_t" schema="Customer"
+		<table tableName="process_t" schema="ExamProcess"
 			enableCountByExample="false" enableUpdateByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			selectByExampleQueryId="false">

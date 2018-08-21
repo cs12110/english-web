@@ -39,8 +39,10 @@ import com.official.util.Const;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
 import com.official.util.JdbcBatchUtil;
+import com.official.util.LoginCheckUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
+import com.official.util.StrUtil;
 
 /**
  * 管理员控制类
@@ -75,14 +77,15 @@ public class AdminCtrl {
 	/**
 	 * 删除所有的cutomer和成绩数据
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return String
 	 */
 	@RequestMapping("/deleteAll")
 	@ResponseBody
 	public String deleteAll(HttpServletRequest req) {
-		if (!isAdminLogined(req)) {
-			return pleaseLoginHandsup().toString();
+		if (!LoginCheckUtil.isAdminLogined(req)) {
+			return LoginCheckUtil.pleaseLoginHandsup().toString();
 		}
 
 		logger.info("Delete all the customer and score's record");
@@ -102,7 +105,8 @@ public class AdminCtrl {
 	/**
 	 * 登录判断
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return String
 	 */
 	@RequestMapping("/loginCheck")
@@ -110,29 +114,19 @@ public class AdminCtrl {
 	public String loginCheck(HttpServletRequest req) {
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
-		if (!isAdminLogined(req)) {
+		if (!LoginCheckUtil.isAdminLogined(req)) {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
 	}
 
 	/**
-	 * 判断管理员是否已登录
-	 * 
-	 * @param req 请求
-	 * @return boolean
-	 */
-	private boolean isAdminLogined(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Object admin = session.getAttribute(Const.ADMIN);
-		return null != admin;
-	}
-
-	/**
 	 * 管理员登录
 	 * 
-	 * @param req  请求
-	 * @param user 管理员登录参数对象
+	 * @param req
+	 *            请求
+	 * @param user
+	 *            管理员登录参数对象
 	 * @return String
 	 */
 	@RequestMapping("/login")
@@ -166,7 +160,8 @@ public class AdminCtrl {
 	/**
 	 * 退出
 	 * 
-	 * @param req 请求
+	 * @param req
+	 *            请求
 	 * @return String
 	 */
 	@RequestMapping("/logout")
@@ -184,16 +179,18 @@ public class AdminCtrl {
 	/**
 	 * 上传文件
 	 * 
-	 * @param req  请求
-	 * @param file 文件
+	 * @param req
+	 *            请求
+	 * @param file
+	 *            文件
 	 * @return String
 	 * @throws IOException
 	 */
 	@RequestMapping("/upload")
 	@ResponseBody
 	public String uploadExcel(HttpServletRequest req, MultipartFile file, String paper) throws IOException {
-		if (!isAdminLogined(req)) {
-			return pleaseLoginHandsup().toString();
+		if (!LoginCheckUtil.isAdminLogined(req)) {
+			return LoginCheckUtil.pleaseLoginHandsup().toString();
 		}
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
@@ -222,21 +219,10 @@ public class AdminCtrl {
 	}
 
 	/**
-	 * 请登录提醒
-	 * 
-	 * @return {@link Reply}
-	 */
-	private Reply pleaseLoginHandsup() {
-		Reply reply = new Reply();
-		reply.setStatus(StatusEnum.FAILURE.getValue());
-		reply.setMessage("请先登录");
-		return reply;
-	}
-
-	/**
 	 * 处理excel文件
 	 * 
-	 * @param stream 文件流
+	 * @param stream
+	 *            文件流
 	 * @return Map
 	 */
 	private Map<String, Integer> processExcel(InputStream stream, PaperEnum paperEnum) {
@@ -271,21 +257,10 @@ public class AdminCtrl {
 						failure += batch;
 					}
 				}
-
-				// 执行数据库增加操作,这里要进行批处理操作.
-//				if (null != subject) {
-//					try {
-//						subjectService.insert(subject);
-//						success++;
-//					} catch (Exception e) {
-//						logger.error("Have an error on:{}", subject.toString());
-//						e.printStackTrace();
-//						failure++;
-//					}
-//				}
 			}
 
 			if (list.size() > 0) {
+				success += list.size();
 				batchUtil.process(list);
 			}
 			map.put("success", success);
@@ -299,7 +274,8 @@ public class AdminCtrl {
 	/**
 	 * 每一次上传都删除前面版本的测试数据
 	 * 
-	 * @param paperEnum 上传文件类型
+	 * @param paperEnum
+	 *            上传文件类型
 	 */
 	private void deletePrevData(PaperEnum paperEnum) {
 
@@ -311,15 +287,35 @@ public class AdminCtrl {
 
 	/**
 	 * 下载结果
+	 * 
+	 * @param req
+	 *            {@link HttpServletRequest}
+	 * @param response
+	 *            {@link HttpServletResponse}
+	 * @param code
+	 *            学号
+	 * @param paper
+	 *            试卷类型
 	 */
 	@RequestMapping("/export")
-	public void export(HttpServletRequest req, HttpServletResponse response) {
-		if (isAdminLogined(req)) {
-			logger.info("Export the result for excel");
-			List<Score> list = scoreService.compute();
-			File file = ExcelUtil.buildScoreResultExcel(list);
-			FileUtil.download(response, file.getAbsolutePath());
-			file.delete();
+	public void export(HttpServletRequest req, HttpServletResponse response, String code, Integer paper) {
+
+		if (LoginCheckUtil.isAdminLogined(req) && !StrUtil.isEmpty(code)) {
+			logger.info("Export {} score for excel", code);
+			for (int index = 1; index < 6; index++) {
+				List<Score> list = scoreService.compute(code, 1);
+
+				paper = index;
+				String excelName = code + "-" + PaperUtil.getName(paper);
+
+				logger.info(excelName);
+
+				File file = ExcelUtil.buildScoreResultExcel(excelName, list);
+				FileUtil.download(response, file.getAbsolutePath());
+				file.delete();
+			}
+		} else {
+			logger.info("Must be logging and code disallow to be empty");
 		}
 	}
 

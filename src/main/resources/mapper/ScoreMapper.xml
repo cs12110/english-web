@@ -8,12 +8,8 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="sub_id" property="subId" jdbcType="INTEGER" />
-    <result column="read_time1" property="readTime1" jdbcType="INTEGER" />
-    <result column="read_time2" property="readTime2" jdbcType="INTEGER" />
-    <result column="read_time3" property="readTime3" jdbcType="INTEGER" />
-    <result column="read_time4" property="readTime4" jdbcType="INTEGER" />
-    <result column="read_time5" property="readTime5" jdbcType="INTEGER" />
     <result column="correct" property="correct" jdbcType="INTEGER" />
+    <result column="sub_type" property="subType" jdbcType="INTEGER" />
     <result column="stopwatch" property="stopwatch" jdbcType="LONGVARCHAR" />
   </resultMap>
   
@@ -31,7 +27,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, cus_id, sub_id, read_time1, read_time2, read_time3, read_time4, read_time5, correct, stopwatch
+    score_t.id, cus_id, sub_id, correct,paper, stopwatch,sub_type
   </sql>
   
   <insert id="save">
@@ -46,10 +42,21 @@
   </insert>
 	
    <select id="computeScore" resultMap="extMap">
-	   	SELECT
+	    SELECT
 			<include refid="columnList"></include>
 		FROM
 			score_t
+		INNER JOIN (
+			SELECT
+				id
+			FROM
+				customer_t
+			WHERE
+				`code` = #{code}
+		) tmp ON tmp.id = score_t.cus_id
+		<if test="paper!=null">
+			WHERE paper = #{paper}
+		</if>
    </select>
    
    <delete id="deleteAll">

@@ -75,6 +75,29 @@ public class CustomerCtrl {
 	}
 
 	/**
+	 * 获取当前用户
+	 * 
+	 * @param req
+	 *            请求
+	 * @return String
+	 */
+	@RequestMapping("/current/")
+	@ResponseBody
+	public String getCurrentCustomer(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Customer user = (Customer) session.getAttribute(Const.CURRENT_USER);
+
+		Reply reply = new Reply();
+		reply.setStatus(StatusEnum.FAILURE.getValue());
+
+		if (null != user) {
+			reply.setData(user);
+			reply.setStatus(StatusEnum.SUCCESS.getValue());
+		}
+		return reply.toString();
+	}
+
+	/**
 	 * 检查用户是否登陆
 	 * 
 	 * @param req

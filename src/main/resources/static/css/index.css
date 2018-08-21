@@ -56,3 +56,9 @@
 	font-weight: bold;
 	font-size: 15px;
 }
+
+a#infoArea,a#examArea {
+	font-size: 10px;
+	font-weight: bold;
+	color: black;
+}

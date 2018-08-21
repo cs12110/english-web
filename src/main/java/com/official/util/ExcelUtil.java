@@ -72,13 +72,19 @@ public class ExcelUtil {
 	/**
 	 * 创建结果excel
 	 * 
+	 * @param excelName
+	 *            excel名称
+	 * 
+	 * @param list
+	 *            导出的数据
+	 * 
 	 * @return File
 	 */
-	public static File buildScoreResultExcel(List<Score> list) {
+	public static File buildScoreResultExcel(String excelName, List<Score> list) {
 		String[] titles = {"姓名", "学号", "开始学习英语年龄", "年龄", "四级分数", "六级分数", "专业", "句子类型	原句（逐词呈现的句子）", "单词１阅读时间",
 				"单词２阅读时间", "单词３阅读时间", "单词４阅读时间", "单词５阅读时间", "问题回答正确率"};
 
-		File file = new File("统计结果.xlsx");
+		File file = new File(excelName + ".xlsx");
 		try {
 			// 创建工作簿
 			XSSFWorkbook workbook = new XSSFWorkbook();
@@ -144,21 +150,6 @@ public class ExcelUtil {
 			Subject subject = score.getSubject();
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(subject.getSentence()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime1()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime2()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime3()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime4()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime5()));
 
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(score.getCorrect()));

@@ -30,4 +30,20 @@ public class PaperUtil {
 		return null;
 	}
 
+	/**
+	 * 获取名称
+	 * 
+	 * @param paper
+	 *            试卷类型
+	 * @return String
+	 */
+	public static String getName(Integer paper) {
+		for (PaperEnum e : PaperEnum.values()) {
+			if (paper == e.getValue()) {
+				return e.getName();
+			}
+		}
+		return "error";
+	}
+
 }
