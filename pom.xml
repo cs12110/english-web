@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>english-web</groupId>
 	<artifactId>english-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
 
 	<!-- Encoding setting -->
 	<properties>
@@ -18,7 +16,6 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.1.RELEASE</version>
 	</parent>
-
 
 	<dependencies>
 		<dependency>
@@ -37,8 +34,6 @@
 			</exclusions>
 		</dependency>
 
-
-
 		<!-- 添加单元测试支持 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,11 +41,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- websocket -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
-
 
 		<!--添加spring security 支持 -->
 		<dependency>
@@ -64,18 +59,40 @@
 			<artifactId>spring-security-acl</artifactId>
 		</dependency>
 
-
 		<!-- 添加thymeleaf模板支持 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 
+		<!-- mybatis -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.2.0</version>
 		</dependency>
+
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<!--通用Mapper插件 -->
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>3.3.9</version>
+		</dependency>
+
+		<!-- 添加mysql支持 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+
 
 		<!-- 添加logback依赖 -->
 		<dependency>
@@ -102,47 +119,25 @@
 			<version>4.1.6</version>
 		</dependency>
 
-
-
-
+		<!-- JSON -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.38</version>
 		</dependency>
 
-		<!--通用Mapper插件 -->
-		<dependency>
-			<groupId>tk.mybatis</groupId>
-			<artifactId>mapper</artifactId>
-			<version>3.3.9</version>
-		</dependency>
-
-		<!-- 添加mysql支持 -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-
-		<!-- mybatis -->
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.2</version>
-		</dependency>
-
-
 		<!-- 导入poi，用java处理Excel -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.9</version>
+		</dependency>
+
+		<!-- Junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 
