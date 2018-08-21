@@ -1,5 +1,7 @@
 package com.official.mapper;
 
+import java.util.List;
+
 import com.official.entity.Subject;
 import com.official.util.MyMapper;
 
@@ -11,4 +13,11 @@ import com.official.util.MyMapper;
  * @since 1.0
  */
 public interface SubjectMapper extends MyMapper<Subject> {
+
+	/**
+	 * 查询数据
+	 * 
+	 * @return List
+	 */
+	List<Subject> selectWithPaper();
 }

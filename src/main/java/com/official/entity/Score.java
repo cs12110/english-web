@@ -27,36 +27,6 @@ public class Score extends BaseEntity {
 	private Integer subId;
 
 	/**
-	 * 阅读时间1
-	 */
-	@Column(name = "read_time1")
-	private Integer readTime1;
-
-	/**
-	 * 阅读时间2
-	 */
-	@Column(name = "read_time2")
-	private Integer readTime2;
-
-	/**
-	 * 阅读时间3
-	 */
-	@Column(name = "read_time3")
-	private Integer readTime3;
-
-	/**
-	 * 阅读时间4
-	 */
-	@Column(name = "read_time4")
-	private Integer readTime4;
-
-	/**
-	 * 阅读时间5
-	 */
-	@Column(name = "read_time5")
-	private Integer readTime5;
-
-	/**
 	 * 答案是否正确
 	 */
 	private Integer correct;
@@ -101,76 +71,6 @@ public class Score extends BaseEntity {
 	 */
 	public void setSubId(Integer subId) {
 		this.subId = subId;
-	}
-
-	/**
-	 * @return read_time1
-	 */
-	public Integer getReadTime1() {
-		return readTime1;
-	}
-
-	/**
-	 * @param readTime1
-	 */
-	public void setReadTime1(Integer readTime1) {
-		this.readTime1 = readTime1;
-	}
-
-	/**
-	 * @return read_time2
-	 */
-	public Integer getReadTime2() {
-		return readTime2;
-	}
-
-	/**
-	 * @param readTime2
-	 */
-	public void setReadTime2(Integer readTime2) {
-		this.readTime2 = readTime2;
-	}
-
-	/**
-	 * @return read_time3
-	 */
-	public Integer getReadTime3() {
-		return readTime3;
-	}
-
-	/**
-	 * @param readTime3
-	 */
-	public void setReadTime3(Integer readTime3) {
-		this.readTime3 = readTime3;
-	}
-
-	/**
-	 * @return read_time4
-	 */
-	public Integer getReadTime4() {
-		return readTime4;
-	}
-
-	/**
-	 * @param readTime4
-	 */
-	public void setReadTime4(Integer readTime4) {
-		this.readTime4 = readTime4;
-	}
-
-	/**
-	 * @return read_time5
-	 */
-	public Integer getReadTime5() {
-		return readTime5;
-	}
-
-	/**
-	 * @param readTime5
-	 */
-	public void setReadTime5(Integer readTime5) {
-		this.readTime5 = readTime5;
 	}
 
 	public Integer getCorrect() {

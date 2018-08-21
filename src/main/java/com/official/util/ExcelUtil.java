@@ -146,21 +146,6 @@ public class ExcelUtil {
 			cell.setCellValue(asStr(subject.getSentence()));
 
 			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime1()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime2()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime3()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime4()));
-
-			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getReadTime5()));
-
-			cell = row.createCell(j++);
 			cell.setCellValue(asStr(score.getCorrect()));
 		} catch (Exception e) {
 			e.printStackTrace();

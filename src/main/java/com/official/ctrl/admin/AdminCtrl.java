@@ -42,6 +42,7 @@ import com.official.util.JdbcBatchUtil;
 import com.official.util.LoginCheckUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
+import com.official.util.StrUtil;
 
 /**
  * 管理员控制类
@@ -286,15 +287,26 @@ public class AdminCtrl {
 
 	/**
 	 * 下载结果
+	 * 
+	 * @param req
+	 *            {@link HttpServletRequest}
+	 * @param response
+	 *            {@link HttpServletResponse}
+	 * @param code
+	 *            学号
+	 * @param paper
+	 *            试卷类型
 	 */
 	@RequestMapping("/export")
-	public void export(HttpServletRequest req, HttpServletResponse response) {
-		if (LoginCheckUtil.isAdminLogined(req)) {
-			logger.info("Export the result for excel");
+	public void export(HttpServletRequest req, HttpServletResponse response, String code, String paper) {
+		if (LoginCheckUtil.isAdminLogined(req) && !StrUtil.isEmpty(code)) {
+			logger.info("Export {} score for excel", code);
 			List<Score> list = scoreService.compute();
 			File file = ExcelUtil.buildScoreResultExcel(list);
 			FileUtil.download(response, file.getAbsolutePath());
 			file.delete();
+		} else {
+			logger.info("Must be logging and code disallow to be empty");
 		}
 	}
 

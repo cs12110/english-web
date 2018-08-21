@@ -141,6 +141,7 @@ function customerLogout() {
             } else {
                 sysTips("退出成功", 3);
                 hiddeAdminArea();
+                window.location.reload();
             }
         }
     })
@@ -177,7 +178,7 @@ function getCurrentExam() {
                 var progress = data.data;
                 $("input[name=progress][value=" + progress.paper + "]").prop(
                     "checked", true);
-                $("#examArea").text("试题进度: "+progress.name);
+                $("#examArea").text("试题: "+progress.name);
             } else {
                 sysTips(data.message);
             }
@@ -218,4 +219,14 @@ function sysTips(msg, second) {
             $("#sys-alert").modal('hide');
         }, second * 1000);
     }
+}
+
+
+function computeScore(){
+	var code = $("input[name=customerCode]").val();
+	if(code==undefined || code.trim()==""){
+		sysTips("请输入学号",2);
+		return;
+	}
+	window.location.href='/admin/export?code='+code;
 }

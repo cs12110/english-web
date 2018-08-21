@@ -64,7 +64,8 @@
         <div id="handsup" style="display: none" class="panel panel-default">
             <div class="panel-heading">温馨提示</div>
             <div class="panel-body">
-                该实验旨在考察句子的加工过程.实验材料逐词呈现,按"下一个"后,当前单词消失,后一单词出现.句号表示整一句结束.<br /> <br /> 此时你可以根据刚阅读过的句子回答问题,符合题意选择Yes,不符合选择No.
+                	该实验旨在考察句子的加工过程.实验材料逐词呈现,按"下一个"后,当前单词消失,后一单词出现.句号表示整一句结束.<br /> 
+                <br /> 此时你可以根据刚阅读过的句子回答问题,符合题意选择<b>Yes</b>,不符合选择<b>No</b>.
                 <br /> <br /> 请以较为舒服的姿势坐在电脑前,并以自然速度点击鼠标.
                 <br /> <br />
             </div>
@@ -173,10 +174,20 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">统计结果</h4>
+                        <h4 class="modal-title" id="myModalLabel">成绩统计</h4>
                     </div>
                     <div class="modal-body">
+					    <form class="bs-example bs-example-form" role="form">
+					        <div class="input-group">
+					            <span class="input-group-addon">学号</span>
+					            <input type="text" name="customerCode" class="form-control" placeholder="学号,如12052010"/>
+					        </div>
+					    </form>
                         <a href="/admin/export">下载统计结果</a>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="computeScore()">下载</button>
                     </div>
 
                 </div>
