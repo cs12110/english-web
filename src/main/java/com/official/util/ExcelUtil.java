@@ -27,10 +27,8 @@ public class ExcelUtil {
 	/**
 	 * 获取值
 	 * 
-	 * @param row
-	 *            行
-	 * @param column
-	 *            列
+	 * @param row    行
+	 * @param column 列
 	 * @return Integer
 	 */
 	public static Integer getAsInt(Row row, int column) {
@@ -41,10 +39,8 @@ public class ExcelUtil {
 	/**
 	 * 获取值
 	 * 
-	 * @param row
-	 *            行
-	 * @param column
-	 *            列
+	 * @param row    行
+	 * @param column 列
 	 * @return String
 	 */
 	public static String getAsStr(Row row, int column) {
@@ -55,8 +51,7 @@ public class ExcelUtil {
 	/**
 	 * 获取单元格的值
 	 * 
-	 * @param cell
-	 *            单元格
+	 * @param cell 单元格
 	 * @return String
 	 */
 	private static Object getValue(Cell cell) {
@@ -72,25 +67,23 @@ public class ExcelUtil {
 	/**
 	 * 创建结果excel
 	 * 
-	 * @param excelName
-	 *            excel名称
+	 * @param excelName excel名称
 	 * 
-	 * @param list
-	 *            导出的数据
+	 * @param list      导出的数据
 	 * 
 	 * @return File
 	 */
 	public static File buildScoreResultExcel(String excelName, List<Score> list) {
-		String[] titles = {"姓名", "学号", "开始学习英语年龄", "年龄", "四级分数", "六级分数", "专业", "句子类型	原句（逐词呈现的句子）", "单词１阅读时间",
-				"单词２阅读时间", "单词３阅读时间", "单词４阅读时间", "单词５阅读时间", "问题回答正确率"};
+		String[] titles = { "姓名", "学号", "开始学习英语年龄", "年龄", "四级分数", "六级分数", "专业", "句子类型", "问题回答正确率" };
 
 		File file = new File(excelName + ".xlsx");
 		try {
 			// 创建工作簿
 			XSSFWorkbook workbook = new XSSFWorkbook();
-			XSSFSheet sheet = workbook.createSheet("统计结果");
+			XSSFSheet sheet = workbook.createSheet("成绩");
 			XSSFRow row = sheet.createRow(0);
 
+			// 第一行:头部信息
 			for (int index = 0, len = titles.length; index < len; index++) {
 				XSSFCell cell = row.createCell(index);
 				cell.setCellValue(titles[index]);
@@ -116,43 +109,64 @@ public class ExcelUtil {
 	/**
 	 * 将成绩对象转换成excel的行数据
 	 * 
-	 * @param row
-	 *            行
-	 * @param score
-	 *            成绩对象
+	 * @param row   行
+	 * @param score 成绩对象
 	 */
 	private static void parseScoreToRow(XSSFRow row, Score score) {
 		try {
 
 			Customer customer = score.getCustomer();
 			int j = 0;
+			// 1
 			XSSFCell cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getName()));
 
+			// 2
 			cell = row.createCell(j++);
 			cell.setCellValue(customer.getCode());
 
+			// 3
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getEngAge()));
 
+			// 4
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getAge()));
 
+			// 5
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getCet4()));
 
+			// 6
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getCet6()));
 
+			// 7
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getMajor()));
 
-			Subject subject = score.getSubject();
+			// 8
 			cell = row.createCell(j++);
-			cell.setCellValue(asStr(subject.getSentence()));
+			cell.setCellValue(asStr(score.getSubType()));
 
+			// 9
 			cell = row.createCell(j++);
-			cell.setCellValue(asStr(score.getCorrect()));
+			String value = score.getCorrect() == 1 ? "正确" : "错误";
+			cell.setCellValue(value);
+
+			String stopwatch = score.getStopwatch();
+			if (null != stopwatch) {
+
+				String[] arr = stopwatch.split(StopwatchUtil.EACH_SPLIT);
+				for (String each : arr) {
+					String[] values = each.split(StopwatchUtil.BETWEEN_SPLIT);
+					String key = values[0];
+					String time = values[1];
+					System.out.println(key + ":" + time);
+					cell = row.createCell(j++);
+					cell.setCellValue(String.valueOf(key + ":" + time));
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -161,8 +175,7 @@ public class ExcelUtil {
 	/**
 	 * 获取值
 	 * 
-	 * @param obj
-	 *            对象
+	 * @param obj 对象
 	 * @return String
 	 */
 	private static String asStr(Object obj) {
@@ -175,8 +188,7 @@ public class ExcelUtil {
 	/**
 	 * 将excel的每一行的转换成对象
 	 * 
-	 * @param row
-	 *            每一行excel
+	 * @param row 每一行excel
 	 * @return Subject
 	 */
 	public static Subject parseToSubject(Row row) {

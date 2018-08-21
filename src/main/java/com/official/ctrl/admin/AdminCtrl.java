@@ -77,8 +77,7 @@ public class AdminCtrl {
 	/**
 	 * 删除所有的cutomer和成绩数据
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/deleteAll")
@@ -105,8 +104,7 @@ public class AdminCtrl {
 	/**
 	 * 登录判断
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/loginCheck")
@@ -123,10 +121,8 @@ public class AdminCtrl {
 	/**
 	 * 管理员登录
 	 * 
-	 * @param req
-	 *            请求
-	 * @param user
-	 *            管理员登录参数对象
+	 * @param req  请求
+	 * @param user 管理员登录参数对象
 	 * @return String
 	 */
 	@RequestMapping("/login")
@@ -160,8 +156,7 @@ public class AdminCtrl {
 	/**
 	 * 退出
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/logout")
@@ -179,10 +174,8 @@ public class AdminCtrl {
 	/**
 	 * 上传文件
 	 * 
-	 * @param req
-	 *            请求
-	 * @param file
-	 *            文件
+	 * @param req  请求
+	 * @param file 文件
 	 * @return String
 	 * @throws IOException
 	 */
@@ -221,8 +214,7 @@ public class AdminCtrl {
 	/**
 	 * 处理excel文件
 	 * 
-	 * @param stream
-	 *            文件流
+	 * @param stream 文件流
 	 * @return Map
 	 */
 	private Map<String, Integer> processExcel(InputStream stream, PaperEnum paperEnum) {
@@ -274,8 +266,7 @@ public class AdminCtrl {
 	/**
 	 * 每一次上传都删除前面版本的测试数据
 	 * 
-	 * @param paperEnum
-	 *            上传文件类型
+	 * @param paperEnum 上传文件类型
 	 */
 	private void deletePrevData(PaperEnum paperEnum) {
 
@@ -288,32 +279,28 @@ public class AdminCtrl {
 	/**
 	 * 下载结果
 	 * 
-	 * @param req
-	 *            {@link HttpServletRequest}
-	 * @param response
-	 *            {@link HttpServletResponse}
-	 * @param code
-	 *            学号
-	 * @param paper
-	 *            试卷类型
+	 * @param req      {@link HttpServletRequest}
+	 * @param response {@link HttpServletResponse}
+	 * @param code     学号
+	 * @param paper    试卷类型
 	 */
 	@RequestMapping("/export")
 	public void export(HttpServletRequest req, HttpServletResponse response, String code, Integer paper) {
 
 		if (LoginCheckUtil.isAdminLogined(req) && !StrUtil.isEmpty(code)) {
 			logger.info("Export {} score for excel", code);
-			for (int index = 1; index < 6; index++) {
-				List<Score> list = scoreService.compute(code, 1);
+			// for (int index = 1; index < 6; index++) {
+			List<Score> list = scoreService.compute(code, 1);
 
-				paper = index;
-				String excelName = code + "-" + PaperUtil.getName(paper);
+			paper = 1;
+			String excelName = code + "-" + PaperUtil.getName(paper);
 
-				logger.info(excelName);
+			logger.info(excelName);
 
-				File file = ExcelUtil.buildScoreResultExcel(excelName, list);
-				FileUtil.download(response, file.getAbsolutePath());
-				file.delete();
-			}
+			File file = ExcelUtil.buildScoreResultExcel(excelName, list);
+			FileUtil.download(response, file.getAbsolutePath());
+			file.delete();
+			// }
 		} else {
 			logger.info("Must be logging and code disallow to be empty");
 		}

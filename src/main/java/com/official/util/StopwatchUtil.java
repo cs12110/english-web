@@ -15,14 +15,13 @@ import java.util.Map;
  */
 public class StopwatchUtil {
 
-	private static final String EACH_SPLIT = ",";
-	private static final String BETWEEN_SPLIT = "#";
+	public static final String EACH_SPLIT = ",";
+	public static final String BETWEEN_SPLIT = "#";
 
 	/**
 	 * 将字符串转成Map
 	 * 
-	 * @param stopwatch
-	 *            字符串
+	 * @param stopwatch 字符串
 	 * @return Map
 	 */
 	public static Map<String, Integer> fat(String stopwatch) {

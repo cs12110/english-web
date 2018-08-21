@@ -10,6 +10,7 @@
     <result column="sub_id" property="subId" jdbcType="INTEGER" />
     <result column="correct" property="correct" jdbcType="INTEGER" />
     <result column="sub_type" property="subType" jdbcType="INTEGER" />
+    <result column="paper" property="paper" jdbcType="INTEGER" />
     <result column="stopwatch" property="stopwatch" jdbcType="LONGVARCHAR" />
   </resultMap>
   
@@ -27,7 +28,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    score_t.id, cus_id, sub_id, correct,paper, stopwatch,sub_type
+    score_t.id, score_t.cus_id, score_t.sub_id, score_t.correct,score_t.paper, score_t.stopwatch,score_t.sub_type
   </sql>
   
   <insert id="save">

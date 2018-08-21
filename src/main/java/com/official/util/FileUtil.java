@@ -330,7 +330,7 @@ public class FileUtil {
 	 * @param File
 	 * @param org.apache.tools.zip.ZipOutputStream
 	 */
-	private static void zipFile(File inputFile, ZipOutputStream ouputStream) {
+	public static void zipFile(File inputFile, ZipOutputStream ouputStream) {
 		try {
 			if (inputFile.exists()) {
 				if (inputFile.isFile()) {
