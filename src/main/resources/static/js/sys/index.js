@@ -247,3 +247,7 @@ function computeScore(){
 		window.location.href='/admin/export?code='+code+"&paper="+fileArr[i];
 	}
 }
+
+function clearFileArea(){
+    $("#thelist").html("");
+}
