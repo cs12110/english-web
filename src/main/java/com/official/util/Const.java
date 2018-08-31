@@ -55,4 +55,14 @@ public class Const {
 	 * 旧版本excel后缀名
 	 */
 	public static final String OLD_EXCEL_SUBFFIX = "xls";
+
+	/**
+	 * 第一种excel长度
+	 */
+	public static final int SUB1_LENGTH = 4;
+
+	/**
+	 * 第二种excel长度
+	 */
+	public static final int SUB2_LENGTH = 5;
 }

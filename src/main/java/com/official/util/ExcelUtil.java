@@ -76,7 +76,7 @@ public class ExcelUtil {
 				} else {
 					logger.info("Parse {} row to {} subject  didn't work out", rowIndex, paperEnum);
 				}
-				if (list.size() % batch == 0) {
+				if (list.size() > 0 && list.size() % batch == 0) {
 					try {
 						batchUtil.process(list);
 						list.clear();
@@ -115,7 +115,7 @@ public class ExcelUtil {
 		if ((paper == PaperEnum.BEFORE.getValue()) || (paper == PaperEnum.AFTER.getValue())
 				|| (paper == PaperEnum.TRACE.getValue())) {
 
-			if (row.getPhysicalNumberOfCells() == 4) {
+			if (row.getPhysicalNumberOfCells() == Const.SUB1_LENGTH) {
 				return parseToBeforeSubject(row, sentence);
 			}
 
@@ -125,7 +125,7 @@ public class ExcelUtil {
 		 * 其他学习的两次一模一样的格式
 		 */
 		if (paper == PaperEnum.LEARNING1.getValue() || (paper == PaperEnum.LEARNING2.getValue())) {
-			if (row.getPhysicalNumberOfCells() == 4) {
+			if (row.getPhysicalNumberOfCells() == Const.SUB2_LENGTH) {
 				return parseToLearningSubject(row, sentence);
 			}
 		}

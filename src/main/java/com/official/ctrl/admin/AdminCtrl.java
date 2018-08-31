@@ -180,10 +180,10 @@ public class AdminCtrl {
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
 		try {
-			String name = file == null ? "" : file.getOriginalFilename();
-			if (!name.endsWith(Const.LATEST_EXCEL_SUBFFIX) || !name.equals(Const.OLD_EXCEL_SUBFFIX)) {
+			String name = file == null ? "" : file.getOriginalFilename().trim();
+			if (!name.endsWith(Const.LATEST_EXCEL_SUBFFIX) && !name.endsWith(Const.OLD_EXCEL_SUBFFIX)) {
 				reply.setStatus(StatusEnum.FAILURE.getValue());
-				reply.setMessage("文件必须为excel(.xlsx/.xls)文件");
+				reply.setMessage("文件必须为excel(`xlsx`/`xls`)后缀文件");
 				return reply.toString();
 			}
 			logger.info("Start to process:{}", name);
