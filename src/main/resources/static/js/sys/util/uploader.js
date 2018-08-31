@@ -73,19 +73,18 @@ $(function() {
             });
 
     uploader.on('uploadSuccess', function(file, response) {
-        var data = response.data;
-        var str = "";
         /*
          * 上传成功
          */
         if (response.status == 1) {
-            $('#' + file.id).find('p.state').text('已上传');
-            str = "成功: " + data.success + "条数据,失败: " + data.failure + "条数据.";
+        	$('#' + file.id).find('p.state').text('已上传');
+        	var data = response.data;
+            var str = "成功: " + data.success + "条数据,失败: " + data.failure + "条数据.";
+            sysTips(str);
         } else {
-        	$('#' + file.id).find('p.state').text(data.message);
-            str = data.message;
+        	$('#' + file.id).find('p.state').text(response.message);
+            sysTips(response.message,3);
         }
-        alert(str);
     });
 
     uploader.on('uploadError', function(file) {

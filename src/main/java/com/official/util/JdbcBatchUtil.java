@@ -43,18 +43,18 @@ public class JdbcBatchUtil {
 		Connection conn = dataSource.getConnection();
 		conn.setAutoCommit(false);
 		try {
-			String sql = "INSERT INTO `subject_t` (`sentence`, `keyword`, `type`, `question`, `answer`, `paper`)"
+			String sql = "INSERT INTO `subject_t` (`sentence`, `type`, `question`, `answer`, `paper`,origin)"
 					+ " VALUES ( ?, ?, ?, ?, ?, ?)";
 
 			PreparedStatement pstm = conn.prepareStatement(sql);
 			for (int i = 0, size = list.size(); i < size; i++) {
 				Subject s = list.get(i);
 				pstm.setString(1, s.getSentence());
-				pstm.setString(2, s.getKeyword());
-				pstm.setInt(3, s.getType());
-				pstm.setString(4, s.getQuestion());
-				pstm.setString(5, s.getAnswer());
-				pstm.setInt(6, s.getPaper());
+				pstm.setInt(2, s.getType());
+				pstm.setString(3, s.getQuestion());
+				pstm.setString(4, s.getAnswer());
+				pstm.setInt(5, s.getPaper());
+				pstm.setString(6, s.getOrigin());
 				pstm.addBatch();
 
 				if (i != 0 && i % batchNum == 0) {

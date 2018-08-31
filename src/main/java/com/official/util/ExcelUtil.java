@@ -63,13 +63,19 @@ public class ExcelUtil {
 			List<Subject> list = new ArrayList<Subject>();
 			for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
-				Subject subject = parseToSubject(row, paperEnum.getValue());
 
+				String sentence = ExcelUtil.getAsStr(row, 0);
+				if (null == sentence || "".equals(sentence.trim())) {
+					logger.info("Parse {} row sentence is null", rowIndex);
+					continue;
+				}
+				Subject subject = parseToSubject(row, paperEnum.getValue());
 				if (null != subject) {
 					subject.setPaper(paperEnum.getValue());
 					list.add(subject);
+				} else {
+					logger.info("Parse {} row to {} subject  didn't work out", rowIndex, paperEnum);
 				}
-
 				if (list.size() % batch == 0) {
 					try {
 						batchUtil.process(list);
@@ -81,7 +87,6 @@ public class ExcelUtil {
 					}
 				}
 			}
-
 			if (list.size() > 0) {
 				success += list.size();
 				batchUtil.process(list);
@@ -104,60 +109,70 @@ public class ExcelUtil {
 	 */
 	private static Subject parseToSubject(Row row, Integer paper) {
 		String sentence = ExcelUtil.getAsStr(row, 0);
-		if (sentence == null || "".equals(sentence.trim())) {
-			return null;
-		}
+		/**
+		 * 前测,后测,追踪一模一样
+		 */
+		if ((paper == PaperEnum.BEFORE.getValue()) || (paper == PaperEnum.AFTER.getValue())
+				|| (paper == PaperEnum.TRACE.getValue())) {
 
-		if (paper == PaperEnum.BEFORE.getValue()) {
-			return parseToBeforeSubject(row, sentence);
-		}
-
-		if (paper == PaperEnum.LEARNING1.getValue()) {
-
-		}
-
-		if (paper == PaperEnum.LEARNING2.getValue()) {
+			if (row.getPhysicalNumberOfCells() == 4) {
+				return parseToBeforeSubject(row, sentence);
+			}
 
 		}
 
-		if (paper == PaperEnum.AFTER.getValue()) {
-
+		/**
+		 * 其他学习的两次一模一样的格式
+		 */
+		if (paper == PaperEnum.LEARNING1.getValue() || (paper == PaperEnum.LEARNING2.getValue())) {
+			if (row.getPhysicalNumberOfCells() == 4) {
+				return parseToLearningSubject(row, sentence);
+			}
 		}
 
-		if (paper == PaperEnum.TRACE.getValue()) {
-
-		}
-
-		Subject sub = new Subject();
-		try {
-			sub.setSentence(sentence);
-			sub.setKeyword(ExcelUtil.getAsStr(row, 1));
-			sub.setType(ExcelUtil.getAsInt(row, 2));
-			sub.setQuestion(ExcelUtil.getAsStr(row, 3));
-			sub.setAnswer(ExcelUtil.getAsStr(row, 4));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sub;
+		return null;
 	}
 
 	/**
-	 * 转换为前测对象
+	 * 转换为前测,后测,和追踪对象
 	 * 
 	 * @param row      行
 	 * @param sentence 句子
 	 * @return Subject
 	 */
-	private static Subject parseToBeforeSubject(Row row, String sentence) {
+	public static Subject parseToBeforeSubject(Row row, String sentence) {
 		Subject sub = new Subject();
 		try {
 			sub.setSentence(sentence);
-			sub.setKeyword(ExcelUtil.getAsStr(row, 1));
-			sub.setType(ExcelUtil.getAsInt(row, 2));
-			sub.setQuestion(ExcelUtil.getAsStr(row, 3));
-			sub.setAnswer(ExcelUtil.getAsStr(row, 4));
+			sub.setType(ExcelUtil.getAsInt(row, 1));
+			sub.setQuestion(ExcelUtil.getAsStr(row, 2));
+			sub.setAnswer(ExcelUtil.getAsStr(row, 3));
+			sub.setOrigin(null);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		return sub;
+	}
+
+	/**
+	 * 转换为前测,后测,和追踪对象
+	 * 
+	 * @param row      行
+	 * @param sentence 句子
+	 * @return Subject
+	 */
+	public static Subject parseToLearningSubject(Row row, String sentence) {
+		Subject sub = new Subject();
+		try {
+			sub.setSentence(sentence);
+			sub.setType(ExcelUtil.getAsInt(row, 1));
+			sub.setQuestion(ExcelUtil.getAsStr(row, 2));
+			sub.setAnswer(ExcelUtil.getAsStr(row, 3));
+			sub.setOrigin(getAsStr(row, 4));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		return sub;
 	}

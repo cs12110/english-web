@@ -20,11 +20,6 @@ public class Subject extends BaseEntity {
 	private String sentence;
 
 	/**
-	 * 关键字
-	 */
-	private String keyword;
-
-	/**
 	 * 类型
 	 */
 	private Integer type;
@@ -45,6 +40,11 @@ public class Subject extends BaseEntity {
 	private Integer paper;
 
 	/**
+	 * 原句子
+	 */
+	private String origin;
+
+	/**
 	 * @return sentence
 	 */
 	public String getSentence() {
@@ -56,20 +56,6 @@ public class Subject extends BaseEntity {
 	 */
 	public void setSentence(String sentence) {
 		this.sentence = sentence == null ? null : sentence.trim();
-	}
-
-	/**
-	 * @return keyword
-	 */
-	public String getKeyword() {
-		return keyword;
-	}
-
-	/**
-	 * @param keyword
-	 */
-	public void setKeyword(String keyword) {
-		this.keyword = keyword == null ? null : keyword.trim();
 	}
 
 	/**
@@ -120,6 +106,14 @@ public class Subject extends BaseEntity {
 
 	public void setPaper(Integer paper) {
 		this.paper = paper;
+	}
+
+	public String getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
 
 	@Override

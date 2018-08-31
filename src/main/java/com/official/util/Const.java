@@ -47,7 +47,12 @@ public class Const {
 	public static final String BETWEEN_SPLIT = "#";
 
 	/**
-	 * Excel文件后缀名
+	 * Excel文件后缀名(2007之后)
 	 */
-	public static final String EXCEL_SUBFFIX = "xlsx";
+	public static final String LATEST_EXCEL_SUBFFIX = "xlsx";
+
+	/**
+	 * 旧版本excel后缀名
+	 */
+	public static final String OLD_EXCEL_SUBFFIX = "xls";
 }
