@@ -201,6 +201,7 @@ function updateProgress() {
             } else {
                 sysTips(data.message, 3);
             }
+            getCurrentExam();
         }
     });
 }
@@ -223,9 +224,6 @@ function sysTips(msg, second) {
 
 
 function computeScore(){
-	
-	
-	
 	var code = $("input[name=customerCode]").val();
 	if(code==undefined || code.trim()==""){
 		sysTips("请输入学号",2);
