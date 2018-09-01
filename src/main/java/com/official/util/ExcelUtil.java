@@ -267,7 +267,7 @@ public class ExcelUtil {
 	 * 
 	 * @param list 回答问题集合
 	 * @return double
-	 */
+	 */ 
 	private static double computePrecisionRate(List<Score> list) {
 		if (list == null || list.isEmpty()) {
 			return 0;

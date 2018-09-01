@@ -16,8 +16,7 @@ public class JsonUtil {
 	/**
 	 * Ajax跨域请求回传数据
 	 * 
-	 * @param obj
-	 *            回传数据
+	 * @param obj 回传数据
 	 * @return String
 	 */
 	public static <T> String buildCallbackJSONStr(T obj) {
@@ -35,8 +34,7 @@ public class JsonUtil {
 	 * <p>
 	 * 如果对象为空,返回 ""
 	 * 
-	 * @param obj
-	 *            对象
+	 * @param obj 对象
 	 * @return String
 	 */
 	public static <T> String toJSONStr(T obj) {
@@ -49,10 +47,8 @@ public class JsonUtil {
 	/**
 	 * 将json字符串转换成对象
 	 * 
-	 * @param clazz
-	 *            class of T
-	 * @param jsonStr
-	 *            json字符串
+	 * @param clazz   class of T
+	 * @param jsonStr json字符串
 	 * @return T
 	 */
 	public static <T> T parse(Class<T> clazz, String jsonStr) {

@@ -20,8 +20,7 @@ public class LoginCheckUtil {
 	/**
 	 * 判断管理员是否已登录
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return boolean
 	 */
 	public static boolean isAdminLogined(HttpServletRequest req) {

@@ -21,10 +21,8 @@ public class Md5Util {
 	/**
 	 * 加密密码
 	 * 
-	 * @param password
-	 *            密码
-	 * @param len
-	 *            长度
+	 * @param password 密码
+	 * @param len      长度
 	 * @return String
 	 */
 	public static String encode(String password, int len) {
@@ -34,8 +32,7 @@ public class Md5Util {
 	/**
 	 * 带盐加密
 	 * 
-	 * @param password
-	 *            密码
+	 * @param password 密码
 	 * 
 	 * @return String
 	 */
@@ -46,8 +43,7 @@ public class Md5Util {
 	/**
 	 * 加密密码(加盐)
 	 * 
-	 * @param password
-	 *            密码
+	 * @param password 密码
 	 * @return String 32位长度字符串
 	 */
 	public static String encode(String password) {

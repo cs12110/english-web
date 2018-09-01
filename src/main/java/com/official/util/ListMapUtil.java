@@ -25,8 +25,7 @@ public class ListMapUtil {
 	/**
 	 * 洗牌,打乱list里面的元素位置
 	 * 
-	 * @param values
-	 *            list
+	 * @param values list
 	 * @return List
 	 */
 	public static <T> List<T> shuffle(List<T> values) {
@@ -77,8 +76,7 @@ public class ListMapUtil {
 	/**
 	 * 判断collection是否为空,如果为空返回true
 	 *
-	 * @param listOrSet
-	 *            集合list或者set元素
+	 * @param listOrSet 集合list或者set元素
 	 * @return boolean
 	 */
 	public static <T> boolean isEmpty(Collection<T> listOrSet) {
@@ -88,8 +86,7 @@ public class ListMapUtil {
 	/**
 	 * 判断Map是否为空
 	 *
-	 * @param map
-	 *            Map
+	 * @param map Map
 	 * @return boolean
 	 */
 	public static <K, V> boolean isEmpty(Map<K, V> map) {
@@ -99,8 +96,7 @@ public class ListMapUtil {
 	/**
 	 * 判断数组是否为空
 	 *
-	 * @param arr
-	 *            数组
+	 * @param arr 数组
 	 * @return boolean
 	 */
 	public static <T> boolean isEmpty(T[] arr) {
@@ -110,8 +106,7 @@ public class ListMapUtil {
 	/**
 	 * 将数组转换成List
 	 *
-	 * @param arr
-	 *            数组
+	 * @param arr 数组
 	 * @return List
 	 */
 	public static <T> List<T> toList(T[] arr) {

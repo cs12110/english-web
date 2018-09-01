@@ -22,8 +22,7 @@ public class DateUtil {
 	/**
 	 * 日期格式
 	 *
-	 * @param format
-	 *            日期格式字符串,如yyyy-MM-dd HH:mm:ss
+	 * @param format 日期格式字符串,如yyyy-MM-dd HH:mm:ss
 	 * @return String
 	 */
 	public static String getFormatDate(String format) {
