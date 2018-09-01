@@ -105,9 +105,7 @@ function nextSentence() {
 
 var watcher = null;
 $(document).ready(function () {
-
 	getSubjects();
-
 	var stopwatchArr = new Array();
 	$nextWorkBtn.click(function () {
 		var len = words.length;
@@ -115,7 +113,6 @@ $(document).ready(function () {
 		if (wordIndex > 0) {
 			$('[data-work-index="' + prev + '"]').empty();
 		}
-
 		if (wordIndex < len) {
 			if (wordIndex == 0) {
 				watcher = new Date();
@@ -140,9 +137,9 @@ $(document).ready(function () {
 				"value": now - watcher
 			}
 			stopwatchArr.push(time);
-			score.paper = subjects[sentenceIndex].paper;
-			score.subType = subjects[sentenceIndex].type;
-
+			// 在最后一个单词的时候回获取不了下面的数据
+				score.paper = curSentence.paper;
+				score.subType = curSentence.type;
 			$('.question-area').css('display', '');
 			$('#question').text(curSentence.question);
 		}
@@ -157,21 +154,22 @@ $(document).ready(function () {
 		}
 		var valueAsStr = "";
 		var len = stopwatchArr.length;
+		
+		var myTemp = new Array();
 		for (var i = 0; i < len; i++) {
 			var temp = stopwatchArr[i];
-			valueAsStr += temp.key + "#" + temp.value;
-			if (i < len - 1) {
-				valueAsStr += ",";
-			}
+			var obj= new Object();
+			obj[temp.key] = temp.value;
+			myTemp.push(obj);
 		}
-		score.stopwatch = valueAsStr;
+		score.stopwatch = JSON.stringify(myTemp);
 		$.post('/score/save', score, function (data) {
 			if (data.status !== 1) {
 				sysTips(data.message);
 			} else {
 				// 判断是否显示全句,然后间隔5秒后显示下一题
 				if (currentPaperNum == 2 || currentPaperNum == 3) {
-					//显示句子全部,并在5秒跳转
+					// 显示句子全部,并在5秒跳转
 					for (var i in words) {
 						$('[data-work-index="' + i + '"]').append(words[i]);
 					}

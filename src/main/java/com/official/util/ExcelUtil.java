@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -23,6 +24,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.official.entity.Customer;
 import com.official.entity.Score;
 import com.official.entity.Subject;
@@ -267,7 +271,7 @@ public class ExcelUtil {
 	 * 
 	 * @param list 回答问题集合
 	 * @return double
-	 */ 
+	 */
 	private static double computePrecisionRate(List<Score> list) {
 		if (list == null || list.isEmpty()) {
 			return 0;
@@ -335,14 +339,29 @@ public class ExcelUtil {
 			// 10. 每一个词的阅读时间
 			String stopwatch = score.getStopwatch();
 			if (null != stopwatch) {
-				String[] arr = stopwatch.split(Const.EACH_SPLIT);
-				for (String each : arr) {
-					String[] values = each.split(Const.BETWEEN_SPLIT);
-					String key = values[0];
-					String time = values[1];
-					cell = row.createCell(j++);
-					cell.setCellValue(String.valueOf(key + ":" + time));
+				// 转换json
+				JSONArray jsonArr = JSON.parseArray(stopwatch);
+				for (Object each : jsonArr) {
+					JSONObject jsonObj = (JSONObject) each;
+					Set<String> keys = jsonObj.keySet();
+					for (String key : keys) {
+						cell = row.createCell(j++);
+						cell.setCellValue(String.valueOf(key + ":" + jsonObj.getIntValue(key)));
+					}
 				}
+
+//				String[] arr = stopwatch.split(Const.EACH_SPLIT);
+//				for (String each : arr) {
+//					String[] values = each.split(Const.BETWEEN_SPLIT);
+//
+//					if (values.length < 2) {
+//						System.out.println(each);
+//					}
+//
+//					String key = values[0];
+//					String time = values[1];
+//					cell.setCellValue(String.valueOf(key + ":" + time));
+//				}
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());

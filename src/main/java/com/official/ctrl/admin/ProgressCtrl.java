@@ -38,8 +38,7 @@ public class ProgressCtrl {
 	/**
 	 * 当前测试
 	 * 
-	 * @param req
-	 *            HttpServletRequest
+	 * @param req HttpServletRequest
 	 * @return String of {@link Reply}
 	 */
 	@RequestMapping("/current")
@@ -61,10 +60,8 @@ public class ProgressCtrl {
 	/**
 	 * 更新当前进度
 	 * 
-	 * @param req
-	 *            请求
-	 * @param value
-	 *            进度
+	 * @param req   请求
+	 * @param value 进度
 	 * @return String
 	 */
 	@RequestMapping("/update")

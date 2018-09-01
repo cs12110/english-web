@@ -33,12 +33,14 @@
   
   <insert id="save">
 	  	INSERT INTO
-	  		score_t(cus_id,sub_id,correct,stopwatch)
+	  		score_t(cus_id,sub_id,correct,stopwatch,paper,sub_type)
 	  	VALUES(
 	  		#{cusId},
 	  		#{subId},
 	  		#{correct},
-	  		#{stopwatch}
+	  		#{stopwatch},
+	  		#{paper},
+	  		#{subType}
 	  	)
   </insert>
 	
