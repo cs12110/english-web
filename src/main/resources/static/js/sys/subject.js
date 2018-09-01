@@ -1,8 +1,8 @@
 //code by lucien
 
 var page = {
-	index : 0,
-	rows : 20
+	index: 0,
+	rows: 20
 };
 
 var words = [];
@@ -11,11 +11,11 @@ var curSentence = null;
 var wordIndex = 0;
 var readIndex = 1;
 var score = {
-	cusId : null,
-	subId : null,
-	correct : null,
-	stopwatch : "",
-	paper : 0
+	cusId: null,
+	subId: null,
+	correct: null,
+	stopwatch: "",
+	paper: 0
 };
 var sentenceIndex = 0;
 
@@ -28,13 +28,13 @@ var $wordBox = $('.each-word');
 function getSubjects() {
 	page.index = page.index + 1;
 	$.ajax({
-		url : "/subject/list",
-		data : {
-			"page" : page.index,
-			"rows" : page.rows
+		url: "/subject/list",
+		data: {
+			"page": page.index,
+			"rows": page.rows
 		},
-		dataType : "json",
-		success : function(data) {
+		dataType: "json",
+		success: function (data) {
 			subjects = data;
 			// 开始从第一个显示
 			nextSentence();
@@ -60,9 +60,9 @@ function clearSentenceData() {
 	readIndex = 1;
 	$wordBox.empty();
 	score = {
-		subId : null,
-		correct : null,
-		stopwatch : ""
+		subId: null,
+		correct: null,
+		stopwatch: ""
 	};
 }
 
@@ -79,7 +79,7 @@ function generatorWordPosition(words) {
 	var len = words.length;
 	for (var index = 0; index < len; index++) {
 		$wordBox.append('<div data-work-index="' + index
-				+ '" class="show-word"></div>')
+			+ '" class="show-word"></div>')
 	}
 }
 
@@ -92,7 +92,7 @@ function readTime(start) {
 
 function nextSentence() {
 	var subject = subjects[sentenceIndex];
-	if (!subject) { // 休息一下啦。
+	if (!subject) { // 休息一下啦
 		$('[data-relax]').css('display', '');
 		$('#operatorBtn').find('input').attr('disabled', 'disabled');
 		sentenceIndex = 0;
@@ -104,12 +104,12 @@ function nextSentence() {
 }
 
 var watcher = null;
-$(document).ready(function() {
+$(document).ready(function () {
 
 	getSubjects();
 
 	var stopwatchArr = new Array();
-	$nextWorkBtn.click(function() {
+	$nextWorkBtn.click(function () {
 		var len = words.length;
 		var prev = wordIndex - 1;
 		if (wordIndex > 0) {
@@ -123,8 +123,8 @@ $(document).ready(function() {
 				var now = new Date();
 				var key = "" + words[wordIndex - 1];
 				var time = {
-					"key" : key,
-					"value" : now - watcher
+					"key": key,
+					"value": now - watcher
 				}
 				stopwatchArr.push(time);
 				watcher = now;
@@ -136,49 +136,25 @@ $(document).ready(function() {
 			var now = new Date();
 			var key = "" + words[wordIndex - 1];
 			var time = {
-				"key" : key,
-				"value" : now - watcher
+				"key": key,
+				"value": now - watcher
 			}
 			stopwatchArr.push(time);
-			$('.question-area').css('display', '');
-			$('#question').text(curSentence.question);
 			score.paper = subjects[sentenceIndex].paper;
 			score.subType = subjects[sentenceIndex].type;
+
+			$('.question-area').css('display', '');
+			$('#question').text(curSentence.question);
 		}
-		// if (wordIndex < len) {
-		// console.log(word);
-		// stopwatchArr['' + word + ''] = readTime(readBeginTime);
-		// if (wordIndex == 0) {
-		// readBeginTime = new Date();
-		// }
-		// var word = words[wordIndex];
-		// $('[data-work-index="' + wordIndex + '"]').append(word);
-		//
-		// if (readBeginTime != null) {
-		// var reTime = readTime(readBeginTime);
-		// var reProperty = 'readTime' + readIndex;
-		// score['' + reProperty + ''] = reTime;
-		// readIndex += 1;
-		// readBeginTime = null;
-		// }
-		// if ($.inArray(word, keywords) !== -1) {
-		// readBeginTime = new Date();
-		// }
-		// wordIndex += 1;
-		// } else {
-		// $('.question-area').css('display', '');
-		// $('#question').text(curSentence.question);
-		// }
 	});
 
-	$('#submit').click(function() {
+	$('#submit').click(function () {
 		var chk = $('input[name="answer"]:checked').val();
 		if (chk === curSentence.answer) {
 			score.correct = 1;
 		} else {
 			score.correct = 0;
 		}
-
 		var valueAsStr = "";
 		var len = stopwatchArr.length;
 		for (var i = 0; i < len; i++) {
@@ -188,21 +164,31 @@ $(document).ready(function() {
 				valueAsStr += ",";
 			}
 		}
-
 		score.stopwatch = valueAsStr;
-		console.log(score);
-
-		$.post('/score/save', score, function(data) {
+		$.post('/score/save', score, function (data) {
 			if (data.status !== 1) {
-				alert(data.message);
+				sysTips(data.message);
+			} else {
+				// 判断是否显示全句,然后间隔5秒后显示下一题
+				if (currentPaperNum == 2 || currentPaperNum == 3) {
+					//显示句子全部,并在5秒跳转
+					for (var i in words) {
+						$('[data-work-index="' + i + '"]').append(words[i]);
+					}
+					setTimeout(() => {
+						stopwatchArr = new Array();
+						nextSentence();
+					}, showOriginSentenceSeconds * 1000);
+				} else {
+					stopwatchArr = new Array();
+					nextSentence();
+				}
 			}
 		}, "json");
-		stopwatchArr = new Array();
-		nextSentence();
 		return false;
 	});
 
-	$relaxBtn.click(function() {
+	$relaxBtn.click(function () {
 		if ($(this).data('relax-btn')) {
 			// 点击休息 do something
 		} else {

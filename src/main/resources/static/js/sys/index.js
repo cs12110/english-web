@@ -1,9 +1,19 @@
-$(function() {
+$(function () {
     adminLoginCheck();
     customerLoginCheck();
     getCurrentExam();
     displayCustomerInfo();
 });
+
+/**
+ * 当前测试的试卷类型
+ */
+var currentPaperNum = 0;
+
+/**
+ * 学习1和学习2点击答案提交后,显示原句时间
+ */
+var showOriginSentenceSeconds = 5;
 
 function adminLoginCheck() {
     $.ajax({
@@ -13,7 +23,7 @@ function adminLoginCheck() {
 
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status == 1) {
                 displayAdminArea();
             } else {
@@ -31,7 +41,7 @@ function customerLoginCheck() {
 
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status == 1) {
                 $("#handsup").hide();
                 $("#after-all").show();
@@ -51,7 +61,7 @@ function deleteAll() {
         data: {
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status == 1) {
                 sysTips("删除成功", 3);
                 $("#sysTips").modal();
@@ -87,7 +97,7 @@ function adminLogin() {
         url: "/admin/login",
         data: user,
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status != 1) {
                 sysTips(data.message);
             } else {
@@ -104,11 +114,11 @@ function logout() {
         url: "/admin/logout",
         data: {},
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status != 1) {
                 sysTips(data.message);
             } else {
-                sysTips("退出成功",3);
+                sysTips("退出成功", 3);
                 hiddeAdminArea();
             }
         }
@@ -134,7 +144,7 @@ function customerLogout() {
         url: "/customer/logout",
         data: {},
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status != 1) {
                 sysTips(data.message, 3);
                 window.location.reload();
@@ -147,20 +157,20 @@ function customerLogout() {
     })
 }
 
-function displayCustomerInfo(){
-	$.ajax({
-		url:"/customer/current/",
-		data:{
-			
-		},
-		dataType:"json",
-		success:function(data){
-			if(data.status==1){
-				var ctm = data.data;
-				$("#infoArea").text("学号: "+ctm.code);
-			}
-		}
-	})
+function displayCustomerInfo() {
+    $.ajax({
+        url: "/customer/current/",
+        data: {
+
+        },
+        dataType: "json",
+        success: function (data) {
+            if (data.status == 1) {
+                var ctm = data.data;
+                $("#infoArea").text("学号: " + ctm.code);
+            }
+        }
+    })
 }
 
 /**
@@ -173,12 +183,13 @@ function getCurrentExam() {
         url: "/progress/current",
         data: {},
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status == 1) {
                 var progress = data.data;
                 $("input[name=progress][value=" + progress.paper + "]").prop(
                     "checked", true);
-                $("#examArea").text("试题: "+progress.name);
+                $("#examArea").text("试题: " + progress.name);
+                currentPaperNum = progress.paper;
             } else {
                 sysTips(data.message);
             }
@@ -194,10 +205,11 @@ function updateProgress() {
             "paper": paper
         },
         dataType: "json",
-        success: function(data) {
+        success: function (data) {
             if (data.status == 1) {
                 sysTips("更新成功", 3);
                 $("#progress").modal('hide');
+                currentPaperNum = paper;
             } else {
                 sysTips(data.message, 3);
             }
@@ -223,29 +235,29 @@ function sysTips(msg, second) {
 }
 
 
-function computeScore(){
-	var code = $("input[name=customerCode]").val();
-	if(code==undefined || code.trim()==""){
-		sysTips("请输入学号",2);
-		return;
-	}
-	
-	var fileArr = new Array();
-	$("input[name=fileArr]:checked").each(function(index){
-		fileArr.push($(this).val());
-	});
-	
-	if(fileArr.length<1){
-		sysTips("请选择成绩类型",2);
-		return;
-	}
-	
-	for(var i in fileArr){
-		console.log("download: "+fileArr[i])
-		window.location.href='/admin/export?code='+code+"&paper="+fileArr[i];
-	}
+function computeScore() {
+    var code = $("input[name=customerCode]").val();
+    if (code == undefined || code.trim() == "") {
+        sysTips("请输入学号", 2);
+        return;
+    }
+
+    var fileArr = new Array();
+    $("input[name=fileArr]:checked").each(function (index) {
+        fileArr.push($(this).val());
+    });
+
+    if (fileArr.length < 1) {
+        sysTips("请选择成绩类型", 2);
+        return;
+    }
+
+    for (var i in fileArr) {
+        console.log("download: " + fileArr[i])
+        window.location.href = '/admin/export?code=' + code + "&paper=" + fileArr[i];
+    }
 }
 
-function clearFileArea(){
+function clearFileArea() {
     $("#thelist").html("");
 }
