@@ -62,3 +62,11 @@ a#infoArea,a#examArea {
 	font-weight: bold;
 	color: black;
 }
+
+
+.test-material-tips{
+	margin-bottom: 5%;
+    border: gray 1px dashed;
+    border-radius: 3px;
+    padding:5px;
+}
