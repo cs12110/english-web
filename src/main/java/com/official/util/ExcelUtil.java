@@ -236,6 +236,9 @@ public class ExcelUtil {
 			XSSFSheet sheet = workbook.createSheet("成绩");
 			XSSFRow row = sheet.createRow(0);
 
+			// 计算准确率
+			double precisionRate = computePrecisionRate(list);
+
 			// 第一行:头部信息
 			for (int index = 0, len = titles.length; index < len; index++) {
 				XSSFCell cell = row.createCell(index);
@@ -246,7 +249,7 @@ public class ExcelUtil {
 				for (int index = 0, size = list.size(); index < size; index++) {
 					row = sheet.createRow(index + 1);
 					Score score = list.get(index);
-					ExcelUtil.parseScoreToRow(row, score);
+					ExcelUtil.parseScoreToRow(row, score, precisionRate);
 				}
 			}
 			// 创建输出流
@@ -260,53 +263,76 @@ public class ExcelUtil {
 	}
 
 	/**
+	 * 计算准确率
+	 * 
+	 * @param list 回答问题集合
+	 * @return double
+	 */
+	private static double computePrecisionRate(List<Score> list) {
+		if (list == null || list.isEmpty()) {
+			return 0;
+		}
+
+		int rightAnwser = 0;
+		int size = list.size();
+		for (int index = 0; index < size; index++) {
+			Score score = list.get(index);
+			if (score.getCorrect() == 1) {
+				rightAnwser++;
+			}
+		}
+		return (1.0 * rightAnwser) / (1.0 * size);
+	}
+
+	/**
 	 * 将成绩对象转换成excel的行数据
 	 * 
-	 * @param row   行
-	 * @param score 成绩对象
+	 * @param row           行
+	 * @param score         成绩对象
+	 * @param pricisionRate 准确率
 	 */
-	private static void parseScoreToRow(XSSFRow row, Score score) {
+	private static void parseScoreToRow(XSSFRow row, Score score, double pricisionRate) {
 		try {
 
 			Customer customer = score.getCustomer();
 			int j = 0;
-			// 1
+			// 1. 学生名称
 			XSSFCell cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getName()));
 
-			// 2
+			// 2. 学号
 			cell = row.createCell(j++);
 			cell.setCellValue(customer.getCode());
 
-			// 3
+			// 3. 学习英语的年限
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getEngAge()));
 
-			// 4
+			// 4. 年龄
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getAge()));
 
-			// 5
+			// 5. 四级成绩
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getCet4()));
 
-			// 6
+			// 6. 六级成绩
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getCet6()));
 
-			// 7
+			// 7. 专业
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(customer.getMajor()));
 
-			// 8
+			// 8. 试题类型
 			cell = row.createCell(j++);
 			cell.setCellValue(asStr(score.getSubType()));
 
-			// 9
-			String value = score.getCorrect() == 1 ? "正确" : "错误";
+			// 9. 回答准确度
 			cell = row.createCell(j++);
-			cell.setCellValue(value);
+			cell.setCellValue(pricisionRate);
 
+			// 10. 每一个词的阅读时间
 			String stopwatch = score.getStopwatch();
 			if (null != stopwatch) {
 				String[] arr = stopwatch.split(Const.EACH_SPLIT);
