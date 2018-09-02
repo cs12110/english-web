@@ -19,15 +19,13 @@ public interface ScoreMapper extends MyMapper<Score> {
 	/**
 	 * 统计成绩
 	 * 
-	 * @param codeOfCustomer
-	 *            学号
+	 * @param customerId 学生Id
 	 * 
-	 * @param paper
-	 *            测试类型
+	 * @param paper      测试类型
 	 * 
 	 * @return List
 	 */
-	List<Score> computeScore(@Param("code") String codeOfCustomer, @Param("paper") Integer paper);
+	List<Score> computeScore(@Param("customerId") String customerId, @Param("paper") Integer paper);
 
 	/**
 	 * 删除全部
@@ -39,9 +37,16 @@ public interface ScoreMapper extends MyMapper<Score> {
 	/**
 	 * 保存数据
 	 * 
-	 * @param score
-	 *            数据
+	 * @param score 数据
 	 * @return int
 	 */
 	int save(Score score);
+
+	/**
+	 * 查询考了paper=#{paper}的学生Id
+	 * 
+	 * @param paper paper类型
+	 * @return List
+	 */
+	List<Integer> selectCusIdByPaper(Integer paper);
 }

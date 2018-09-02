@@ -30,11 +30,9 @@ import com.official.service.subject.SubjectService;
 import com.official.service.sys.SysUserService;
 import com.official.util.Const;
 import com.official.util.ExcelUtil;
-import com.official.util.FileUtil;
 import com.official.util.LoginCheckUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
-import com.official.util.StrUtil;
 
 /**
  * 管理员控制类
@@ -228,13 +226,22 @@ public class AdminCtrl {
 	@RequestMapping("/export")
 	public void export(HttpServletRequest req, HttpServletResponse response, String code, Integer paper) {
 
-		if (LoginCheckUtil.isAdminLogined(req) && !StrUtil.isEmpty(code)) {
+		if (LoginCheckUtil.isAdminLogined(req)) {
+
 			long start = System.currentTimeMillis();
-			List<Score> list = scoreService.compute(code, paper);
-			String excelName = code + "-" + PaperUtil.getName(paper);
-			File file = ExcelUtil.buildScoreResultExcel(excelName, list);
-			FileUtil.download(response, file.getAbsolutePath());
-			file.delete();
+			List<Integer> customerIdList = scoreService.selectCusIdByPaper(paper);
+			if (null != customerIdList) {
+				for (Integer each : customerIdList) {
+					List<Score> list = scoreService.compute(String.valueOf(each), paper);
+					String excelName = code + "-" + PaperUtil.getName(paper);
+					File file = ExcelUtil.buildScoreResultExcel(excelName, list);
+					logger.info("Generator score file:{}", file.getName());
+					System.out.println(file.getAbsolutePath());
+				}
+			}
+
+			// FileUtil.download(response, file.getAbsolutePath());
+			// file.delete();
 			long end = System.currentTimeMillis();
 			logger.info("Export {} score for excel,spend: {} mills", code, (end - start));
 		} else {

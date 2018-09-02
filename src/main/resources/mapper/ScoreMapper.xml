@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.official.mapper.ScoreMapper" >
-  <resultMap id="BaseResultMap" type="com.official.entity.Score" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
-    <result column="sub_id" property="subId" jdbcType="INTEGER" />
-    <result column="correct" property="correct" jdbcType="INTEGER" />
-    <result column="sub_type" property="subType" jdbcType="INTEGER" />
-    <result column="paper" property="paper" jdbcType="INTEGER" />
-    <result column="stopwatch" property="stopwatch" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  
-  <resultMap type="com.official.entity.Score" id="extMap" extends="BaseResultMap">
-  	<association property="customer"
-					 select="com.official.mapper.CustomerMapper.selectByPrimaryKey"
-					 column="cus_id"></association>
-					 
-	<association property="subject"
-					 select="com.official.mapper.SubjectMapper.selectByPrimaryKey"
-					 column="sub_id"></association>
-  </resultMap>
-  
-  <sql id="columnList" >
-    <!--
-      WARNING - @mbg.generated
-    -->
-    score_t.id, score_t.cus_id, score_t.sub_id, score_t.correct,score_t.paper, score_t.stopwatch,score_t.sub_type
-  </sql>
-  
-  <insert id="save">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.official.mapper.ScoreMapper">
+	<resultMap id="BaseResultMap" type="com.official.entity.Score">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="cus_id" property="cusId" jdbcType="INTEGER" />
+		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+		<result column="correct" property="correct" jdbcType="INTEGER" />
+		<result column="sub_type" property="subType" jdbcType="INTEGER" />
+		<result column="paper" property="paper" jdbcType="INTEGER" />
+		<result column="stopwatch" property="stopwatch" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<resultMap type="com.official.entity.Score" id="extMap" extends="BaseResultMap">
+		<association property="customer" select="com.official.mapper.CustomerMapper.selectByPrimaryKey" column="cus_id"></association>
+		<association property="subject" select="com.official.mapper.SubjectMapper.selectByPrimaryKey" column="sub_id"></association>
+	</resultMap>
+
+	<sql id="columnList">
+    	score_t.id, 
+    	score_t.cus_id, 
+    	score_t.sub_id, 
+    	score_t.correct,
+    	score_t.paper, 
+    	score_t.stopwatch,
+    	score_t.sub_type
+	</sql>
+
+	<insert id="save">
 	  	INSERT INTO
 	  		score_t(cus_id,sub_id,correct,stopwatch,paper,sub_type)
 	  	VALUES(
@@ -42,11 +37,30 @@
 	  		#{paper},
 	  		#{subType}
 	  	)
-  </insert>
-	
-   <select id="computeScore" resultMap="extMap">
-	    SELECT
+	</insert>
+
+	<select id="selectCusIdByPaper" resultType="int">
+  		SELECT DISTINCT
+			cus_id
+		FROM
+			score_t
+		WHERE
+			paper = #{paper}
+	</select>
+
+	<select id="computeScore" resultMap="extMap">
+		SELECT
 			<include refid="columnList"></include>
+		FROM
+			score_t
+		WHERE 
+			paper = #{paper}
+		AND 
+			cus_id = #{customerId}
+		ORDER BY score_t.sub_type ASC
+			
+	    <!-- SELECT
+		<include refid="columnList"></include>
 		FROM
 			score_t
 		INNER JOIN (
@@ -60,14 +74,13 @@
 		<if test="paper!=null">
 			WHERE paper = #{paper}
 		</if>
-		ORDER BY score_t.sub_type ASC
-   </select>
-   
-   <delete id="deleteAll">
+		ORDER BY score_t.sub_type ASC -->
+	</select>
+
+	<delete id="deleteAll">
    		DELETE FROM
    			score_t
-   		WHERE
-   			1=1
-   </delete>
-  
+   		WHERE 1=1
+	</delete>
+
 </mapper>

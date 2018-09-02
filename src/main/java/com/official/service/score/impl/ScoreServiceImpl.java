@@ -31,13 +31,18 @@ public class ScoreServiceImpl implements ScoreService {
 	}
 
 	@Override
-	public List<Score> compute(String codeOfCustomer,Integer paper) {
-		return scoreMapper.computeScore(codeOfCustomer,paper);
+	public List<Score> compute(String customerId, Integer paper) {
+		return scoreMapper.computeScore(customerId, paper);
 	}
 
 	@Override
 	public int deleteAll() {
 		return scoreMapper.deleteAll();
+	}
+
+	@Override
+	public List<Integer> selectCusIdByPaper(Integer paper) {
+		return scoreMapper.selectCusIdByPaper(paper);
 	}
 
 }

@@ -16,8 +16,7 @@ public interface ScoreService {
 	/**
 	 * 新增数据
 	 * 
-	 * @param score
-	 *            成绩
+	 * @param score 成绩
 	 * @return int
 	 */
 	int insert(Score score);
@@ -32,12 +31,18 @@ public interface ScoreService {
 	/**
 	 * 统计成绩
 	 * 
-	 * @param codeOfCustomer
-	 *            学号
-	 * @param paper
-	 *            测试类型
+	 * @param codeOfCustomer 学生Id
+	 * @param paper          测试类型
 	 * @return List
 	 */
 	List<Score> compute(String codeOfCustomer, Integer paper);
+
+	/**
+	 * 查询考了paper的学生Id
+	 * 
+	 * @param paper 试卷类型
+	 * @return List
+	 */
+	List<Integer> selectCusIdByPaper(Integer paper);
 
 }

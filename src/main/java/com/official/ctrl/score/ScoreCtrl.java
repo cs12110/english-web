@@ -34,8 +34,7 @@ public class ScoreCtrl {
 	/**
 	 * 批量保存
 	 * 
-	 * @param list
-	 *            list
+	 * @param list list
 	 * @return String
 	 */
 	@RequestMapping("/saveBatch")
@@ -54,10 +53,8 @@ public class ScoreCtrl {
 	/**
 	 * 保存成绩
 	 * 
-	 * @param req
-	 *            请求
-	 * @param score
-	 *            成绩
+	 * @param req   请求
+	 * @param score 成绩
 	 * @return String
 	 */
 	@RequestMapping("/save")
@@ -73,8 +70,6 @@ public class ScoreCtrl {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 			reply.setMessage("请先填写用户信息");
 		} else {
-			// String stopwatchValue = StopwatchUtil.flat(score.getStopwatch());
-			// score.setStopwatch(stopwatchValue);
 			score.setCusId(currentUser.getId());
 			scoreService.insert(score);
 		}
