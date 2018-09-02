@@ -35,7 +35,6 @@ function getSubjects() {
 		},
 		dataType: "json",
 		success: function (response) {
-			console.log(response);
 			//这里要进行判断
 			if(response.status==1){
 				subjects = response.data;
@@ -97,16 +96,18 @@ function nextSentence() {
 	var subject = subjects[sentenceIndex];
 	 // 休息一下啦
 	if (!subject) {
-		//
-		//$('[data-relax]').css('display', '');
 		
 		$("#askToRest").modal({backdrop: 'static', keyboard: false});
-		
 		$('#operatorBtn').find('input').attr('disabled', 'disabled');
+		
 		sentenceIndex = 0;
 		clearSentenceData();
+
+		
 		return false;
 	}
+	var testNum ="["+(sentenceIndex+1)+"/"+subjects.length+"]";
+	$("#testNum").html(testNum);
 	transSentenceData(subject);
 	sentenceIndex += 1;
 }

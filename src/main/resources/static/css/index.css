@@ -74,3 +74,7 @@ a#infoArea, a#examArea {
 	font-size: 15px;
 	font-weight: bold;
 }
+
+#testNum{
+	font-weight: bold;
+}
