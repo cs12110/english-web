@@ -2,6 +2,8 @@ package com.official.ctrl.admin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +31,9 @@ import com.official.service.score.ScoreService;
 import com.official.service.subject.SubjectService;
 import com.official.service.sys.SysUserService;
 import com.official.util.Const;
+import com.official.util.DateUtil;
 import com.official.util.ExcelUtil;
+import com.official.util.FileUtil;
 import com.official.util.LoginCheckUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
@@ -220,33 +224,77 @@ public class AdminCtrl {
 	 * 
 	 * @param req      {@link HttpServletRequest}
 	 * @param response {@link HttpServletResponse}
-	 * @param code     学号
 	 * @param paper    试卷类型
 	 */
 	@RequestMapping("/export")
-	public void export(HttpServletRequest req, HttpServletResponse response, String code, Integer paper) {
-
+	public void export(HttpServletRequest req, HttpServletResponse response, Integer paper) {
 		if (LoginCheckUtil.isAdminLogined(req)) {
-
 			long start = System.currentTimeMillis();
 			List<Integer> customerIdList = scoreService.selectCusIdByPaper(paper);
 			if (null != customerIdList) {
+				List<File> excelFileList = new ArrayList<File>();
 				for (Integer each : customerIdList) {
 					List<Score> list = scoreService.compute(String.valueOf(each), paper);
+					String code = "";
+					if (null != list && list.size() > 0) {
+						try {
+							code = list.get(0).getCustomer().getCode();
+						} catch (Exception e) {
+							e.printStackTrace();
+							logger.error("Get code from Score have an error:{}", e.getMessage());
+						}
+					}
 					String excelName = code + "-" + PaperUtil.getName(paper);
 					File file = ExcelUtil.buildScoreResultExcel(excelName, list);
+					excelFileList.add(file);
 					logger.info("Generator score file:{}", file.getName());
-					System.out.println(file.getAbsolutePath());
+				}
+
+				// 加入压缩包
+				if (excelFileList.size() > 0) {
+					try {
+						String zipName = buildZipFileName(paper);
+						File zipFile = new File(zipName);
+						FileUtil.zip(excelFileList, zipFile.getPath());
+
+						FileUtil.download(response, zipFile.getPath());
+						logger.info("Zip [{}] is done", zipName);
+						zipFile.delete();
+						logger.info("Delete [{}] is done ", zipName);
+					} catch (Exception e) {
+						e.printStackTrace();
+						logger.error("Zip score file error:{}", e.getMessage());
+					}
 				}
 			}
-
-			// FileUtil.download(response, file.getAbsolutePath());
-			// file.delete();
 			long end = System.currentTimeMillis();
-			logger.info("Export {} score for excel,spend: {} mills", code, (end - start));
+			logger.info("Export excel spend: {} mills", (end - start));
 		} else {
 			logger.info("Must be logging and code disallow to be empty");
+			try {
+				PrintWriter writer = response.getWriter();
+				writer.write("请先登录管理员账号!");
+				writer.flush();
+				writer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	/**
+	 * 创建成绩压缩包
+	 * 
+	 * @param paper 试卷类型
+	 * @return String
+	 */
+	private String buildZipFileName(Integer paper) {
+		StringBuilder name = new StringBuilder();
+		name.append(DateUtil.getFormatDate("yyyyMMdd"));
+		name.append("-");
+		name.append(PaperUtil.getName(paper));
+		name.append("成绩.zip");
+		return name.toString();
 	}
 
 }
