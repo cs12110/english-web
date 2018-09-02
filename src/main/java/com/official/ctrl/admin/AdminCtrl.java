@@ -80,12 +80,14 @@ public class AdminCtrl {
 		if (!LoginCheckUtil.isAdminLogined(req)) {
 			return LoginCheckUtil.pleaseLoginHandsup().toString();
 		}
-
-		logger.info("Delete all the customer and score's record");
+		logger.info("Delete all customer,score,subject");
 
 		customerService.deleteAll();
 		scoreService.deleteAll();
+		subjectService.deleteAll();
 
+		logger.info("Delete all customer,score,subject done");
+		
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
 		reply.setMessage("全部删除");

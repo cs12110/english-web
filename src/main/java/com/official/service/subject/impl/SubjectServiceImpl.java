@@ -51,4 +51,9 @@ public class SubjectServiceImpl implements SubjectService {
 		return subjectMapper.delete(subject);
 	}
 
+	@Override
+	public void deleteAll() {
+		subjectMapper.deleteAll();
+	}
+
 }

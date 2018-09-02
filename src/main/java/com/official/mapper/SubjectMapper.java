@@ -20,4 +20,11 @@ public interface SubjectMapper extends MyMapper<Subject> {
 	 * @return List
 	 */
 	List<Subject> selectWithPaper();
+
+	/**
+	 * 删除所有数据
+	 * 
+	 * @return int
+	 */
+	int deleteAll();
 }

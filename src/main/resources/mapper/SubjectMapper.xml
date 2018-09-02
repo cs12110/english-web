@@ -38,4 +38,11 @@
 		WHERE
 			tmp.paper = subject_t.paper
 	</select>
+	
+	<delete id="deleteAll">
+		DELETE FROM
+			subject_t
+		WHERE 
+			1=1
+	</delete>
 </mapper>

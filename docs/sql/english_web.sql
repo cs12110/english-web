@@ -1,38 +1,19 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 10.10.2.233
-Source Server Version : 50717
-Source Host           : 10.10.2.233:3306
+Source Server         : 127.0.0.1
+Source Server Version : 50624
+Source Host           : 127.0.0.1:3306
 Source Database       : english_web
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2018-08-21 16:51:54
+Date: 2018-09-02 15:07:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for content_t
--- ----------------------------
-DROP TABLE IF EXISTS `content_t`;
-CREATE TABLE `content_t` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `name` varchar(256) DEFAULT NULL COMMENT 'name',
-  `summary` varchar(256) DEFAULT NULL COMMENT 'summary',
-  `content` varchar(1024) DEFAULT NULL COMMENT 'content',
-  `create_time` varchar(32) DEFAULT NULL COMMENT 'create time',
-  `update_time` varchar(32) DEFAULT NULL COMMENT 'update time',
-  `order_num` int(11) DEFAULT NULL COMMENT 'order num',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of content_t
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for customer_t
@@ -49,8 +30,11 @@ CREATE TABLE `customer_t` (
   `major` varchar(255) DEFAULT NULL COMMENT '四级专业',
   `gender` int(1) DEFAULT NULL COMMENT '性别,0:男,1:女',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of customer_t
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for map_user_role
@@ -84,11 +68,11 @@ CREATE TABLE `progress_t` (
 -- ----------------------------
 -- Records of progress_t
 -- ----------------------------
-INSERT INTO `progress_t` VALUES ('1', '1', '前测', '1', '2018-08-21 16:42:49');
-INSERT INTO `progress_t` VALUES ('2', '2', '学习1', '0', '2018-08-21 16:42:36');
+INSERT INTO `progress_t` VALUES ('1', '1', '前测', '1', '2018-09-01 23:29:54');
+INSERT INTO `progress_t` VALUES ('2', '2', '学习1', '0', '2018-09-01 11:20:42');
 INSERT INTO `progress_t` VALUES ('3', '3', '学习2', '0', '2018-08-21 16:09:11');
-INSERT INTO `progress_t` VALUES ('4', '4', '后测', '0', '2018-08-21 16:09:11');
-INSERT INTO `progress_t` VALUES ('5', '5', '追踪', '0', '2018-08-21 16:09:11');
+INSERT INTO `progress_t` VALUES ('4', '4', '后测', '0', '2018-09-01 00:22:04');
+INSERT INTO `progress_t` VALUES ('5', '5', '追踪', '0', '2018-09-01 11:10:59');
 
 -- ----------------------------
 -- Table structure for score_t
@@ -99,21 +83,17 @@ CREATE TABLE `score_t` (
   `cus_id` int(11) NOT NULL,
   `sub_id` int(11) NOT NULL,
   `correct` int(11) DEFAULT NULL,
-  `stopwatch` text COMMENT '每个单词的查看时间',
+  `stopwatch` text COMMENT '每个单词的查看时间json数据',
   `paper` int(2) DEFAULT NULL COMMENT '试卷类型',
   `sub_type` int(5) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `customerIndex` (`cus_id`),
   KEY `subjectIndex` (`sub_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of score_t
 -- ----------------------------
-INSERT INTO `score_t` VALUES ('1', '11', '10', '1', 'at#217,accent.#274,laughs#215,Everybody#255,my#223,', null, null);
-INSERT INTO `score_t` VALUES ('2', '11', '12', '1', 'The#215,situation#248,calls#842,for#550,prompt#2456,action.#2368', null, null);
-INSERT INTO `score_t` VALUES ('3', '11', '1948', '1', 'Susan#207,always#185,finish#208,her#190,work#209,slowly.#191', null, null);
-INSERT INTO `score_t` VALUES ('4', '11', '1951', '0', 'This#584,text#271,illuminate#329,the#536,philosopher\'s#255,early#224,thinking.#608', null, null);
 
 -- ----------------------------
 -- Table structure for subject_t
@@ -122,15 +102,17 @@ DROP TABLE IF EXISTS `subject_t`;
 CREATE TABLE `subject_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sentence` varchar(1024) DEFAULT NULL COMMENT '句子',
-  `keyword` varchar(512) DEFAULT NULL COMMENT '关键字',
   `type` int(3) DEFAULT NULL COMMENT '类型',
   `question` varchar(255) DEFAULT NULL COMMENT '问题',
   `answer` varchar(5) DEFAULT NULL COMMENT '答案',
   `paper` int(2) DEFAULT NULL COMMENT '1:前测,2:学习1,3:学习2,4:后测,5:追踪',
   `origin` varchar(1024) DEFAULT NULL COMMENT '原句子',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4706 DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of subject_t
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_role

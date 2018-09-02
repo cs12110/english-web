@@ -19,8 +19,7 @@ public interface SubjectService {
 	/**
 	 * 分页查询
 	 * 
-	 * @param search
-	 *            查询条件
+	 * @param search 查询条件
 	 * @return List
 	 */
 	public List<Subject> list(Subject search);
@@ -28,8 +27,7 @@ public interface SubjectService {
 	/**
 	 * 查找数据
 	 * 
-	 * @param search
-	 *            查询条件
+	 * @param search 查询条件
 	 * @return Subject
 	 */
 	public Subject findOne(Subject search);
@@ -37,8 +35,7 @@ public interface SubjectService {
 	/**
 	 * 插入数据
 	 * 
-	 * @param subject
-	 *            题目
+	 * @param subject 题目
 	 * @return int
 	 */
 	public int insert(Subject subject);
@@ -46,10 +43,14 @@ public interface SubjectService {
 	/**
 	 * 删除数据
 	 * 
-	 * @param subject
-	 *            条件
+	 * @param subject 条件
 	 * @return int
 	 */
 	public int delete(Subject subject);
+
+	/**
+	 * 删除全部数据
+	 */
+	public void deleteAll();
 
 }
