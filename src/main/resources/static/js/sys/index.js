@@ -236,12 +236,6 @@ function sysTips(msg, second) {
 
 
 function computeScore() {
-    var code = $("input[name=customerCode]").val();
-    if (code == undefined || code.trim() == "") {
-        sysTips("请输入学号", 2);
-        return;
-    }
-
     var fileArr = new Array();
     $("input[name=fileArr]:checked").each(function (index) {
         fileArr.push($(this).val());
@@ -253,8 +247,7 @@ function computeScore() {
     }
 
     for (var i in fileArr) {
-        console.log("download: " + fileArr[i])
-        window.location.href = '/admin/export?code=' + code + "&paper=" + fileArr[i];
+        window.location.href = '/admin/export?paper=' + fileArr[i];
     }
 }
 

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/plugin/bootstrap/css/bootstrap.css"></link>
     <link rel="stylesheet" href="/static/css/index.css"></link>
     <link rel="stylesheet" type="text/css" href="/static/plugin/webuploader/webuploader.css" />
+    <!-- 海燕,我是3306呀,你过得还好吗?嗯,那个,我还是会偶尔想起你呀. -->
 </head>
 
 <body>
@@ -53,7 +54,8 @@
                                 </li>
                                 <li class="divider"></li>
                                 <li class="power">
-                                    <a onclick="deleteAll()">清空数据</a>
+                                    <a data-toggle="modal" data-target="#askToClean">清空数据</a>
+                                    <!-- <a onclick="deleteAll()">清空数据</a> -->
                                 </li>
                                 <li class="power">
                                     <a onclick="logout()">退出</a>
@@ -81,8 +83,7 @@
                 <br />
                 <br /> 请以较为舒服的姿势坐在电脑前,并以自然速度点击鼠标.
                 <br />
-                <br />
-                在学习1和学习2测试中,提交答案后,您大概有5秒的查看原题的时间,请知悉.
+                <br /> 在学习1和学习2测试中,提交答案后,您大概有5秒的查看原题的时间,请知悉.
             </div>
 
             <div class="modal-footer">
@@ -150,6 +151,29 @@
             <!-- /.modal -->
         </div>
 
+        <!--清理所有数据-->
+        <div class="modal fade" id="askToClean" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">清理数据</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="test-material-tips">
+                            <b>清空数据须知</b>: 会清空上传的所有试题,和学生的测试成绩,并不可恢复,请知悉.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="deleteAll()">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
+        </div>
+
         <div class="modal fade" id="admin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -158,11 +182,11 @@
                         <h4 class="modal-title" id="myModalLabel">上传文件</h4>
                     </div>
                     <div class="modal-body">
-                    	                   
-						<div class="test-material-tips">
-						<b>上传须知</b>: 每一次上传都会清空上一次上传的内容,比如现在上传前测1的材料,就会清空上一次上传的前测1的试题.
-						</div>
-						
+
+                        <div class="test-material-tips">
+                            <b>上传须知</b>: 每一次上传都会清空上一次上传的内容,比如现在上传前测1的材料,就会清空上一次上传的前测1的试题.
+                        </div>
+
                         <div class="file-radio">
                             <input name="paper" type="radio" value="1" />前测 &nbsp;&nbsp;
                             <input name="paper" type="radio" value="2" />学习1 &nbsp;&nbsp;
@@ -170,7 +194,7 @@
                             <input name="paper" type="radio" value="4" />后测 &nbsp;&nbsp;
                             <input name="paper" type="radio" value="5" />追踪 &nbsp;&nbsp;
                         </div>
-						
+
 
                         <div id="uploader" class="wu-example">
                             <!--用来存放文件信息-->
@@ -198,13 +222,11 @@
                         <h4 class="modal-title" id="myModalLabel">成绩统计</h4>
                     </div>
                     <div class="modal-body">
+                        <div class="test-material-tips">
+                            <b>温馨提示</b>: 可能会出现响应缓慢的情况,后台已经在很努力,很努力,很努力的跑了,请耐心等待哦.
+                        </div>
                         <form class="bs-example bs-example-form" role="form">
-                            <div class="input-group">
-                                <span class="input-group-addon">学号</span>
-                                <input type="text" name="customerCode" class="form-control" placeholder="学号,如12052010" />
-                            </div>
-
-                            <div class="input-group">
+                            <div class="input-group score-radio">
                                 <input type="radio" name="fileArr" value="1" />前测成绩
                                 <input type="radio" name="fileArr" value="2" />学习1成绩
                                 <input type="radio" name="fileArr" value="3" />学习2成绩
@@ -375,7 +397,9 @@
         <!-- /.modal-dialog -->
     </div>
 
-    <!-- 我是3306呀 -->
+
+    <!-- Author: https://github.com/cs12110  -->
+    <!-- Author: https://github.com/LucienX  -->
 </body>
 
 <script type="text/javascript" src="/static/js/jq/jquery-3.2.1.js"></script>
