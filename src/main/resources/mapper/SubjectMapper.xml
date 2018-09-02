@@ -23,8 +23,8 @@
 	</sql>
 
 	<select id="selectWithPaper" resultMap="BaseResultMap">
-		SELECT
-		<include refid="Base_Column_List"></include>
+		<!-- SELECT
+			<include refid="Base_Column_List"></include>
 		FROM
 			subject_t
 		INNER JOIN (
@@ -36,7 +36,24 @@
 				`open` = 1
 		) tmp
 		WHERE
-			tmp.paper = subject_t.paper
+			tmp.paper = subject_t.paper -->
+		
+		SELECT
+			<include refid="Base_Column_List"></include>
+		FROM
+			subject_t
+		WHERE
+			paper = #{paper}
+		AND id NOT IN (
+			SELECT DISTINCT
+				sub_id
+			FROM
+				score_t
+			WHERE
+				cus_id = #{customerId}
+			AND 
+				paper =  #{paper}
+		)
 	</select>
 	
 	<delete id="deleteAll">

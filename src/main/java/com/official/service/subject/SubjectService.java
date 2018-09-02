@@ -19,10 +19,12 @@ public interface SubjectService {
 	/**
 	 * 分页查询
 	 * 
-	 * @param search 查询条件
+	 * @param search     查询条件
+	 * @param paper      当前测试进度
+	 * @param customerId 用户Id
 	 * @return List
 	 */
-	public List<Subject> list(Subject search);
+	public List<Subject> list(Subject search, Integer paper, Integer customerId);
 
 	/**
 	 * 查找数据

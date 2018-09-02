@@ -38,4 +38,12 @@ public class ProgressServiceImpl implements ProgressService {
 		value.setOpen(OpenEnum.CLOSE.getValue());
 		return progressMapper.closeOtherExam(value);
 	}
+
+	@Override
+	public Progress findConcurrentOpen() {
+		Progress search = new Progress();
+		search.setOpen(OpenEnum.OPEN.getValue());
+		Progress current = progressMapper.selectOne(search);
+		return current;
+	}
 }

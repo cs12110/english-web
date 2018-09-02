@@ -14,10 +14,16 @@ import com.official.entity.Progress;
 public interface ProgressService {
 
 	/**
+	 * 查找当前打开的测试进度
+	 * 
+	 * @return {@link Progress}
+	 */
+	Progress findConcurrentOpen();
+
+	/**
 	 * 当前进度
 	 * 
-	 * @param search
-	 *            查询条件
+	 * @param search 查询条件
 	 * 
 	 * @return {@link Process}
 	 */
@@ -26,8 +32,7 @@ public interface ProgressService {
 	/**
 	 * 更新数据
 	 * 
-	 * @param value
-	 *            值
+	 * @param value 值
 	 * @return int
 	 */
 	int openExam(Progress value);
@@ -35,8 +40,7 @@ public interface ProgressService {
 	/**
 	 * 关闭其他测试
 	 * 
-	 * @param value
-	 *            当前打开测试值
+	 * @param value 当前打开测试值
 	 * @return int
 	 */
 	int closeOtherExam(Progress value);

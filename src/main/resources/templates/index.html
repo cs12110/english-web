@@ -341,11 +341,11 @@
                     </div>
 
 
-                    <div style="display: none" data-relax="">
+                    <!-- <div  data-relax="">
                         是否要休息一下？
                         <button type="button" data-relax-btn="true">休息</button>
                         <button type="button" data-relax-btn="false">不休息</button>
-                    </div>
+                    </div> -->
 
                     <div class="panel panel-default">
                         <div class="panel-heading">请作答</div>
@@ -374,6 +374,25 @@
                 </div>
             </div>
 
+        </div>
+        
+         <!--清理所有数据-->
+        <div class="modal fade" id="askToRest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">需要休息吗?</h4>
+                    </div>
+                    <div class="modal-body">
+                    	如需要休息,请保持在本页面.如不需要休息请点击继续,进行下一步.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="keepGoing()">继续</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal -->
         </div>
 
 

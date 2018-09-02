@@ -24,14 +24,16 @@ public class SpringTest {
 	@Test
 	public void page() {
 
-		for (int index = 0; index < 5; index++) {
+		for (int index = 0; index < 10; index++) {
 
 			Subject search = new Subject();
 			search.setPage(index);
 			search.setRows(20);
 			System.out.println("----------- Page[" + index + "]---------------\n\n");
 
-			List<Subject> subjects = subjectService.list(search);
+			List<Subject> subjects = subjectService.list(search, 1, 70);
+
+			System.out.println(search.getTotalCount());
 
 			for (Subject s : subjects) {
 				System.out.println(s);

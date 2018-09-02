@@ -27,6 +27,7 @@ function saveCustomer() {
 				$("#handsup").hide();
 				$("#after-all").show();
 				displayCustomerInfo();
+				getSubjects();
 			} else {
 				sysTips("新增失败,请联系管理员");
 			}

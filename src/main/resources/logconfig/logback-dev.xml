@@ -4,7 +4,7 @@
 	<!-- 控制台标志化输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{100} - %msg%n
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}  %-5level %logger{100} - %msg%n
 			</pattern>
 		</encoder>
 	</appender>
@@ -14,7 +14,7 @@
 		<file>logs/logback.log</file>
 		<append>true</append><!-- 日志追加 -->
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{100} - %msg%n
+			<pattern>%d{yyyy-MM-dd HH:mm:ss}  %-5level %logger{100} - %msg%n
 			</pattern>
 		</encoder>
 	</appender>
@@ -22,7 +22,6 @@
 
 	<logger name="org.springframework" level="ERROR"></logger>
 	<logger name="org.hibernate.validator" level="ERROR"></logger>
-	
 	<logger name="log4j.logger.com.ibatis" level="DEBUG"></logger>
 
 	<root level="INFO">

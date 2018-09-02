@@ -1,6 +1,10 @@
 package com.official.ctrl.subject;
 
+import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.official.entity.Customer;
+import com.official.entity.Progress;
 import com.official.entity.Subject;
+import com.official.entity.reply.Reply;
+import com.official.enums.StatusEnum;
+import com.official.service.progress.ProgressService;
 import com.official.service.subject.SubjectService;
-import com.official.util.JsonUtil;
+import com.official.util.Const;
+
 /**
  * Subject控制类
  *
@@ -30,20 +40,54 @@ public class SubjectCtrl {
 	@Autowired
 	private SubjectService subjectService;
 
+	@Autowired
+	private ProgressService progressService;
+
 	/**
 	 * 获取分页数据
 	 * 
-	 * @param search
-	 *            查询数据
+	 * @param search 查询数据
 	 * @return String
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public String getList(Subject search) {
-		logger.debug("Get subject page {} rows {} ", search.getPage(), search.getRows());
-		List<Subject> list = subjectService.list(search);
+	public String getList(HttpServletRequest req, Subject search) {
+		Reply reply = new Reply();
+		reply.setStatus(StatusEnum.SUCCESS.getValue());
 
-		return JsonUtil.toJSONStr(list);
+		Customer customer = getCurrentCustomer(req);
+		if (null == customer) {
+			logger.debug("Current user is null,we can't get any subject for him");
+			reply.setStatus(StatusEnum.FAILURE.getValue());
+			reply.setData(Collections.emptyList());
+			return reply.toString();
+		}
+
+		Progress progress = progressService.findConcurrentOpen();
+		Integer cusId = customer.getId();
+		Integer paper = progress.getPaper();
+
+		/**
+		 * 要排除已经测试过的试题
+		 */
+		List<Subject> list = subjectService.list(search, paper, cusId);
+		reply.setData(list);
+
+		logger.info("{} total sentences is:{}", customer.getCode(), search.getTotalCount());
+
+		return reply.toString();
+	}
+
+	/**
+	 * 获取当前登录的用户
+	 * 
+	 * @param req {@link HttpServletRequest}
+	 * @return {@link Customer}
+	 */
+	private Customer getCurrentCustomer(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Object sessionValue = session.getAttribute(Const.USER_SESSION_KEY);
+		return null == sessionValue ? null : (Customer) sessionValue;
 	}
 
 	/**

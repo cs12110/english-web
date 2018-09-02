@@ -26,11 +26,9 @@ public class SubjectServiceImpl implements SubjectService {
 	private SubjectMapper subjectMapper;
 
 	@Override
-	public List<Subject> list(Subject search) {
+	public List<Subject> list(Subject search, Integer paper, Integer customerId) {
 		Page<Subject> page = PageHelper.startPage(search.getPage(), search.getRows());
-		// List<Subject> subjects = subjectMapper.select(search);
-		List<Subject> subjects = subjectMapper.selectWithPaper();
-
+		List<Subject> subjects = subjectMapper.selectWithPaper(paper, customerId);
 		search.setTotalCount(page.getTotal());
 
 		return ListMapUtil.shuffle(subjects);

@@ -18,7 +18,7 @@ c. 默认用户:**admin**,登录密码:**admin**
 打包命令
 
 ```shell
-mvn clean package
+mvn clean package -Dmaven.test.skip=true
 ```
 
 运行项目

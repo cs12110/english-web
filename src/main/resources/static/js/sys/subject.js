@@ -34,10 +34,13 @@ function getSubjects() {
 			"rows": page.rows
 		},
 		dataType: "json",
-		success: function (data) {
-			subjects = data;
-			// 开始从第一个显示
-			nextSentence();
+		success: function (response) {
+			console.log(response);
+			//这里要进行判断
+			if(response.status==1){
+				subjects = response.data;
+				nextSentence();
+			}
 		}
 	})
 }
@@ -92,8 +95,13 @@ function readTime(start) {
 
 function nextSentence() {
 	var subject = subjects[sentenceIndex];
-	if (!subject) { // 休息一下啦
-		$('[data-relax]').css('display', '');
+	 // 休息一下啦
+	if (!subject) {
+		//
+		//$('[data-relax]').css('display', '');
+		
+		$("#askToRest").modal({backdrop: 'static', keyboard: false});
+		
 		$('#operatorBtn').find('input').attr('disabled', 'disabled');
 		sentenceIndex = 0;
 		clearSentenceData();
@@ -101,6 +109,15 @@ function nextSentence() {
 	}
 	transSentenceData(subject);
 	sentenceIndex += 1;
+}
+
+function keepGoing(){
+	$('[data-relax]').css('display', 'none');
+	$('#operatorBtn').find('input').removeAttr("disabled");
+	getSubjects();
+	$(this).data('index', 0);
+	console.log("KeepGoing");
+	$("#askToRest").modal('hide');
 }
 
 var watcher = null;
@@ -186,15 +203,19 @@ $(document).ready(function () {
 		return false;
 	});
 
-	$relaxBtn.click(function () {
-		if ($(this).data('relax-btn')) {
-			// 点击休息 do something
-		} else {
-			$('[data-relax]').css('display', 'none');
-			$('#operatorBtn').find('input').removeAttr("disabled");
-			getSubjects();
-			$(this).data('index', 0);
-		}
-	});
+//	$relaxBtn.click(function () {
+//		
+//		console.log($(this).data('relax-btn'));
+//		
+//		if ($(this).data('relax-btn')) {
+//			// 点击休息 do something
+//		} else {
+//			$('[data-relax]').css('display', 'none');
+//			$('#operatorBtn').find('input').removeAttr("disabled");
+//			getSubjects();
+//			$(this).data('index', 0);
+//		}
+//	});
+	
 
 });
