@@ -87,7 +87,7 @@ public class AdminCtrl {
 		subjectService.deleteAll();
 
 		logger.info("Delete all customer,score,subject done");
-		
+
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
 		reply.setMessage("全部删除");
@@ -263,6 +263,10 @@ public class AdminCtrl {
 						logger.info("Zip [{}] is done", zipName);
 						zipFile.delete();
 						logger.info("Delete [{}] is done ", zipName);
+
+						for (File each : excelFileList) {
+							each.delete();
+						}
 					} catch (Exception e) {
 						e.printStackTrace();
 						logger.error("Zip score file error:{}", e.getMessage());

@@ -156,24 +156,28 @@ $(document).ready(function () {
 			}
 			stopwatchArr.push(time);
 			// 在最后一个单词的时候回获取不了下面的数据
-				score.paper = curSentence.paper;
-				score.subType = curSentence.type;
+			score.paper = curSentence.paper;
+			score.subType = curSentence.type;
 			$('.question-area').css('display', '');
 			$('#question').text(curSentence.question);
 		}
 	});
 
 	$('#submit').click(function () {
+		//大小写有问题
 		var chk = $('input[name="answer"]:checked').val();
-		if (chk === curSentence.answer) {
+		if(chk==undefined){
+			return ;
+		}
+		var chkValue = chk.toLowerCase();
+		var answerValue = curSentence.answer.toLowerCase();
+		if (chkValue == answerValue) {
 			score.correct = 1;
 		} else {
 			score.correct = 0;
 		}
-		var valueAsStr = "";
-		var len = stopwatchArr.length;
-		
 		var myTemp = new Array();
+		var len = stopwatchArr.length;
 		for (var i = 0; i < len; i++) {
 			var temp = stopwatchArr[i];
 			var obj= new Object();
