@@ -73,7 +73,7 @@ public class ProgressCtrl {
 		value.setOpTime(DateUtil.getCurrentTime());
 		value.setOpen(OpenEnum.OPEN.getValue());
 
-		logger.info("Progress on {} now", value.getPaper());
+		logger.info("Update progress to {}", value.getPaper());
 		progressService.openExam(value);
 		progressService.closeOtherExam(value);
 

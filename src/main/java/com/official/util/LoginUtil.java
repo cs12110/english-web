@@ -3,6 +3,7 @@ package com.official.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.official.entity.Customer;
 import com.official.entity.reply.Reply;
 import com.official.enums.StatusEnum;
 
@@ -16,7 +17,7 @@ import com.official.enums.StatusEnum;
  * @see
  * @since 1.0
  */
-public class LoginCheckUtil {
+public class LoginUtil {
 	/**
 	 * 判断管理员是否已登录
 	 * 
@@ -27,6 +28,18 @@ public class LoginCheckUtil {
 		HttpSession session = req.getSession();
 		Object admin = session.getAttribute(Const.ADMIN_SESSION_KEY);
 		return null != admin;
+	}
+
+	/**
+	 * 获取当前请求用户
+	 * 
+	 * @param req {@link HttpServletRequest}
+	 * @return {@link Customer}
+	 */
+	public static Customer getCurrentCustomer(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		Object user = session.getAttribute(Const.USER_SESSION_KEY);
+		return user == null ? null : (Customer) user;
 	}
 
 	/**

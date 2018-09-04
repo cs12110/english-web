@@ -14,22 +14,6 @@ import com.alibaba.fastjson.JSONObject;
 public class JsonUtil {
 
 	/**
-	 * Ajax跨域请求回传数据
-	 * 
-	 * @param obj 回传数据
-	 * @return String
-	 */
-	public static <T> String buildCallbackJSONStr(T obj) {
-		StringBuilder callback = new StringBuilder();
-		callback.append("callback");
-		callback.append("(");
-		callback.append(toJSONStr(obj));
-		callback.append(")");
-
-		return callback.toString();
-	}
-
-	/**
 	 * 将对象转换成JSON字符串
 	 * <p>
 	 * 如果对象为空,返回 ""

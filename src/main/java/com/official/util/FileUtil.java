@@ -28,10 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class FileUtil {
 
-	private FileUtil() {
-
-	}
-
 	/**
 	 * 下载文件
 	 * 

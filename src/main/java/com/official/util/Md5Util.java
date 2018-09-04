@@ -68,7 +68,4 @@ public class Md5Util {
 		return hexValue.toString();
 	}
 
-	public static void main(String[] args) {
-		System.out.println(encode("123456"));
-	}
 }

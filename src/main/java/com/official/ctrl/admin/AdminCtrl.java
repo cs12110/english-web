@@ -34,7 +34,7 @@ import com.official.util.Const;
 import com.official.util.DateUtil;
 import com.official.util.ExcelUtil;
 import com.official.util.FileUtil;
-import com.official.util.LoginCheckUtil;
+import com.official.util.LoginUtil;
 import com.official.util.Md5Util;
 import com.official.util.PaperUtil;
 
@@ -77,8 +77,8 @@ public class AdminCtrl {
 	@RequestMapping("/deleteAll")
 	@ResponseBody
 	public String deleteAll(HttpServletRequest req) {
-		if (!LoginCheckUtil.isAdminLogined(req)) {
-			return LoginCheckUtil.pleaseLoginHandsup().toString();
+		if (!LoginUtil.isAdminLogined(req)) {
+			return LoginUtil.pleaseLoginHandsup().toString();
 		}
 		logger.info("Delete all customer,score,subject");
 
@@ -108,7 +108,7 @@ public class AdminCtrl {
 	public String loginCheck(HttpServletRequest req) {
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
-		if (!LoginCheckUtil.isAdminLogined(req)) {
+		if (!LoginUtil.isAdminLogined(req)) {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 		}
 		return reply.toString();
@@ -178,8 +178,8 @@ public class AdminCtrl {
 	@RequestMapping("/upload")
 	@ResponseBody
 	public String uploadExcel(HttpServletRequest req, MultipartFile file, Integer paper) throws IOException {
-		if (!LoginCheckUtil.isAdminLogined(req)) {
-			return LoginCheckUtil.pleaseLoginHandsup().toString();
+		if (!LoginUtil.isAdminLogined(req)) {
+			return LoginUtil.pleaseLoginHandsup().toString();
 		}
 
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
@@ -214,6 +214,7 @@ public class AdminCtrl {
 	 * @param paperEnum 上传文件类型
 	 */
 	private void deletePrevData(PaperEnum paperEnum) {
+		logger.info("Delete prev data of {}", paperEnum);
 
 		Subject subject = new Subject();
 		subject.setPaper(paperEnum.getValue());
@@ -230,7 +231,7 @@ public class AdminCtrl {
 	 */
 	@RequestMapping("/export")
 	public void export(HttpServletRequest req, HttpServletResponse response, Integer paper) {
-		if (LoginCheckUtil.isAdminLogined(req)) {
+		if (LoginUtil.isAdminLogined(req)) {
 			long start = System.currentTimeMillis();
 			List<Integer> customerIdList = scoreService.selectCusIdByPaper(paper);
 			if (null != customerIdList) {
