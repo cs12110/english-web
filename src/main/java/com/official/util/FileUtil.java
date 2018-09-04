@@ -36,7 +36,8 @@ public class FileUtil {
 	 * 下载文件
 	 * 
 	 * @param response
-	 * @param filePath 文件绝对路径(包含文件名称)
+	 * @param filePath
+	 *            文件绝对路径(包含文件名称)
 	 */
 	public static void download(HttpServletResponse response, String filePath) {
 		if (StrUtil.isEmpty(filePath)) {
@@ -75,8 +76,10 @@ public class FileUtil {
 	/**
 	 * 上传文件,不需要修改上传文件名称
 	 *
-	 * @param file        {@link MultipartFile}
-	 * @param saveFileDir 保存文件路径
+	 * @param file
+	 *            {@link MultipartFile}
+	 * @param saveFileDir
+	 *            保存文件路径
 	 * @return 返回保存文件的全部路径, 包括名称
 	 */
 	public static String uploadFile(MultipartFile file, String saveFileDir) {
@@ -91,9 +94,12 @@ public class FileUtil {
 	/**
 	 * 上传文件
 	 *
-	 * @param file         文件对象
-	 * @param saveFileDir  文件保存路径
-	 * @param saveFileName 文件名称
+	 * @param file
+	 *            文件对象
+	 * @param saveFileDir
+	 *            文件保存路径
+	 * @param saveFileName
+	 *            文件名称
 	 * @return String
 	 */
 	public static String uploadFile(MultipartFile file, String saveFileDir, String saveFileName) {
@@ -133,8 +139,10 @@ public class FileUtil {
 	/**
 	 * 获取文件保存路径
 	 *
-	 * @param saveDir      保存文件夹路径
-	 * @param saveFileName 保存文件名称
+	 * @param saveDir
+	 *            保存文件夹路径
+	 * @param saveFileName
+	 *            保存文件名称
 	 * @return String
 	 */
 	private static String buileSaveName(String saveDir, String saveFileName) {
@@ -148,8 +156,10 @@ public class FileUtil {
 	/**
 	 * 获取文件保存名称
 	 *
-	 * @param file     {@link MultipartFile}
-	 * @param saveName 保存名称(不带有后缀名)
+	 * @param file
+	 *            {@link MultipartFile}
+	 * @param saveName
+	 *            保存名称(不带有后缀名)
 	 * @return String
 	 */
 	public static String fixSaveName(MultipartFile file, String saveName) {
@@ -162,8 +172,10 @@ public class FileUtil {
 	/**
 	 * 往服务器写入内容
 	 *
-	 * @param path    写入路径(包括文件名称)
-	 * @param byteArr 写入byte数组
+	 * @param path
+	 *            写入路径(包括文件名称)
+	 * @param byteArr
+	 *            写入byte数组
 	 */
 	public static void write(String path, byte[] byteArr) {
 		try {
@@ -183,7 +195,8 @@ public class FileUtil {
 	/**
 	 * 读取文件内容
 	 *
-	 * @param path 文件路径(包含文件名称)
+	 * @param path
+	 *            文件路径(包含文件名称)
 	 * @return String
 	 */
 	public static String read(String path) {
@@ -214,8 +227,10 @@ public class FileUtil {
 	/**
 	 * 打包文件
 	 * 
-	 * @param files   文件列表
-	 * @param zipPath 压缩包路径
+	 * @param files
+	 *            文件列表
+	 * @param zipPath
+	 *            压缩包路径
 	 * @return String
 	 * @throws IOException
 	 */
@@ -241,7 +256,7 @@ public class FileUtil {
 	 * 根据输入的文件与输出流对文件进行打包
 	 * 
 	 * @param File
-	 * @param      org.apache.tools.zip.ZipOutputStream
+	 * @param org.apache.tools.zip.ZipOutputStream
 	 */
 	private static void zipFile(File inputFile, ZipOutputStream ouputStream) {
 		try {
