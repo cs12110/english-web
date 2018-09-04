@@ -47,6 +47,16 @@ public class ListMapUtil {
 	}
 
 	/**
+	 * 如果list==null返回 `Collections.emptyList()`,否则返回list
+	 * 
+	 * @param list 集合
+	 * @return List
+	 */
+	public static <T> List<T> gentle(List<T> list) {
+		return null == list ? Collections.emptyList() : list;
+	}
+
+	/**
 	 * 创建Map
 	 *
 	 * @return HashMap

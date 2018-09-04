@@ -37,16 +37,6 @@ public class Const {
 	public final static String ADMIN_SESSION_KEY = "admin";
 
 	/**
-	 * 多个单词之间的分隔符
-	 */
-	public static final String EACH_SPLIT = ",";
-
-	/**
-	 * 每个单词和时间之间的分隔符
-	 */
-	public static final String BETWEEN_SPLIT = "#";
-
-	/**
 	 * Excel文件后缀名(2007之后)
 	 */
 	public static final String LATEST_EXCEL_SUBFFIX = "xlsx";

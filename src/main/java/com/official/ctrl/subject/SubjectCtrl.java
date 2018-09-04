@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +19,7 @@ import com.official.entity.reply.Reply;
 import com.official.enums.StatusEnum;
 import com.official.service.progress.ProgressService;
 import com.official.service.subject.SubjectService;
-import com.official.util.Const;
+import com.official.util.LoginUtil;
 
 /**
  * Subject控制类
@@ -55,7 +54,7 @@ public class SubjectCtrl {
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.SUCCESS.getValue());
 
-		Customer customer = getCurrentCustomer(req);
+		Customer customer = LoginUtil.getCurrentCustomer(req);
 		if (null == customer) {
 			logger.debug("Current user is null,we can't get any subject for him");
 			reply.setStatus(StatusEnum.FAILURE.getValue());
@@ -76,18 +75,6 @@ public class SubjectCtrl {
 		logger.info("{} total sentences is:{}", customer.getCode(), search.getTotalCount());
 
 		return reply.toString();
-	}
-
-	/**
-	 * 获取当前登录的用户
-	 * 
-	 * @param req {@link HttpServletRequest}
-	 * @return {@link Customer}
-	 */
-	private Customer getCurrentCustomer(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Object sessionValue = session.getAttribute(Const.USER_SESSION_KEY);
-		return null == sessionValue ? null : (Customer) sessionValue;
 	}
 
 	/**

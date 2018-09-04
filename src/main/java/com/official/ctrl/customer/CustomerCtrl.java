@@ -15,6 +15,7 @@ import com.official.entity.reply.Reply;
 import com.official.enums.StatusEnum;
 import com.official.service.customer.CustomerService;
 import com.official.util.Const;
+import com.official.util.LoginUtil;
 import com.official.util.StrUtil;
 
 /**
@@ -40,8 +41,7 @@ public class CustomerCtrl {
 	 * 保存用户信息,如果学号已经存在,则改为登录
 	 * 
 	 * @param req
-	 * @param customer
-	 *            用户信息
+	 * @param customer 用户信息
 	 * @return String
 	 */
 	@RequestMapping("/save")
@@ -77,19 +77,16 @@ public class CustomerCtrl {
 	/**
 	 * 获取当前用户
 	 * 
-	 * @param req
-	 *            请求
+	 * @param req 请求
 	 * @return String
 	 */
 	@RequestMapping("/current/")
 	@ResponseBody
 	public String getCurrentCustomer(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Customer user = (Customer) session.getAttribute(Const.USER_SESSION_KEY);
-
 		Reply reply = new Reply();
 		reply.setStatus(StatusEnum.FAILURE.getValue());
 
+		Customer user = LoginUtil.getCurrentCustomer(req);
 		if (null != user) {
 			reply.setData(user);
 			reply.setStatus(StatusEnum.SUCCESS.getValue());
@@ -106,10 +103,8 @@ public class CustomerCtrl {
 	@RequestMapping("loginCheck")
 	@ResponseBody
 	public String checkLogin(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		Object user = session.getAttribute(Const.USER_SESSION_KEY);
-
 		Reply reply = new Reply(StatusEnum.SUCCESS.getValue());
+		Customer user = LoginUtil.getCurrentCustomer(req);
 		if (null == user) {
 			reply.setStatus(StatusEnum.FAILURE.getValue());
 			reply.setMessage("请先登录");

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.official.entity.Score;
 import com.official.mapper.ScoreMapper;
 import com.official.service.score.ScoreService;
+import com.official.util.ListMapUtil;
 
 /**
  * 
@@ -32,7 +33,8 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public List<Score> compute(String customerId, Integer paper) {
-		return scoreMapper.computeScore(customerId, paper);
+		List<Score> list = scoreMapper.computeScore(customerId, paper);
+		return ListMapUtil.gentle(list);
 	}
 
 	@Override
@@ -42,7 +44,8 @@ public class ScoreServiceImpl implements ScoreService {
 
 	@Override
 	public List<Integer> selectCusIdByPaper(Integer paper) {
-		return scoreMapper.selectCusIdByPaper(paper);
+		List<Integer> list = scoreMapper.selectCusIdByPaper(paper);
+		return ListMapUtil.gentle(list);
 	}
 
 }

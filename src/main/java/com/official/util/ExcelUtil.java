@@ -67,7 +67,6 @@ public class ExcelUtil {
 			List<Subject> list = new ArrayList<Subject>();
 			for (int rowIndex = 0; rowIndex < rows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
-
 				String sentence = ExcelUtil.getAsStr(row, 0);
 				if (null == sentence || "".equals(sentence.trim())) {
 					logger.info("Parse {} row sentence is null", rowIndex);
@@ -82,7 +81,7 @@ public class ExcelUtil {
 				}
 				if (list.size() > 0 && list.size() % batch == 0) {
 					try {
-						batchUtil.process(list);
+						batchUtil.batchAdd(list);
 						list.clear();
 						success += batch;
 					} catch (Exception e) {
@@ -93,7 +92,7 @@ public class ExcelUtil {
 			}
 			if (list.size() > 0) {
 				success += list.size();
-				batchUtil.process(list);
+				batchUtil.batchAdd(list);
 			}
 			map.put("success", success);
 			map.put("failure", failure);
@@ -349,19 +348,6 @@ public class ExcelUtil {
 						cell.setCellValue(String.valueOf(key + ":" + jsonObj.getIntValue(key)));
 					}
 				}
-
-//				String[] arr = stopwatch.split(Const.EACH_SPLIT);
-//				for (String each : arr) {
-//					String[] values = each.split(Const.BETWEEN_SPLIT);
-//
-//					if (values.length < 2) {
-//						System.out.println(each);
-//					}
-//
-//					String key = values[0];
-//					String time = values[1];
-//					cell.setCellValue(String.valueOf(key + ":" + time));
-//				}
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());

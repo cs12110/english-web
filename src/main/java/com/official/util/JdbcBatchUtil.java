@@ -23,13 +23,27 @@ public class JdbcBatchUtil {
 	private static Logger logger = LoggerFactory.getLogger(JdbcBatchUtil.class);
 
 	private DataSource dataSource;
+	/**
+	 * 每次处理条数
+	 */
 	private int batchNum = 100;
 
+	/**
+	 * 构造方法
+	 * 
+	 * @param dataSource 数据源
+	 */
 	public JdbcBatchUtil(DataSource dataSource) {
 		super();
 		this.dataSource = dataSource;
 	}
 
+	/**
+	 * 构造方法
+	 * 
+	 * @param dataSource 数据源
+	 * @param batchNum   批处理条数
+	 */
 	public JdbcBatchUtil(DataSource dataSource, int batchNum) {
 		super();
 		this.dataSource = dataSource;
@@ -38,7 +52,13 @@ public class JdbcBatchUtil {
 		}
 	}
 
-	public int process(List<Subject> list) throws SQLException {
+	/**
+	 * 批量现在subject
+	 * 
+	 * @param list {@link Subject} 集合
+	 * @throws SQLException
+	 */
+	public void batchAdd(List<Subject> list) throws SQLException {
 		long start = System.currentTimeMillis();
 		Connection conn = dataSource.getConnection();
 		conn.setAutoCommit(false);
@@ -66,7 +86,6 @@ public class JdbcBatchUtil {
 
 			pstm.executeBatch();
 			conn.commit();
-
 		} catch (Exception e) {
 			conn.rollback();
 			e.printStackTrace();
@@ -75,7 +94,6 @@ public class JdbcBatchUtil {
 		}
 		long end = System.currentTimeMillis();
 		logger.info("Process {} ,spend :{}", list.size(), (end - start));
-		return 0;
 	}
 
 }
