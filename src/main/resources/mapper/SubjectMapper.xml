@@ -27,21 +27,6 @@
 			<include refid="Base_Column_List"></include>
 		FROM
 			subject_t
-		INNER JOIN (
-			SELECT
-				paper
-			FROM
-				progress_t
-			WHERE
-				`open` = 1
-		) tmp
-		WHERE
-			tmp.paper = subject_t.paper -->
-		
-		SELECT
-			<include refid="Base_Column_List"></include>
-		FROM
-			subject_t
 		WHERE
 			paper = #{paper}
 		AND id NOT IN (
@@ -53,7 +38,21 @@
 				cus_id = #{customerId}
 			AND 
 				paper =  #{paper}
-		)
+		) -->
+		SELECT 
+			<include refid="Base_Column_List"></include>
+		FROM
+			subject_t
+		LEFT JOIN 
+			score_t 
+		ON 
+			subject_t.id = score_t.sub_id 
+		AND 
+			score_t.cus_id = #{customerId}
+		WHERE
+			subject_t.paper = #{paper}
+		AND
+			score_t.sub_id IS NULL
 	</select>
 	
 	<delete id="deleteAll">
